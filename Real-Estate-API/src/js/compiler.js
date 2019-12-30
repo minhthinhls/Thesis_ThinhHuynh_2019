@@ -2,8 +2,8 @@ const path = require('path');
 const fs = require('fs-extra');
 const solc = require('solc');
 
-const buildPath = path.resolve('EthereumAPI', '../../../build/');
-const contractsFolder = path.resolve('EthereumAPI', '../../../contracts/');
+const buildPath = path.resolve('../../build/');
+const contractsFolder = path.resolve('../../contracts/');
 
 const createBuildFolder = () => {
     fs.emptyDirSync(buildPath);
@@ -53,11 +53,11 @@ const solcInput = {
 const compileContracts = () => {
     const compiledContracts = JSON.parse(solc.compile(JSON.stringify(solcInput))).contracts;
 
-    for (let contract in compiledContracts) {
-        for (let contractName in compiledContracts[contract]) {
+    for (let contract in compiledContracts) { // O(N) complexity !
+        for (let contractName in compiledContracts[contract]) { // O(1) complexity !
             fs.outputJsonSync(
                 path.resolve(buildPath, contractName + '.json'),
-                compiledContracts[contract]['contractName'],
+                compiledContracts[contract][contractName],
                 {
                     spaces: 2
                 }
@@ -66,7 +66,13 @@ const compileContracts = () => {
     }
 };
 
-(function run() {
-    createBuildFolder();
-    compileContracts();
-})();
+const run = () => {
+    try {
+        createBuildFolder();
+        compileContracts();
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+run();
