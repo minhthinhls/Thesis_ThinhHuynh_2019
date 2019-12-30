@@ -20,7 +20,15 @@ router.post('/info/house', (req, res) => {
 });
 
 router.get('/contract/house', (req, res) => {
-  res.json(require('../build/House.json'));
+    res.json(require('../build/House.json'));
+});
+
+router.get('/contract/houseAdmin', (req, res) => {
+    res.json(require('../build/HouseAdmin.json'));
+});
+
+router.get('/address/houseAdmin', (req, res) => {
+    res.send(require('../address.json')['HouseAdmin']);
 });
 
 module.exports = router;

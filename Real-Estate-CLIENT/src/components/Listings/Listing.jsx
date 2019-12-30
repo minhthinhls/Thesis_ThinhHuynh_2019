@@ -131,9 +131,10 @@ class Listing extends Component {
   constructor() {
     super();
     this.state = {
-      lists: [],
+      houses: [],
       ready: 'initial',
-      search: "",
+      location: "",
+      propertyType:""
     };
   }
 
@@ -149,27 +150,27 @@ class Listing extends Component {
       console.log(records);
       this.setState({
         ready: 'loaded',
-        lists: records,
+        houses: records,
       })
     })
   }
 
   locationChange(e) {
     this.setState({
-      search: e.target.value
+      location: e.target.value
     })
   }
 
-  PropertyChange(e) {
+  propertyChange(e) {
     this.setState({
-      search: e.target.value
+      propertyType: e.target.value
     })
   }
 
   render() {
-    const {lists, ready, search} = this.state;
-    const filtered = lists.filter(list => {
-      return list.fields.Name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    const {houses, ready, location, propertyType} = this.state;
+    const filteredHouse = houses.filter(list => {
+      return list.fields.Name.toLowerCase().indexOf(location.toLowerCase()) !== -1;
     });
 
     return (
@@ -182,10 +183,10 @@ class Listing extends Component {
               <form>
                 <input type="search" name="search" placeholder='Location' onChange={this.locationChange.bind(this)}/>
                 <div className="Property">
-                  <select name="property-type" className="app-select" required>
+                  <select name="property-type" className="app-select" required onChange={this.propertyChange.bind(this)}>
                     <option data-display="Property Type">Property Type</option>
                     <option value="1">Modern Luxury Townhouse</option>
-                    <option value="2">terraced duplex</option>
+                    <option value="2">Terraced duplex</option>
                     <option value="3">Urban Townhouse</option>
                     <option value="3">Downtown Condo</option>
                     <option value="3">Modern Beach House</option>
@@ -197,7 +198,7 @@ class Listing extends Component {
                 </div>
 
                 <div className="bedrooms">
-                  <select name="bedroom" className="app-select" required onChange={this.PropertyChange.bind(this)}>
+                  <select name="bedroom" className="app-select" required>
                     <option data-display="Bedrooms">Bedrooms</option>
                     <option value="1">1BR</option>
                     <option value="2">2BR</option>
@@ -220,22 +221,22 @@ class Listing extends Component {
             </div>
             <ListRight>
               <div className="loader">
-                {lists.length ? '' : (<h3>There are no list items</h3>)}
+                {houses.length ? '' : (<h3>There are no list items</h3>)}
                 {ready === 'loading' ? (
                   <div className='loader-img'><img src={Loader} className='Image' alt="loader"/></div>) : ''}
               </div>
               <div className="right">
-                {filtered.map(list => (
-                  <div key={list.id}>
-                    <Link to={`/Listview/${list.id}`}>
-                      <ListItems image={list.fields.icon ? list.fields.icon[0].url : ''}>
-                        <h4>{list.fields.Price}</h4>
-                        <h5>{list.fields.Name}</h5>
+                {filteredHouse.map(house => (
+                  <div key={house.id}>
+                    <Link to={`/Listview/${house.id}`}>
+                      <ListItems image={house.fields.icon ? house.fields.icon[0].url : ''}>
+                        <h4>{house.fields.Price}</h4>
+                        <h5>{house.fields.Name}</h5>
                         <Info>
-                          <h6>Bedrooms: {list.fields.Bedrooms}</h6>
-                          <h6>Bathrooms: {list.fields.Bathrooms}</h6>
-                          <h6>Area: {list.fields.Area}</h6>
-                          <h6>Status: {list.fields.Status}</h6>
+                          <h6>Bedrooms: {house.fields.Bedrooms}</h6>
+                          <h6>Bathrooms: {house.fields.Bathrooms}</h6>
+                          <h6>Area: {house.fields.Area}</h6>
+                          <h6>Status: {house.fields.Status}</h6>
                         </Info>
                       </ListItems>
                     </Link>

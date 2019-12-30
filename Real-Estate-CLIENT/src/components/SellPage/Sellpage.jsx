@@ -127,6 +127,93 @@ class Sellpage extends Component {
     };
   }
 
+  async sellingHouse(event) {
+    event.preventDefault();
+    const accounts = await web3.eth.getAccounts();
+    const houseAdminContract = await axios({
+      method: 'get',
+      url: `http://localhost:8080/api/contract/houseAdmin`
+    }).then(response => {
+      // console.log(response.data);
+      return response.data;
+    });
+
+    const houseAdminAddress = await axios({
+      method: 'get',
+      url: `http://localhost:8080/api/address/houseAdmin`
+    }).then(response => {
+      // console.log(response.data);
+      return response.data;
+    });
+
+    try {
+      const deployedContract = await new web3.eth.Contract(houseAdminContract['abi'], houseAdminAddress);
+
+      await deployedContract.methods.sellHouse(this.state.Name, this.state.Area, this.state.Price).call({
+        from: accounts[0],
+        gas: '2000000'
+      }).then(houseAddress => {
+        console.log(
+          `House's Deployed at: ${houseAddress}`
+        );
+      });
+
+    } catch (Exception) {
+      // console.log(Exception);
+      // alert("Please input Name, Area, Price !");
+    }
+
+  }
+
+  async buyingHouse(event) {
+    event.preventDefault();
+    const accounts = await web3.eth.getAccounts();
+    const houseAdminABI = await axios({
+      method: 'get',
+      url: `http://localhost:8080/api/contract/houseAdmin`
+    }).then(response => {
+      console.log(response.data);
+      return response.data;
+    });
+
+    const houseAdminAddress = await axios({
+      method: 'get',
+      url: `http://localhost:8080/api/address/houseAdmin`
+    }).then(response => {
+      console.log(response.data);
+      return response.data;
+    });
+
+    try {
+      const deployedContract = await new web3.eth.Contract(houseAdminABI['abi']).deploy({
+        data: '0x' + houseAdminABI['evm']['bytecode'].object,
+        arguments: [accounts[0], this.state.Name, this.state.Area, this.state.Price]
+      }).send({
+        from: accounts[0],
+        gas: '2000000',
+        value: web3.utils.toWei(1, 'ether')
+      }).then((deployedContract) => {
+        console.log(
+          `Contract deployed at address: ${deployedContract.options.address}`
+        );
+        return deployedContract;
+      });
+
+      await deployedContract.methods.getOwner().call({
+        from: accounts[0]
+      }).then(owner => {
+        console.log(
+          `House's Owner: ${owner}`
+        );
+      });
+
+    } catch (Exception) {
+      // console.log(Exception);
+      // alert("Please input Name, Area, Price !");
+    }
+
+  }
+
   async deployHouseContract(event) {
     event.preventDefault();
     const accounts = await web3.eth.getAccounts();
@@ -140,7 +227,7 @@ class Sellpage extends Component {
     try {
       const deployedContract = await new web3.eth.Contract(compiledContract['abi']).deploy({
         data: '0x' + compiledContract['evm']['bytecode'].object,
-        arguments: [this.state.Name, this.state.Area, this.state.Price]
+        arguments: [accounts[0], this.state.Name, this.state.Area, this.state.Price]
       }).send({
         from: accounts[0],
         gas: '2000000'
@@ -151,7 +238,7 @@ class Sellpage extends Component {
         return deployedContract;
       });
 
-      await deployedContract.methods.ownerName().call({
+      await deployedContract.methods.getOwner().call({
         from: accounts[0]
       }).then(owner => {
         console.log(
@@ -283,7 +370,7 @@ class Sellpage extends Component {
             </div>
             <div className="sellRight">
               {/*<form action="post" onSubmit={this.submitHouseInfo.bind(this)}>*/}
-              <form action="get" onSubmit={this.deployHouseContract.bind(this)}>
+              <form action="get" onSubmit={this.sellingHouse.bind(this)}>
 
                 <div className="formInput">
                   <label htmlFor="Name">Name:</label>
