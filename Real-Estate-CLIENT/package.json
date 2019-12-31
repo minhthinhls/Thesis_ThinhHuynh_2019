@@ -1,5 +1,5 @@
 {
-  "name": "Premium_real_estates",
+  "name": "Premium_Real_Estates",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -36,10 +36,15 @@
     "react-router-dom": "^4.3.1",
     "styled-components": "^4.1.2",
     "sweetalert2-react": "^0.7.2",
-    "web3": "^1.2.4",
+    "web3": "^2.0.0-alpha",
     "webpack": "^4.27.1",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-hot-middleware": "^2.24.3",
     "xml2js": "^0.4.19"
+  },
+  "_moduleAliases": {
+    "@src": "src",
+    "@assets": "assets",
+    "@components": "components"
   }
 }

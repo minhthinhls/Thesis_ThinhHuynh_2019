@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import styled from 'styled-components';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import styled from 'styled-components';
 import ListItems from './ListItems';
-import axios from 'axios';
 import Loader from '../../../assets/loader.gif';
+import axios from 'axios';
 
 const List = styled.div`
   padding:50px 0;
@@ -134,25 +134,57 @@ class Listing extends Component {
       houses: [],
       ready: 'initial',
       location: "",
-      propertyType:""
+      propertyType: "",
+      houseContract: null,
+      houseAdminContract: null,
+      houseAdminAddress: null,
+      houseAdminDeployed: null
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
       ready: 'loading',
+      houseContract: await axios({
+        method: 'get',
+        url: `http://localhost:8080/api/contract/house`
+      }).then(response => {
+        return response.data;
+      }),
+      houseAdminContract: await axios({
+        method: 'get',
+        url: `http://localhost:8080/api/contract/houseAdmin`
+      }).then(response => {
+        return response.data;
+      }),
+      houseAdminAddress: await axios({
+        method: 'get',
+        url: `http://localhost:8080/api/address/houseAdmin`
+      }).then(response => {
+        return response.data;
+      }),
+      accounts: await web3.eth.getAccounts()
     });
+
+    await new web3.eth.Contract(this.state.houseAdminContract['abi'], this.state.houseAdminAddress)
+      .methods
+      .getAllHouses()
+      .call({
+        from: this.state.accounts[0]
+      }).then(addresses => {
+        console.log("All houses address: ", addresses);
+      });
+
     axios({
       method: 'get',
       url: `https://api.airtable.com/v0/apprAJrG1euRf2tmF/Listings`,
       headers: {Authorization: `Bearer keyRMRWZ0xrBXA8Yv`}
     }).then(({data: {records}}) => {
-      console.log(records);
       this.setState({
-        ready: 'loaded',
         houses: records,
-      })
-    })
+        ready: 'loaded'
+      });
+    });
   }
 
   locationChange(e) {
@@ -169,8 +201,8 @@ class Listing extends Component {
 
   render() {
     const {houses, ready, location, propertyType} = this.state;
-    const filteredHouse = houses.filter(list => {
-      return list.fields.Name.toLowerCase().indexOf(location.toLowerCase()) !== -1;
+    const filteredHouses = houses.filter(house => {
+      return house.fields.Name.toLowerCase().indexOf(location.toLowerCase()) !== -1;
     });
 
     return (
@@ -183,7 +215,8 @@ class Listing extends Component {
               <form>
                 <input type="search" name="search" placeholder='Location' onChange={this.locationChange.bind(this)}/>
                 <div className="Property">
-                  <select name="property-type" className="app-select" required onChange={this.propertyChange.bind(this)}>
+                  <select name="property-type" className="app-select" required
+                          onChange={this.propertyChange.bind(this)}>
                     <option data-display="Property Type">Property Type</option>
                     <option value="1">Modern Luxury Townhouse</option>
                     <option value="2">Terraced duplex</option>
@@ -226,7 +259,7 @@ class Listing extends Component {
                   <div className='loader-img'><img src={Loader} className='Image' alt="loader"/></div>) : ''}
               </div>
               <div className="right">
-                {filteredHouse.map(house => (
+                {filteredHouses.map(house => (
                   <div key={house.id}>
                     <Link to={`/Listview/${house.id}`}>
                       <ListItems image={house.fields.icon ? house.fields.icon[0].url : ''}>

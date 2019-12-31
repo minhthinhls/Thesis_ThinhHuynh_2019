@@ -1,6 +1,7 @@
 const Web3 = require('web3');
 const path = require('path');
 const fs = require('fs-extra');
+const root = require('app-root-path').path;
 
 const web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
 const OPTIONS = {
@@ -10,8 +11,7 @@ const OPTIONS = {
 };
 const web3 = new Web3(web3Provider, null, OPTIONS);
 
-const originPath = path.resolve('../../');
-const compiledContract = require(path.resolve(originPath, 'build/HouseAdmin.json'));
+const compiledContract = require(path.resolve(root, 'build/HouseAdmin.json'));
 
 async function writeAddressJSON(key, value) {
     var filePath = path.resolve(originPath, 'address.json');
@@ -54,4 +54,18 @@ async function deployAdminContract() {
     }).then(res => console.log(res));
 }
 
-deployAdminContract();
+async function testCallingContract() {
+    const accounts = await web3.eth.getAccounts();
+
+    await new web3.eth.Contract(compiledContract.abi, require(path.resolve(root, 'address.json'))['HouseAdmin'])
+        .methods
+        .getAllHouses()
+        .call({
+            from: accounts[0]
+        }).then(res => {
+            console.log(res);
+        });
+}
+
+// deployAdminContract();
+testCallingContract();

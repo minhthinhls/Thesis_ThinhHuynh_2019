@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
+import ImageUpload from '../Upload/ImageUpload';
 
 const SellpageStyle = styled.div`
   width:90%;
@@ -123,45 +124,66 @@ class Sellpage extends Component {
       DateListed: null,
       Price: 0,
       Summary: null,
-      Images: [{}]
+      Images: null,
+      houseAdminContract: null,
+      houseAdminAddress: null
     };
+  }
+
+  async componentDidMount() {
+    this.setState({
+      houseAdminContract: await axios({
+        method: 'get',
+        url: `http://localhost:8080/api/contract/houseAdmin`
+      }).then(response => {
+        return response.data;
+      }),
+      houseAdminAddress: await axios({
+        method: 'get',
+        url: `http://localhost:8080/api/address/houseAdmin`
+      }).then(response => {
+        return response.data;
+      }),
+      accounts: await web3.eth.getAccounts()
+    });
   }
 
   async sellingHouse(event) {
     event.preventDefault();
-    const accounts = await web3.eth.getAccounts();
-    const houseAdminContract = await axios({
-      method: 'get',
-      url: `http://localhost:8080/api/contract/houseAdmin`
-    }).then(response => {
-      // console.log(response.data);
-      return response.data;
-    });
-
-    const houseAdminAddress = await axios({
-      method: 'get',
-      url: `http://localhost:8080/api/address/houseAdmin`
-    }).then(response => {
-      // console.log(response.data);
-      return response.data;
-    });
-
-    try {
-      const deployedContract = await new web3.eth.Contract(houseAdminContract['abi'], houseAdminAddress);
-
-      await deployedContract.methods.sellHouse(this.state.Name, this.state.Area, this.state.Price).call({
-        from: accounts[0],
-        gas: '2000000'
-      }).then(houseAddress => {
-        console.log(
-          `House's Deployed at: ${houseAddress}`
-        );
+    const formData = new FormData();
+    formData.append('Images', this.state.Images);
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    };
+    axios.post("http://localhost:8080/api/upload", formData, config)
+      .then(response => {
+        alert("The file is successfully uploaded");
+      })
+      .catch(error => {
+        console.log(error);
       });
 
-    } catch (Exception) {
-      // console.log(Exception);
-      // alert("Please input Name, Area, Price !");
-    }
+    // try {
+    //
+    //   console.log(this.state.Images);
+    //
+    //   new web3.eth.Contract(this.state.houseAdminContract['abi'], this.state.houseAdminAddress)
+    //     .methods
+    //     .sellHouse("1", 1, 1)
+    //     .call({
+    //       from: this.state.accounts[0],
+    //     }).then(houseAddress => {
+    //     console.log(
+    //       `House's Deployed at: ${houseAddress}`
+    //     );
+    //   });
+    //
+    // } catch (Exception) {
+    //   // console.log(Exception);
+    //   // alert("Please input Name, Area, Price !");
+    // }
 
   }
 
@@ -351,7 +373,7 @@ class Sellpage extends Component {
 
   inputImages(event) {
     this.setState({
-      Images: event.target.value
+      Images: event.target.files[0]
     })
   }
 
@@ -370,7 +392,7 @@ class Sellpage extends Component {
             </div>
             <div className="sellRight">
               {/*<form action="post" onSubmit={this.submitHouseInfo.bind(this)}>*/}
-              <form action="get" onSubmit={this.sellingHouse.bind(this)}>
+              <form onSubmit={this.sellingHouse.bind(this)}>
 
                 <div className="formInput">
                   <label htmlFor="Name">Name:</label>
@@ -450,7 +472,7 @@ class Sellpage extends Component {
 
                 <div className="formInput">
                   <label htmlFor="Upload">Send us an image:</label>
-                  <input type="file" name="Upload" onChange={this.inputImages.bind(this)}/>
+                  <input type="file" name="Images" onChange={this.inputImages.bind(this)}/>
                 </div>
 
                 <div className='btn'>
