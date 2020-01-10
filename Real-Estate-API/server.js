@@ -7,9 +7,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const app = express();
 
-// View engine setup
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+/* All engine setup */
 app.use(cors());
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -40,27 +38,25 @@ if (process.env.NODE_ENV === 'development') {
   }));
 }
 
-// Using all file within folder ./dist, which was built using <$npm run build>
+/* Public all file within folder ./public and ./dist, which was built using <$npm run build> */
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-// All router setup
-app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+/* All router setup */
 app.use('/api', require('./routes/api'));
 
-// Catch 404 and forward to error handler
+/* Catch 404 and forward to error handler */
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// Error handlers
+/* Error handlers */
 app.use(function (err, req, res, next) {
-  // Set locals, only providing error in development
+  /* Set locals, only providing error in development */
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // Render the error page
+  /* Render the error page */
   res.status(err.status || 500);
   res.render('error');
 });
@@ -69,7 +65,7 @@ app.all('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-// Finally, let's start our server...
+/* Finally, let's start our server... */
 var server = app.listen(8080, function () {
   console.log('Listening on port ' + server.address().port);
 });
