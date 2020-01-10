@@ -5,8 +5,6 @@ import "./House.sol";
 
 contract HouseAdmin is Authentication {
 
-    mapping(address => House[]) public ownedHousesOf;
-    address[] public owners;
     House[] public houses;
 
     constructor() public {
@@ -15,30 +13,28 @@ contract HouseAdmin is Authentication {
 
     event Log(string text);
 
-    function sellHouse(string memory _name, uint _area, uint _price) public returns (House) {
-        House house = new House(msg.sender, _name, _area, _price);
-        if (ownedHousesOf[msg.sender].length == 0) {
-            owners.push(msg.sender);
-        }
-        ownedHousesOf[msg.sender].push(house);
+    function sellHouse(string memory _name, string memory _email,
+        string memory _phone, string memory _location, string memory _houseType,
+        uint _bedrooms, uint _bathrooms, uint _area, uint _price) public returns (House _houseAddress) {
+        // Create new house instance as passing arguments to its constructor !
+        House house = new House(msg.sender, _name, _email, _phone,
+            _location, _houseType, _bedrooms, _bathrooms, _area, _price);
         houses.push(house);
         return house;
     }
 
-    function buyHouse(House _houseAddress) public payable returns (bool _success) {
-        require(msg.value >= _houseAddress.getPrice() * 1 ether); // Make sure having enough money !
-        require(_houseAddress.getOwner() != msg.sender); // Buyer must not be owner !
-        _houseAddress.setOwner.value(_houseAddress.getPrice() * 1 ether)(msg.sender);
-        address(msg.sender).transfer(address(this).balance); // Leftover money go back to your wallet !
+    function buyHouse(uint _id) public payable returns (bool _success) {
+        // Get house instance as passing arguments to <houses> array !
+        House house = houses[_id];
+        // Make sure having enough money !
+        require(msg.value >= house.getPrice() * 1 ether);
+        // Buyer must not be owner !
+        require(house.getOwner() != msg.sender);
+        // Set the new owner and passing ether to that house contract !
+        house.setOwner.value(house.getPrice() * 1 ether)(msg.sender);
+        // Leftover money go back to your wallet !
+        address(msg.sender).transfer(address(this).balance);
         return true;
-    }
-
-    function getOwnedHouses() public view returns (House[] memory) {
-        return ownedHousesOf[msg.sender];
-    }
-
-    function getAllOwners() public view returns (address[] memory) {
-        return owners;
     }
 
     function getAllHouses() public view returns (House[] memory) {

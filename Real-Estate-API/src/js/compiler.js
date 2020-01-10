@@ -3,11 +3,11 @@ const fs = require('fs-extra');
 const solc = require('solc');
 const root = require('app-root-path').path;
 
-const buildPath = path.resolve(root, 'build/');
+const buildPath = path.resolve(root, 'build/contracts/');
 const contractsFolder = path.resolve(root, 'contracts/');
 
-const createBuildFolder = () => {
-    fs.emptyDirSync(buildPath);
+const createEmptyFolder = (folderPath) => {
+    fs.emptyDirSync(path.resolve(root, folderPath));
 };
 
 const buildSources = () => {
@@ -69,11 +69,13 @@ const compileContracts = () => {
 
 const run = () => {
     try {
-        createBuildFolder();
+        createEmptyFolder('build/contracts/');
         compileContracts();
     } catch (e) {
         console.log(e);
     }
 };
+
+module.exports = createEmptyFolder;
 
 run();

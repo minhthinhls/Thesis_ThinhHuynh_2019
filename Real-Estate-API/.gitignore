@@ -1,3 +1,9 @@
 /bin
+
 /build
+
 /views
+
+/migrations
+/public
+address.json

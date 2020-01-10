@@ -12,8 +12,29 @@ if (typeof web3 !== 'undefined') {
   window.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 }
 
+web3.eth.defaultAccount = web3.eth.accounts[0]; // Set first accounts as default one !
+
 render(<Routes/>, document.getElementById('app'));
+
+try {
+  window.ethereum.on('accountsChanged', function (accounts) {
+    web3.eth.defaultAccount = accounts[0];
+    render(<Routes/>, document.getElementById('app'));
+  });
+
+  window.ethereum.on('networkChanged', function (netId) {
+    render(<Routes/>, document.getElementById('app'));
+  });
+} catch (Exception) {
+  console.log(Exception);
+}
 
 if (module.hot) {
   module.hot.accept();
 }
+
+/* READ MORE ABOUT METAMASK AT:
+https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md
+https://metamask.github.io/metamask-docs/Advanced_Concepts/Provider_API
+https://ethereum.stackexchange.com/questions/42768/how-can-i-detect-change-in-account-in-metamask
+ */

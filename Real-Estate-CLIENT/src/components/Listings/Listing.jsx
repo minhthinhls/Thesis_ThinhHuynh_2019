@@ -66,6 +66,16 @@ const List = styled.div`
     background-color: #031249;
     color: #b7c2f1;
   }
+  
+  .buy_btn{
+    height: 45px;
+    width: 75%;
+    border: 0;
+    border-radius: 1.0em;
+    font-size: large;
+    background-color: #ff3b00;
+    color: #000000;
+  }
 
   @media (min-width: 1024px){
     .listgroup{
@@ -138,7 +148,9 @@ class Listing extends Component {
       houseContract: null,
       houseAdminContract: null,
       houseAdminAddress: null,
-      houseAdminDeployed: null
+      houseAdminDeployed: null,
+      baseOption: null,
+      gasLimit: 6721975 // For ganache !
     };
   }
 
@@ -162,29 +174,113 @@ class Listing extends Component {
         url: `http://localhost:8080/api/address/houseAdmin`
       }).then(response => {
         return response.data;
-      }),
-      accounts: await web3.eth.getAccounts()
+      })
     });
 
-    await new web3.eth.Contract(this.state.houseAdminContract['abi'], this.state.houseAdminAddress)
-      .methods
-      .getAllHouses()
-      .call({
-        from: this.state.accounts[0]
-      }).then(addresses => {
-        console.log("All houses address: ", addresses);
-      });
-
-    axios({
-      method: 'get',
-      url: `https://api.airtable.com/v0/apprAJrG1euRf2tmF/Listings`,
-      headers: {Authorization: `Bearer keyRMRWZ0xrBXA8Yv`}
-    }).then(({data: {records}}) => {
-      this.setState({
-        houses: records,
-        ready: 'loaded'
-      });
+    this.setState({
+      houseAdminDeployed: web3.eth.contract(this.state.houseAdminContract['abi'])
+        .at(this.state.houseAdminAddress),
+      baseOption: {
+        gas: this.state.gasLimit,
+        gasPrice: await new Promise((resolve, reject) => {
+          web3.eth.getGasPrice((error, _gasPrice) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_gasPrice);
+          })
+        })
+      }
     });
+
+    const {houseContract, houseAdminDeployed, baseOption} = this.state;
+
+    const addresses = await new Promise((resolve, reject) => {
+      houseAdminDeployed.getAllHouses(baseOption, (error, addresses) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(addresses);
+      })
+    });
+
+    const houseContractABI = web3.eth.contract(houseContract['abi']);
+
+    const getHouseInfo = async (_houseAddress) => {
+      const houseContractDeployed = houseContractABI.at(_houseAddress);
+      return {
+        address: _houseAddress,
+        owner: await new Promise((resolve, reject) => {
+          houseContractDeployed.getOwner.call((error, _owner) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_owner);
+          })
+        }),
+        location: await new Promise((resolve, reject) => {
+          houseContractDeployed.getLocation.call((error, _location) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_location);
+          })
+        }),
+        bedrooms: await new Promise((resolve, reject) => {
+          houseContractDeployed.getBedrooms.call((error, _bedrooms) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_bedrooms.toNumber());
+          })
+        }),
+        bathrooms: await new Promise((resolve, reject) => {
+          houseContractDeployed.getBathrooms.call((error, _bathrooms) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_bathrooms.toNumber());
+          })
+        }),
+        area: await new Promise((resolve, reject) => {
+          houseContractDeployed.getArea.call((error, _area) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_area.toNumber());
+          })
+        }),
+        price: await new Promise((resolve, reject) => {
+          houseContractDeployed.getPrice.call((error, _price) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_price.toNumber());
+          })
+        }),
+        status: await new Promise((resolve, reject) => {
+          houseContractDeployed.getState.call((error, _state) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_state);
+          })
+        })
+      }
+    };
+
+    const getAllHouseInfo = async (_addresses) => {
+      return Promise.all(_addresses.map(_address => {
+          return getHouseInfo(_address)
+        }
+      ));
+    };
+
+    this.setState({
+      houses: await getAllHouseInfo(addresses),
+      ready: 'loaded'
+    });
+
   }
 
   locationChange(e) {
@@ -200,9 +296,9 @@ class Listing extends Component {
   }
 
   render() {
-    const {houses, ready, location, propertyType} = this.state;
+    const {houses, ready, location} = this.state;
     const filteredHouses = houses.filter(house => {
-      return house.fields.Name.toLowerCase().indexOf(location.toLowerCase()) !== -1;
+      return house.location.toLowerCase().indexOf(location.toLowerCase()) !== -1;
     });
 
     return (
@@ -260,16 +356,23 @@ class Listing extends Component {
               </div>
               <div className="right">
                 {filteredHouses.map(house => (
-                  <div key={house.id}>
-                    <Link to={`/Listview/${house.id}`}>
-                      <ListItems image={house.fields.icon ? house.fields.icon[0].url : ''}>
-                        <h4>{house.fields.Price}</h4>
-                        <h5>{house.fields.Name}</h5>
+                  <div key={house.address}>
+                    <Link to={`/Listview/${house.address}`}>
+                      <ListItems image={`http://localhost:8080/public/images/${house.address}.jpg`}>
+                        <h2>Price: {house.price} $</h2>
                         <Info>
-                          <h6>Bedrooms: {house.fields.Bedrooms}</h6>
-                          <h6>Bathrooms: {house.fields.Bathrooms}</h6>
-                          <h6>Area: {house.fields.Area}</h6>
-                          <h6>Status: {house.fields.Status}</h6>
+                          <h4>Location: {house.location}</h4>
+                          <h4>
+                            {web3.eth.defaultAccount === house.owner ? 'OWNED' :
+                              <button type="submit" className='buy_btn'>Buy Now !</button>
+                            }
+                          </h4>
+                        </Info>
+                        <Info>
+                          <h6>Bedrooms: {house.bedrooms} bedroom(s)</h6>
+                          <h6>Bathrooms: {house.bathrooms} bathroom(s)</h6>
+                          <h6>Area: {house.area} square meters</h6>
+                          <h6>Status: {house.status ? 'In Active' : 'Not Active'}</h6>
                         </Info>
                       </ListItems>
                     </Link>
