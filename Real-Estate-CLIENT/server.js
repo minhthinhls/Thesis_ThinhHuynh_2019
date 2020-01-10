@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(helmet());
 
 // Using all file within folder ./dist, which was built using <$npm run build>
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 app.all('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

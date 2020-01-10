@@ -27,11 +27,21 @@ const Liststyle = styled.div`
     text-align:center;
   }
   
+  .buy_btn{
+    height: 45px;
+    width: 192px;
+    border: 0;
+    border-radius: 1.0em;
+    font-size: large;
+    background-color: #ff3b00;
+    color: #000000;
+  }
+  
   input[type="button"] {
     height: 45px;
     width: 192px;
     border: 0;
-    border-radius: 0.5em;
+    border-radius: 1.0em;
     font-size: larger;
     padding: -23px;
     background-color: #031249;
@@ -64,30 +74,176 @@ class ListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: {},
+      house: {},
       ready: 'initial',
+      houseContract: null,
+      houseAddress: null,
+      houseDeployed: null,
+      houseAdminContract: null,
+      houseAdminAddress: null,
+      houseAdminDeployed: null,
+      baseOption: null,
+      gasLimit: 6721975 // For ganache !
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {match: {params}} = this.props;
-    const id = params.id;
-    this.setState({ready: 'loading'});
-    axios({
-      method: 'get',
-      url: `https://api.airtable.com/v0/apprAJrG1euRf2tmF/Listings/${id}`,
-      headers: {Authorization: `Bearer keyRMRWZ0xrBXA8Yv`},
-    }).then(({data}) => {
-      console.log(data.fields.Tag);
-      this.setState({
-        list: data,
-        ready: 'loaded',
-      });
+    this.setState({
+      ready: 'loading',
+      houseContract: await axios({
+        method: 'get',
+        url: `http://localhost:8080/api/contract/house`
+      }).then(response => {
+        return response.data;
+      }),
+      houseAdminContract: await axios({
+        method: 'get',
+        url: `http://localhost:8080/api/contract/houseAdmin`
+      }).then(response => {
+        return response.data;
+      }),
+      houseAdminAddress: await axios({
+        method: 'get',
+        url: `http://localhost:8080/api/address/houseAdmin`
+      }).then(response => {
+        return response.data;
+      }),
+      houseAddress: params.id
     });
+
+    this.setState({
+      houseDeployed: web3.eth.contract(this.state.houseContract['abi'])
+        .at(this.state.houseAddress),
+      houseAdminDeployed: web3.eth.contract(this.state.houseAdminContract['abi'])
+        .at(this.state.houseAdminAddress),
+      baseOption: {
+        gas: this.state.gasLimit,
+        gasPrice: await new Promise((resolve, reject) => {
+          web3.eth.getGasPrice((error, _gasPrice) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_gasPrice);
+          })
+        })
+      }
+    });
+
+    const {houseDeployed, houseAddress, houseAdminDeployed} = this.state;
+
+    const getHouseInfo = async () => {
+      return {
+        address: houseAddress,
+        id: await new Promise((resolve, reject) => {
+          houseAdminDeployed.getAllHouses.call((error, _owner) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_owner.indexOf(houseAddress));
+          })
+        }),
+        owner: await new Promise((resolve, reject) => {
+          houseDeployed.getOwner.call((error, _owner) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_owner);
+          })
+        }),
+        location: await new Promise((resolve, reject) => {
+          houseDeployed.getLocation.call((error, _location) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_location);
+          })
+        }),
+        bedrooms: await new Promise((resolve, reject) => {
+          houseDeployed.getBedrooms.call((error, _bedrooms) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_bedrooms.toNumber());
+          })
+        }),
+        bathrooms: await new Promise((resolve, reject) => {
+          houseDeployed.getBathrooms.call((error, _bathrooms) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_bathrooms.toNumber());
+          })
+        }),
+        area: await new Promise((resolve, reject) => {
+          houseDeployed.getArea.call((error, _area) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_area.toNumber());
+          })
+        }),
+        price: await new Promise((resolve, reject) => {
+          houseDeployed.getPrice.call((error, _price) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_price.toNumber());
+          })
+        }),
+        status: await new Promise((resolve, reject) => {
+          houseDeployed.getState.call((error, _state) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_state);
+          })
+        })
+      }
+    };
+
+    this.setState({
+      house: await getHouseInfo(),
+      ready: 'loaded'
+    });
+
+  }
+
+  async buyingHouse(event) {
+    event.preventDefault();
+    const {house, houseAdminDeployed, baseOption} = this.state;
+    try {
+      this.setState({
+        ready: 'loading'
+      });
+      const transactionHash = await new Promise((resolve, reject) => {
+        houseAdminDeployed.buyHouse(house.id, {
+          ...baseOption,
+          from: web3.eth.defaultAccount,
+          value: web3.toWei(house.price, 'ether')
+        }, (error, txHash) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(txHash);
+        })
+      });
+      console.log("Transaction succeed:", transactionHash);
+      this.setState({
+        house: {...this.state.house, owner: web3.eth.defaultAccount},
+        ready: 'loaded'
+      });
+    } catch (Exception) {
+      console.log(Exception);
+      this.setState({
+        ready: 'loaded'
+      });
+    }
   }
 
   render() {
-    const {list, ready} = this.state;
+    const {house, ready} = this.state;
+    console.log(house.owner);
     return (
       <Fragment>
         <Navbar/>
@@ -97,28 +253,41 @@ class ListView extends Component {
             <Fragment>
               <Listgroup>
                 <div className="viewleft">
-                  <img src={list.fields.icon[0].url} alt="listing items"/>
+                  <img src={`http://localhost:8080/public/images/${house.address}.jpg`} alt="listing items"/>
                 </div>
                 <div className="viewright">
-                  <h2>{list.fields.Tag}</h2>
-                  <h4>{list.fields.Price}</h4>
-                  <h5>{list.fields.Summary}</h5>
+                  <h2>Type: Apartment</h2>
+                  <h4>Price: {house.price} $</h4>
+                  <h5>Summary: House for renting</h5>
                   <Info>
-                    <h6>Bedrooms: {list.fields.Bedrooms}</h6>
-                    <h6>Bathrooms: {list.fields.Bathrooms}</h6>
-                    <h6>Area: {list.fields.Area}</h6>
-                    <h6>Status: {list.fields.Status}</h6>
+                    <h6>Bedrooms: {house.bedrooms} bedroom(s)</h6>
+                    <h6>Bathrooms: {house.bathrooms} bathroom(s)</h6>
+                    <h6>Area: {house.area} square meters</h6>
+                    <h6>Status: {house.status ? 'In Active' : 'Not Active'}</h6>
                   </Info>
-                  <div className="btn">
-                    <Link to="/Listings">
-                      <input type="button" value="Return"/>
-                    </Link>
-                  </div>
+                  <Info>
+                    {web3.eth.defaultAccount === house.owner
+                      ?
+                      <div className="btn">
+                        <button type="submit" className='buy_btn'>OWNED !</button>
+                      </div>
+                      :
+                      <div className="btn">
+                        <form onSubmit={this.buyingHouse.bind(this)}>
+                          <button type="submit" className='buy_btn'>Buy Now !</button>
+                        </form>
+                      </div>
+                    }
+                    <div className="btn">
+                      <Link to="/Listings">
+                        <input type="button" value="Return"/>
+                      </Link>
+                    </div>
+                  </Info>
                 </div>
               </Listgroup>
             </Fragment>
           )}
-
         </Liststyle>
         <Footer/>
       </Fragment>

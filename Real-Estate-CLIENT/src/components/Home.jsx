@@ -6,7 +6,6 @@ import HomeSectionC from './HomeSectionC';
 import HomeSectionD from './HomeSectionD';
 import Footer from './Footer';
 
-
 class Home extends Component {
   render() {
     return (

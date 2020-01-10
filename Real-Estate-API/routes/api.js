@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const router = express.Router();
 const root = require('app-root-path').path;
-const imageUpload = require(path.resolve(root, 'src/js/imageUpload'));
+const uploader = require(path.resolve(root, 'src/js/uploader'));
 
 /* Application Programming Interfaces */
 router.post('/info/house', (req, res) => {
@@ -23,11 +23,11 @@ router.post('/info/house', (req, res) => {
 });
 
 router.get('/contract/house', (req, res) => {
-    res.json(require(path.resolve(root, 'build/House.json')));
+    res.json(require(path.resolve(root, 'build/contracts/House.json')));
 });
 
 router.get('/contract/houseAdmin', (req, res) => {
-    res.json(require(path.resolve(root, 'build/HouseAdmin.json')));
+    res.json(require(path.resolve(root, 'build/contracts/HouseAdmin.json')));
 });
 
 router.get('/address/houseAdmin', (req, res) => {
@@ -35,7 +35,7 @@ router.get('/address/houseAdmin', (req, res) => {
 });
 
 router.post('/upload', (req, res) => {
-    imageUpload(req, res, (err) => {
+    uploader(req, res, (err) => {
         console.log("Request ---", req.body);
         console.log("Request file ---", req.file); // Here you get file.
         /* Now do where ever you want to do */

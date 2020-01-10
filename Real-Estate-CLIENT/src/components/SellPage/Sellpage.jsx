@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import ImageUpload from '../Upload/ImageUpload';
 
 const SellpageStyle = styled.div`
   width:90%;
@@ -113,20 +112,23 @@ class Sellpage extends Component {
   constructor() {
     super();
     this.state = {
-      Name: null,
-      Email: null,
-      Phone: null,
-      Address: null,
+      Name: "",
+      Email: "@gmail.com",
+      Phone: "",
+      Address: "",
+      Type: "",
+      Bedrooms: 0,
+      Bathrooms: 0,
       Area: 0,
-      Type: null,
-      Bedrooms: null,
-      Bathrooms: null,
-      DateListed: null,
       Price: 0,
+      DateListed: null,
       Summary: null,
       Images: null,
       houseAdminContract: null,
-      houseAdminAddress: null
+      houseAdminAddress: null,
+      houseAdminDeployed: null,
+      baseOption: null,
+      gasLimit: 6721975 // For ganache !
     };
   }
 
@@ -143,166 +145,67 @@ class Sellpage extends Component {
         url: `http://localhost:8080/api/address/houseAdmin`
       }).then(response => {
         return response.data;
-      }),
-      accounts: await web3.eth.getAccounts()
+      })
     });
+
+    this.setState({
+      houseAdminDeployed: web3.eth.contract(this.state.houseAdminContract['abi'])
+        .at(this.state.houseAdminAddress),
+      baseOption: {
+        gas: this.state.gasLimit,
+        gasPrice: await new Promise((resolve, reject) => {
+          web3.eth.getGasPrice((error, _gasPrice) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(_gasPrice);
+          })
+        })
+      }
+    });
+
   }
 
   async sellingHouse(event) {
     event.preventDefault();
+    const {houseAdminDeployed, baseOption} = this.state;
     const formData = new FormData();
-    formData.append('Images', this.state.Images);
     const config = {
       headers: {
         'content-type': 'multipart/form-data'
       }
     };
-    axios.post("http://localhost:8080/api/upload", formData, config)
-      .then(response => {
-        alert("The file is successfully uploaded");
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    // try {
-    //
-    //   console.log(this.state.Images);
-    //
-    //   new web3.eth.Contract(this.state.houseAdminContract['abi'], this.state.houseAdminAddress)
-    //     .methods
-    //     .sellHouse("1", 1, 1)
-    //     .call({
-    //       from: this.state.accounts[0],
-    //     }).then(houseAddress => {
-    //     console.log(
-    //       `House's Deployed at: ${houseAddress}`
-    //     );
-    //   });
-    //
-    // } catch (Exception) {
-    //   // console.log(Exception);
-    //   // alert("Please input Name, Area, Price !");
-    // }
-
-  }
-
-  async buyingHouse(event) {
-    event.preventDefault();
-    const accounts = await web3.eth.getAccounts();
-    const houseAdminABI = await axios({
-      method: 'get',
-      url: `http://localhost:8080/api/contract/houseAdmin`
-    }).then(response => {
-      console.log(response.data);
-      return response.data;
-    });
-
-    const houseAdminAddress = await axios({
-      method: 'get',
-      url: `http://localhost:8080/api/address/houseAdmin`
-    }).then(response => {
-      console.log(response.data);
-      return response.data;
-    });
-
     try {
-      const deployedContract = await new web3.eth.Contract(houseAdminABI['abi']).deploy({
-        data: '0x' + houseAdminABI['evm']['bytecode'].object,
-        arguments: [accounts[0], this.state.Name, this.state.Area, this.state.Price]
-      }).send({
-        from: accounts[0],
-        gas: '2000000',
-        value: web3.utils.toWei(1, 'ether')
-      }).then((deployedContract) => {
-        console.log(
-          `Contract deployed at address: ${deployedContract.options.address}`
-        );
-        return deployedContract;
-      });
-
-      await deployedContract.methods.getOwner().call({
-        from: accounts[0]
-      }).then(owner => {
-        console.log(
-          `House's Owner: ${owner}`
-        );
-      });
-
-    } catch (Exception) {
-      // console.log(Exception);
-      // alert("Please input Name, Area, Price !");
-    }
-
-  }
-
-  async deployHouseContract(event) {
-    event.preventDefault();
-    const accounts = await web3.eth.getAccounts();
-    const compiledContract = await axios({
-      method: 'get',
-      url: `http://localhost:8080/api/contract/house`
-    }).then(response => {
-      return response.data;
-    });
-
-    try {
-      const deployedContract = await new web3.eth.Contract(compiledContract['abi']).deploy({
-        data: '0x' + compiledContract['evm']['bytecode'].object,
-        arguments: [accounts[0], this.state.Name, this.state.Area, this.state.Price]
-      }).send({
-        from: accounts[0],
-        gas: '2000000'
-      }).then((deployedContract) => {
-        console.log(
-          `Contract deployed at address: ${deployedContract.options.address}`
-        );
-        return deployedContract;
-      });
-
-      await deployedContract.methods.getOwner().call({
-        from: accounts[0]
-      }).then(owner => {
-        console.log(
-          `House's Owner: ${owner}`
-        );
+      const args = Object.values(this.state).slice(0, 9);
+      if (this.state.Images == null) {
+        throw new ReferenceError("All value must be input before sending form !");
+      }
+      houseAdminDeployed.sellHouse
+        .call(...args, (error, address) => {
+          if (!error) {
+            formData.append('Images', this.state.Images, address);
+            axios.post("http://localhost:8080/api/upload", formData, config)
+              .then(response => {
+                console.log(response, "The file is successfully uploaded !");
+              })
+              .catch(error => {
+                console.log("Please choose image file to upload !", error);
+              });
+          }
+        });
+      houseAdminDeployed.sellHouse(...args, {
+        ...baseOption,
+        from: web3.eth.defaultAccount
+      }, (error, hash) => {
+        if (!error) {
+          console.log("Transaction Hash:", hash);
+        }
       });
 
     } catch (Exception) {
       console.log(Exception);
-      alert("Please input Name, Area, Price !");
     }
 
-  }
-
-  submitHouseInfo(event) {
-    event.preventDefault();
-    axios({
-      method: 'post',
-      //url: `https://api.airtable.com/v0/apprAJrG1euRf2tmF/Listings`,
-      url: `http://localhost:8080/api/info/house`,
-      headers: {Authorization: `Bearer keyRMRWZ0xrBXA8Yv`, 'Content-Type': `application/json`},
-      data: {
-        fields: {
-          Name: this.state.Name,
-          Email: this.state.Email,
-          Phone: this.state.Phone,
-          Address: this.state.Address,
-          Area: Number(this.state.Area),
-          Type: this.state.Type,
-          Bedrooms: Number(this.state.Bedrooms),
-          Bathrooms: Number(this.state.Bathrooms),
-          DateListed: this.state.DateListed,
-          Price: Number(this.state.Price),
-          Summary: this.state.Summary,
-          Images: this.state.Images
-        }
-      }
-    }).then(response => {
-      console.log(response);
-    }).catch(error => {
-      console.log(error);
-    });
   }
 
   inputName(event) {
@@ -331,7 +234,7 @@ class Sellpage extends Component {
 
   inputArea(event) {
     this.setState({
-      Area: event.target.value
+      Area: Number(event.target.value)
     })
   }
 
@@ -361,7 +264,7 @@ class Sellpage extends Component {
 
   inputPrice(event) {
     this.setState({
-      Price: event.target.value
+      Price: Number(event.target.value)
     })
   }
 
@@ -391,7 +294,6 @@ class Sellpage extends Component {
               <img src={require('../../../assets/pexels-photo-955793.jpeg')} alt="sellpage"/>
             </div>
             <div className="sellRight">
-              {/*<form action="post" onSubmit={this.submitHouseInfo.bind(this)}>*/}
               <form onSubmit={this.sellingHouse.bind(this)}>
 
                 <div className="formInput">
