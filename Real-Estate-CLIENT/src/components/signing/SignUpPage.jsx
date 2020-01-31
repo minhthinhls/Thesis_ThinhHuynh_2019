@@ -5,56 +5,56 @@ import Footer from '../Footer';
 import back from '../../../assets/pexels-photo-534233.jpeg'
 
 const Form = styled.form`
-  width:90%;
-  height:50%;
-  background-color: rgba(183, 194, 241, .8);
-  margin:0px auto;
+  width: 90%;
+  height: 50%;
+  background-color: rgba(183, 194, 241, 0.8);
+  margin: 0px auto;
   border-radius: 1em;
-  h4{
-    text-align:center;
-    padding 10px;
+  h4 {
+    text-align: center;
+    padding: 10px;
   }
-  .sign{
-    margin:20px 0;
-    label,input{
-      display:block;
+  .sign {
+    margin: 20px 0;
+    label, input {
+      display: block;
       margin: 0px auto;
       width: 80%;
     }
-    input{
-      height:40px;
+    input {
+      height: 40px;
     }
   }
   .btn {
     text-align: center;
     padding: 20px;
   }
-  .btn input{
+  .btn input {
     height: 45px;
     width: 192px;
     border: 0;
     border-radius: 0.5em;
     font-size: larger;
-    padding: -23px; 
+    padding: -23px;
     background-color: #031249;
     color: #b7c2f1;
   }
-  .login{
-    text-align:center;
-    margin:20px;
+  .login {
+    text-align: center;
+    margin: 20px;
     color: #293064;
     cursor: pointer;
   }
 `;
 
 const Show = styled.div`
-  .dontshow{
-    display:none;
+  .dontshow {
+    display: none;
   }
 `;
 
 const LogForm = styled.form`
-  background-color: rgba(3, 18, 73, .8);
+  background-color: rgba(3, 18, 73, 0.8);
   color: #b7c2f1;
   width: 90%;
   margin: 0px auto;
@@ -70,8 +70,7 @@ const LogForm = styled.form`
     text-align: center;
     color: red;
   }
-  label,
-  input {
+  label, input {
     display: block;
     width: 80%;
     margin: 0px auto;
@@ -80,11 +79,9 @@ const LogForm = styled.form`
     height: 40px;
     margin-bottom: 20px;
   }
-
   .logbtn {
     margin: 20px 0;
   }
-
   .logbtn input {
     height: 45px;
     width: 192px;
@@ -101,15 +98,12 @@ const LogForm = styled.form`
       transform: scale(0.1) rotate(30deg);
       transform-origin: center bottom;
     }
-
     50% {
       transform: rotate(-10deg);
     }
-
     70% {
       transform: rotate(3deg);
     }
-
     to {
       opacity: 1;
       transform: scale(1);
@@ -118,21 +112,21 @@ const LogForm = styled.form`
 `;
 
 const FormGrid = styled.div`
-  background: url(${back})no-repeat center center/cover;
-  background-size:cover;
-  @media(min-width:768px){
-    .left{
-      width:420px;
-      margin:0px auto;
+  background: url(${back}) no-repeat center center/cover;
+  background-size: cover;
+  @media (min-width: 768px) {
+    .left {
+      width: 420px;
+      margin: 0px auto;
     }
-    .right{
-      width:420px;
-      margin:0px auto;
+    .right {
+      width: 420px;
+      margin: 0px auto;
     }
   }
 `;
 
-export default class SignupPage extends Component {
+export default class SignUpPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -165,7 +159,6 @@ export default class SignupPage extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
     if (!this.state.name) {
       return this.setState({error: '*Name is required'});
     }
@@ -182,7 +175,6 @@ export default class SignupPage extends Component {
     if (this.state.re_password !== this.state.password) {
       return this.setState({error: '*Password Do not Match'});
     }
-
     return this.setState({error: ''});
   }
 
@@ -217,68 +209,70 @@ export default class SignupPage extends Component {
   }
 
   render() {
-    return <Fragment>
-      <Navbar/>
-      <FormGrid>
-        <div className="left">
-          <Form onSubmit={this.handleSubmit}>
-            <h4>Sign Up</h4>
-            {this.state.error && <h5 onClick={this.dismissError}>
-              {this.state.error}
-            </h5>}
-            <div className="sign">
-              <label htmlFor="Name">Name</label>
-              <input type="text" name="Name" value={this.state.name} onChange={this.handleNameChange}/>
-            </div>
-            <div className="sign">
-              <label htmlFor="UserName">User Name</label>
-              <input type="text" name="UserName" value={this.state.username} onChange={this.handleUserChange}/>
-            </div>
-            <div className="sign">
-              <label htmlFor="Email">Email</label>
-              <input type="email" name="Email" value={this.state.email} onChange={this.handleEmailChange}/>
-            </div>
-            <div className="sign">
-              <label htmlFor="Password">Password</label>
-              <input type="password" name="Password" value={this.state.password} onChange={this.handlePassChange}/>
-            </div>
-            <div className="sign">
-              <label htmlFor="Password">Retype-Password</label>
-              <input type="password" name="Password" value={this.state.re_password} onChange={this.handleRePassChange}/>
-            </div>
-            <div className="btn">
-              <input type="submit" value="Sign Up"/>
-            </div>
-            <div className="login">
-              <a onClick={this.handleClick.bind(this)}>
-                Have An Account? click here
-              </a>
-            </div>
-          </Form>
-        </div>
-        <div className="right">
-          <Show>
-            <div className={this.state.condition ? "show" : "dontshow"}>
-              <LogForm onSubmit={this.handleSubmit}>
-                <h4>Log In</h4>
-                {this.state.error && <h5 onClick={this.dismissError}>
-                  {this.state.error}
-                </h5>}
-                <label>User Name</label>
-                <input type="text" value={this.state.username} onChange={this.handleUserChange}/>
+    return (
+      <Fragment>
+        <Navbar/>
+        <FormGrid>
+          <div className="left">
+            <Form onSubmit={this.handleSubmit}>
+              <h4>Sign Up</h4>
+              {this.state.error && <h5 onClick={this.dismissError}>
+                {this.state.error}
+              </h5>}
+              <div className="sign">
+                <label htmlFor="Name">Name</label>
+                <input type="text" name="Name" value={this.state.name} onChange={this.handleNameChange}/>
+              </div>
+              <div className="sign">
+                <label htmlFor="UserName">User Name</label>
+                <input type="text" name="UserName" value={this.state.username} onChange={this.handleUserChange}/>
+              </div>
+              <div className="sign">
+                <label htmlFor="Email">Email</label>
+                <input type="email" name="Email" value={this.state.email} onChange={this.handleEmailChange}/>
+              </div>
+              <div className="sign">
+                <label htmlFor="Password">Password</label>
+                <input type="password" name="Password" value={this.state.password} onChange={this.handlePassChange}/>
+              </div>
+              <div className="sign">
+                <label htmlFor="Password">Retype-Password</label>
+                <input type="password" name="Password" value={this.state.re_password}
+                       onChange={this.handleRePassChange}/>
+              </div>
+              <div className="btn">
+                <input type="submit" value="Sign Up"/>
+              </div>
+              <div className="login">
+                <a onClick={this.handleClick.bind(this)}>
+                  Have An Account? click here
+                </a>
+              </div>
+            </Form>
+          </div>
+          <div className="right">
+            <Show>
+              <div className={this.state.condition ? "show" : "dontshow"}>
+                <LogForm onSubmit={this.handleSubmit}>
+                  <h4>Log In</h4>
+                  {this.state.error && <h5 onClick={this.dismissError}>
+                    {this.state.error}
+                  </h5>}
+                  <label>User Name</label>
+                  <input type="text" value={this.state.username} onChange={this.handleUserChange}/>
 
-                <label>Password</label>
-                <input type="password" value={this.state.password} onChange={this.handlePassChange}/>
-                <div className="logbtn">
-                  <input type="submit" value="Log In"/>
-                </div>
-              </LogForm>
-            </div>
-          </Show>
-        </div>
-      </FormGrid>
-
-      <Footer/>
-    </Fragment>;
+                  <label>Password</label>
+                  <input type="password" value={this.state.password} onChange={this.handlePassChange}/>
+                  <div className="logbtn">
+                    <input type="submit" value="Log In"/>
+                  </div>
+                </LogForm>
+              </div>
+            </Show>
+          </div>
+        </FormGrid>
+        <Footer/>
+      </Fragment>
+    );
   }
 }

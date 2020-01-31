@@ -3,137 +3,125 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import ListItems from './ListItems';
+import HouseCard from './HouseCard';
 import Loader from '../../../assets/loader.gif';
 import axios from 'axios';
 
 const List = styled.div`
-  padding:50px 0;
-  .listgroup{
-    width:90%;
+  padding: 50px 0;
+  .listgroup {
+    width: 90%;
     margin: 0px auto;
   }
-  
-  .listLeft{
-    text-align:center;
-    @media (min-width: 1024px){
+  .listLeft {
+    text-align: center;
+    @media (min-width: 1024px) {
       height: 515px;
     }
   }
-  
-  input{
+  input {
     width: 239px;
     height: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
-    padding:10px;
-    @media (min-width:425px){
+    padding: 10px;
+    @media (min-width: 425px) {
       width: 315px;
     }
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
       width: 425px;
     }
-    @media (min-width: 1024px){
+    @media (min-width: 1024px) {
       width: 280px;
     }
   }
-
-  select{
+  select {
     border-radius: 0.4em;
     width: 239px;
     height: 30px;
     border: 0;
     margin-top: 20px;
     margin-bottom: 20px;
-    @media (min-width:425px){
+    @media (min-width: 425px) {
       width: 315px;
     }
-    @media (min-width: 768px){
-    width: 425px;
+    @media (min-width: 768px) {
+      width: 425px;
     }
-    @media (min-width: 1024px){
+    @media (min-width: 1024px) {
       width: 280px;
     }
   }
-  
-  .propt_btn{
+  .propt_btn {
     height: 45px;
     width: 192px;
     border: 0;
     border-radius: 0.5em;
     font-size: larger;
-    padding: -23px; 
+    padding: -23px;
     background-color: #031249;
     color: #b7c2f1;
   }
-  
-  .buy_btn{
+  .buy_btn {
     height: 45px;
     width: 75%;
     border: 0;
-    border-radius: 1.0em;
+    border-radius: 1em;
     font-size: large;
     background-color: #ff3b00;
     color: #000000;
   }
-
-  @media (min-width: 1024px){
-    .listgroup{
-      display:grid;
-      grid-template-columns:1fr 3fr;
+  @media (min-width: 1024px) {
+    .listgroup {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
       grid-gap: 20px;
     }
-    
-    .listLeft{
-      height:auto;
-      width:300px;
-      padding:15px 0;
+    .listLeft {
+      height: auto;
+      width: 300px;
+      padding: 15px 0;
       background-color: #b7c2f1;
       border-radius: 0.4em;
       border-bottom-left-radius: 0.4em;
-      @media (min-width: 1024px){
-        height:515px;
+      @media (min-width: 1024px) {
+        height: 515px;
       }
     }
-    
-    .listRight{
-      height:auto;
+    .listRight {
+      height: auto;
     }
   }
 `;
 
 const ListRight = styled.div`
-  @media (min-width: 768px){  
-    .loader-img{
-        width: 345px;
-        margin: 0px auto;
+  @media (min-width: 768px) {
+    .loader-img {
+      width: 345px;
+      margin: 0px auto;
     }
   }
-  
-  .right{
-    @media (min-width: 768px){
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      
+  .right {
+    @media (min-width: 768px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
-    @media (min-width: 1440px){
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr;
+    @media (min-width: 1440px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
-  
   .Image {
     width: 100%;
     margin: 0px auto;
-    }
   }
 `;
 
 const Info = styled.div`
-  @media (min-width: 375px){
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    text-align:center;
+  @media (min-width: 375px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
   }
 `;
 
@@ -358,7 +346,7 @@ class Listing extends Component {
                 {filteredHouses.map(house => (
                   <div key={house.address}>
                     <Link to={`/house/${house.address}`}>
-                      <ListItems image={`http://localhost:8080/public/images/${house.address}.jpg`}>
+                      <HouseCard image={`http://localhost:8080/public/images/${house.address}.jpg`}>
                         <h2>Price: {house.price} $</h2>
                         <Info>
                           <h4>Location: {house.location}</h4>
@@ -374,7 +362,7 @@ class Listing extends Component {
                           <h6>Area: {house.area} square meters</h6>
                           <h6>Status: {house.status ? 'In Active' : 'Not Active'}</h6>
                         </Info>
-                      </ListItems>
+                      </HouseCard>
                     </Link>
                   </div>
                 ))}

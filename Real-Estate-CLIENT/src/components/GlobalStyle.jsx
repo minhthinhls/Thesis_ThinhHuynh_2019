@@ -3,20 +3,17 @@ import {createGlobalStyle} from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
-    padding:0
+    padding: 0;
   }
-  
-  body{
+  body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
   }
-  
   a {
     text-decoration: none;
   }
-  
-  li{
+  li {
     list-style: none;
   }
 `;

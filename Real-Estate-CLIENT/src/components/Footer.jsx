@@ -6,7 +6,6 @@ const Foot = styled.footer`
   p {
     text-align: center;
   }
-  
   .footergrid {
     background-color: #00000cfa;
     height: 100%;
@@ -20,13 +19,13 @@ const Foot = styled.footer`
       margin: 0px;
     }
     @media (min-width: 768px) {
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      padding:20px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 20px;
     }
     @media (min-width: 1024px) {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 `;
