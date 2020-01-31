@@ -14,11 +14,11 @@ const Routes = () => (
       <GlobalStyle/>
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/Listings" component={Listing}/>
-        <Route exact path="/Sellpage" component={SellPage}/>
-        <Route exact path="/sign" component={SignUpPage}/>
+        <Route exact path="/listing" component={Listing}/>
+        <Route exact path="/selling" component={SellPage}/>
+        <Route exact path="/signing" component={SignUpPage}/>
         <Route exact path="/contact" component={Contact}/>
-        <Route path="/ListView/:id" component={ListView}/>
+        <Route path="/house/:id" component={ListView}/>
       </Switch>
     </Fragment>
   </Router>

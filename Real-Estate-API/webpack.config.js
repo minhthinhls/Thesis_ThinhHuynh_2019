@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-console.log(process.env.NODE_ENV);
-
 const entries = ['./server.js'];
 
 if (process.env.NODE_ENV === 'development') {
@@ -34,6 +32,24 @@ const config = {
         }
       },
       {
+        test: /\.(png|gif|jpe?g)$/,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpege: {
+                progressive: true,
+                quality: 80,
+              },
+              optipng: {
+                optimizationLevel: 7,
+              }
+            }
+          }
+        ]
+      },
+      {
         test: /\.html$/, // Loads the javascript into html template provided.
         use: [{loader: "html-loader"}] // Entry point is set below in HtmlWebPackPlugin in Plugins
       }
@@ -50,7 +66,10 @@ const config = {
     hot: true, // Hot module replacement without refreshing all contents.
     open: false, // Default browser: Google Chrome.
     proxy: { // A request to </api/users> will proxy to <http://localhost:8080/api/users>.
-      '/api': 'http://localhost:8080'
+      '^/api/*': {
+        target: 'http://localhost:8080/api/',
+        secure: false
+      }
     }
   },
   plugins: [

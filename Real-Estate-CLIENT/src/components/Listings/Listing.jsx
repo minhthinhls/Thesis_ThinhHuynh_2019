@@ -357,7 +357,7 @@ class Listing extends Component {
               <div className="right">
                 {filteredHouses.map(house => (
                   <div key={house.address}>
-                    <Link to={`/Listview/${house.address}`}>
+                    <Link to={`/house/${house.address}`}>
                       <ListItems image={`http://localhost:8080/public/images/${house.address}.jpg`}>
                         <h2>Price: {house.price} $</h2>
                         <Info>

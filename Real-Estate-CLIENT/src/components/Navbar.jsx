@@ -123,19 +123,19 @@ class Navbar extends Component {
           </div>
           <div className={this.state.condition ? "navlinks" : "rm-navlinks"}>
             <Link to="/">Home</Link>
-            <Link to="/Listings">Listings</Link>
-            <Link to="/Sellpage">Sell</Link>
+            <Link to="/listing">Listing</Link>
+            <Link to="/selling">Selling</Link>
             <Link to="/contact">Contact Us</Link>
-            <Link to="/sign">Sign in</Link>
+            <Link to="/signing">Sign In</Link>
           </div>
         </div>
         <Navgroup>
           <Link to="/"><img src={Logo} className='logo2' alt="logo"/></Link>
-          <Link to="/Listings">Listings</Link>
-          <Link to="/Sellpage">Sell</Link>
+          <Link to="/listing">Listing</Link>
+          <Link to="/selling">Selling</Link>
           <Link to="/contact">Contact Us</Link>
-          <Link to="/sign">
-            <button>Sign in</button>
+          <Link to="/signing">
+            <button>Sign In</button>
           </Link>
         </Navgroup>
       </Nav>

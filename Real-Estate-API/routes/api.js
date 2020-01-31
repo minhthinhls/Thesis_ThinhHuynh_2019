@@ -1,37 +1,18 @@
-const path = require('path');
 const express = require('express');
 const router = express.Router();
-const root = require('app-root-path').path;
-const uploader = require(path.resolve(root, 'src/js/uploader'));
+const uploader = require('../src/js/uploader');
 
 /* Application Programming Interfaces */
-router.post('/info/house', (req, res) => {
-    var name = req.body['fields']['Name'];
-    var email = req.body['fields']['Email'];
-    var phone = req.body['fields']['Phone'];
-    var address = req.body['fields']['Address'];
-    var area = req.body['fields']['Area'];
-    var type = req.body['fields']['Type'];
-    var bedrooms = req.body['fields']['Bedrooms'];
-    var bathrooms = req.body['fields']['Bathrooms'];
-    var dateListed = req.body['fields']['DateListed'];
-    var price = req.body['fields']['Price'];
-    var summary = req.body['fields']['Summary'];
-    var images = req.body['fields']['Images'];
-    console.log(req.body);
-    res.end();
-});
-
 router.get('/contract/house', (req, res) => {
-    res.json(require(path.resolve(root, 'build/contracts/House.json')));
+    res.json(require('../build/contracts/House.json'));
 });
 
 router.get('/contract/houseAdmin', (req, res) => {
-    res.json(require(path.resolve(root, 'build/contracts/HouseAdmin.json')));
+    res.json(require('../build/contracts/HouseAdmin.json'));
 });
 
 router.get('/address/houseAdmin', (req, res) => {
-    res.json(require(path.resolve(root, 'address.json'))['HouseAdmin']);
+    res.json(require('../address.json')['HouseAdmin']);
 });
 
 router.post('/upload', (req, res) => {

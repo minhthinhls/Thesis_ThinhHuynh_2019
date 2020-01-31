@@ -243,7 +243,6 @@ class ListView extends Component {
 
   render() {
     const {house, ready} = this.state;
-    console.log(house.owner);
     return (
       <Fragment>
         <Navbar/>
@@ -279,7 +278,7 @@ class ListView extends Component {
                       </div>
                     }
                     <div className="btn">
-                      <Link to="/Listings">
+                      <Link to="/listing">
                         <input type="button" value="Return"/>
                       </Link>
                     </div>
