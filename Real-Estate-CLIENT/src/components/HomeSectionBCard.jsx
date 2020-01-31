@@ -12,13 +12,15 @@ const Cards = styled.div`
   }
 `;
 
-const HomeSectionBCard = ({children, image}) => (
-  <Cards>
-    <img src={image} alt="sectionA cards"/>
-    <div>
-      {children}
-    </div>
-  </Cards>
-);
+const HomeSectionBCard = ({children, image}) => {
+  return (
+    <Cards>
+      <img src={image} alt="sectionA cards"/>
+      <div>
+        {children}
+      </div>
+    </Cards>
+  )
+};
 
 export default HomeSectionBCard;

@@ -1,8 +1,6 @@
 require('dotenv').config();
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-console.log(process.env.NODE_ENV);
-
 const entries = ['./src/index.js'];
 
 if (process.env.NODE_ENV === 'development') {
@@ -55,7 +53,10 @@ const config = {
     hot: true, // Hot module replacement without refreshing all contents.
     open: true, // Default browser: Google Chrome.
     proxy: { // A request to </api/users> will proxy to <http://localhost:8080/api/users>.
-      '/api': 'http://localhost:8080'
+      '^/api/*': {
+        target: 'http://localhost:8080/api/',
+        secure: false
+      }
     }
   },
   plugins: [

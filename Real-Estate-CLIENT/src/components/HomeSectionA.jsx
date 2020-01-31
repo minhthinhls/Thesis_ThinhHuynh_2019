@@ -33,16 +33,16 @@ const HomeSectionA = () => (
       <HomeCards image={require('../../assets/buy.png')}>
         <h3>Buying or Selling Made Simple</h3>
         <p>
-          Find every home on the market,get your
-          home's value value,book showings and even make
-          offers all here on our website
+          Find every home on the market, get your
+          home's value value, book showings and even make
+          offers all here on our website.
         </p>
       </HomeCards>
 
       <HomeCards image={require('../../assets/track.png')}>
         <h3>Track the Entire Process Online</h3>
         <p>
-          stay in loop with weekly updates and 24/7 access to timeline of
+          Stay in loop with weekly updates and 24/7 access to timeline of
           all the details of your transaction and your moves
         </p>
       </HomeCards>
@@ -50,14 +50,14 @@ const HomeSectionA = () => (
       <HomeCards image={require('../../assets/moving.png')}>
         <h3>Your Very own Moving Concierge</h3>
         <p>
-          Buy, sell or Reny with us and get a moving concierge
-          to coordinate everything from changing over your utilities
-          , finding movers.
+          Buy, Sell or Rent with us and get a moving concierge
+          to coordinate everything from changing over your utilities,
+          finding movers.
         </p>
       </HomeCards>
 
       <HomeCards image={require('../../assets/recommend.png')}>
-        <h3>Highly Recomended</h3>
+        <h3>Highly Recommended</h3>
         <p>
           Usage of the Internet is becoming more common due
           to rapid advancement of technology and power.
