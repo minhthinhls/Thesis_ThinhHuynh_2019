@@ -7,47 +7,41 @@ import {Link} from 'react-router-dom';
 import Loader from '../../../assets/loader.gif';
 
 const Liststyle = styled.div`
-  width:90%;
-  padding-top:120px;
-  margin:0px auto;
-  
-  img{
-    width:100%;
+  width: 90%;
+  padding-top: 120px;
+  margin: 0px auto;
+  img {
+    width: 100%;
   }
-  
-  .viewright{
-    text-align:justified;
-    h5{
-      background-color:#b7c2f1;
-      padding:20px;
+  .viewright {
+    text-align: justified;
+    h5 {
+      background-color: #b7c2f1;
+      padding: 20px;
     }
   }
-  
-  .btn{
-    text-align:center;
+  .btn {
+    text-align: center;
   }
-  
-  .buy_btn{
+  .buy_btn {
     height: 45px;
     width: 192px;
     border: 0;
-    border-radius: 1.0em;
+    border-radius: 1em;
     font-size: large;
     background-color: #ff3b00;
     color: #000000;
   }
-  
   input[type="button"] {
     height: 45px;
     width: 192px;
     border: 0;
-    border-radius: 1.0em;
+    border-radius: 1em;
     font-size: larger;
     padding: -23px;
     background-color: #031249;
     color: #b7c2f1;
   }
-  
   .Image {
     width: 25%;
     margin: 0px auto;
@@ -57,16 +51,16 @@ const Liststyle = styled.div`
 `;
 
 const Info = styled.div`
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   justify-items: center;
 `;
 
 const Listgroup = styled.div`
-  @media (min-width: 1024px){
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    grid-gap:10px;
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
   }
 `;
 

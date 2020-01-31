@@ -5,105 +5,94 @@ import Navbar from '../Navbar';
 import Footer from '../Footer';
 
 const SellpageStyle = styled.div`
-  width:90%;
-  margin:0px auto;
-  padding-top:60px;
-  .sellhead{
-    text-align:center;
+  width: 90%;
+  margin: 0px auto;
+  padding-top: 60px;
+  .sellhead {
+    text-align: center;
     background-color: #293064;
     color: #b7c2f1;
-    border-radius: .5em;
-    h3, h4{
-      padding:5px;
+    border-radius: 0.5em;
+    h3, h4 {
+      padding: 5px;
     }
   }
 `;
 
 const SellGroup = styled.div`
-  @media(min-width:1024px){
+  @media (min-width: 1024px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
   }
-  
-  .sellLeft{
-    text-align:center;
-    img{
-      width:100%;
+  .sellLeft {
+    text-align: center;
+    img {
+      width: 100%;
       border-radius: 1em;
     }
   }
-  
-  .sellRight{
-    display:block;
+  .sellRight {
+    display: block;
     background-color: #126894;
-    text-align:center;
-    border-radius:0.5em;
-    @media(min-width:1440px){
-      height:fit-content;
-      margin:auto 0px;
+    text-align: center;
+    border-radius: 0.5em;
+    @media (min-width: 1440px) {
+      height: fit-content;
+      margin: auto 0px;
     }
     form {
       padding: 10px;
-      @media(min-width:768px){
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        height:fit-content;
+      @media (min-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: fit-content;
         align-items: center;
       }
     }
-    
-    .formInput{
-      margin:10px 0;
-      display:block;
+    .formInput {
+      margin: 10px 0;
+      display: block;
     }
-    
     input {
       width: 90%;
       height: 35px;
       border-radius: 0.1em;
     }
-    
-    select{
-      width:80%;
+    select {
+      width: 80%;
     }
-    
-    .info{
-      display:block;
-      .Area{
-        width:80%;
+    .info {
+      display: block;
+      .Area {
+        width: 80%;
       }
-      @media(min-width:768px){
-        display:grid;
-        grid-template-columns:1fr 1fr;
+      @media (min-width: 768px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
       }
     }
-    
-    .item{
-      margin:10px 0;
+    .item {
+      margin: 10px 0;
     }
-    
-    textarea{
-      width:90%;
+    textarea {
+      width: 90%;
     }
-    
-    .btn{
-      text-align:center;
+    .btn {
+      text-align: center;
     }
-    
-    button{
+    button {
       height: 45px;
       width: 192px;
       border: 0;
       border-radius: 0.5em;
       font-size: larger;
-      padding: -23px; 
+      padding: -23px;
       background-color: #031249;
       color: #b7c2f1;
     }
-    
-    label{
-      display:block;
+    label {
+      display: block;
     }
   }
 `;

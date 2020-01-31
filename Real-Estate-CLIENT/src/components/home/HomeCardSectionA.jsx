@@ -7,20 +7,18 @@ const Cards = styled.div`
   margin: 15px auto;
   text-align: center;
   padding: 10px;
-  &:hover{
+  &:hover {
     background-color: #031249;
     box-shadow: -11px 10px 20px #141448;
-    color:white;
-    transition:.5s;
+    color: white;
+    transition: 0.5s;
   }
-  
-  img{
-    width:60px;
-    height:50px;
+  img {
+    width: 60px;
+    height: 50px;
   }
-  
-  @media(min-width:1440px){
-    height:240px;
+  @media (min-width: 1440px) {
+    height: 240px;
   }
 `;
 

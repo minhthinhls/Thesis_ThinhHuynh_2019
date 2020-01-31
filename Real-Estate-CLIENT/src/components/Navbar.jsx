@@ -5,27 +5,23 @@ import styled from 'styled-components';
 import Navlogo from '../../assets/iconfinder_menu-alt_134216.png';
 
 const Nav = styled.div`
-  
-  a img{
+  a img {
     width: 200px;
     height: 30px;
     float: left;
     padding: 5px;
   }
-  
-  img{
-    height:40px;
+  img {
+    height: 40px;
     float: right;
     padding: 6px;
   }
-  
-  .collapse::after{
-    content:'';
-    clear:both;
-    display:table;
+  .collapse::after {
+    content: "";
+    clear: both;
+    display: table;
   }
-  
-  .navlinks a{
+  .navlinks a {
     text-decoration: none;
     display: block;
     text-align: center;
@@ -33,54 +29,48 @@ const Nav = styled.div`
     padding: 5px;
     background-color: #b7c2f1;
     color: #293064;
-    animation: fadeInLeft .6s both;
-    &:nth-child(even){
+    animation: fadeInLeft 0.6s both;
+    &:nth-child(even) {
       background: #293064;
       color: #b7c2f1;
     }
   }
-  
-  .rm-navlinks{
-    display:none;
+  .rm-navlinks {
+    display: none;
   }
-
-  @media (min-width:768px){
-    .nav_respond{
-      display:none;
+  @media (min-width: 768px) {
+    .nav_respond {
+      display: none;
     }
   }
-  
   @keyframes fadeInLeft {
     from {
-        opacity: 0;
-        transform: translate3d(-100%, 0, 0);
+      opacity: 0;
+      transform: translate3d(-100%, 0, 0);
     }
     to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
     }
   }
 `;
 
 const Navgroup = styled.nav`
-  display:none
-
-  @media (min-width:768px){
+  display: none;
+  @media (min-width: 768px) {
     padding: 20px 0;
     text-align: center;
     display: grid;
     grid-template-columns: repeat(5, auto);
     align-items: center;
     justify-items: center;
-    width:100%;
+    width: 100%;
   }
-
   a {
     font-weight: bolder;
     font-size: 18px;
     color: #293064;
   }
-
   a button {
     height: 35px;
     width: 116px;
@@ -90,9 +80,8 @@ const Navgroup = styled.nav`
     border-radius: 0.5em;
     font-size: inherit;
   }
-  
-  .logo2{
-    height:40px;
+  .logo2 {
+    height: 40px;
   }
 `;
 

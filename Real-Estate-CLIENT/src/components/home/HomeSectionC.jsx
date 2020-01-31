@@ -2,46 +2,44 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SectionC = styled.div`
-  padding:120px 0;
-  @media(min-width:768px){
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    img{
-      height:100%;
+  padding: 120px 0;
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    img {
+      height: 100%;
     }
   }
-  
-  .left{
+  .left {
     background-color: #00000cfa;
-    padding:10px;
-    h4{
+    padding: 10px;
+    h4 {
       color: #126894;
-      margin:0px;
+      margin: 0px;
       font-size: 25px;
     }
-    .about{
-      @media(min-width:768px){
+    .about {
+      @media (min-width: 768px) {
         padding: 20px;
         width: 360px;
-       margin:auto;
+        margin: auto;
       }
-      @media(min-width:1440px){
-       margin:auto;
+      @media (min-width: 1440px) {
+        margin: auto;
       }
     }
   }
-  
-  p{
-    color:#b7c2f1;
+  p {
+    color: #b7c2f1;
   }
-  .right{
-    img{
-      width:100%;
+  .right {
+    img {
+      width: 100%;
     }
   }
-  @media(min-width:768px){
-    display:grid;
-    grid-template-columns:repeat(2,auto);
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
   }
 `;
 
@@ -80,7 +78,7 @@ const HomeSectionC = () => (
 
     </div>
     <div className="right">
-      <img src={require('../../assets/about-img.jpg')} alt="about image"/>
+      <img src={require('../../../assets/about-img.jpg')} alt="about image"/>
     </div>
 
   </SectionC>

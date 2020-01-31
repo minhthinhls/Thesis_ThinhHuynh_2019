@@ -17,30 +17,29 @@ const SectionD = styled.div`
 `;
 
 const SectionDgroup = styled.div`
-  @media(min-width:768px){
-    display:grid;
-    grid-template-columns:repeat(2,auto);
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
   }
-  @media(min-width:1440px){
-    display:grid;
-    grid-template-columns:repeat(4,auto);
+  @media (min-width: 1440px) {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
   }
 `;
 
 const Form = styled.div`
-  padding-top:35px;
+  padding-top: 35px;
   form {
     display: grid;
     grid-gap: 20px;
-
     .input {
       width: 85%;
       margin: 0px auto;
       height: 35px;
       padding: 10px;
-      @media(min-width:768px){
-        width:500px;
-        margin-top:20px;
+      @media (min-width: 768px) {
+        width: 500px;
+        margin-top: 20px;
       }
     }
     .text {

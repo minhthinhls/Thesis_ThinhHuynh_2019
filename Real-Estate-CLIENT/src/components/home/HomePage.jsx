@@ -4,9 +4,9 @@ import HomeSectionA from './HomeSectionA';
 import HomeSectionB from './HomeSectionB';
 import HomeSectionC from './HomeSectionC';
 import HomeSectionD from './HomeSectionD';
-import Footer from './Footer';
+import Footer from '../Footer';
 
-class Home extends Component {
+class HomePage extends Component {
   render() {
     return (
       <div>
@@ -21,4 +21,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default HomePage;
