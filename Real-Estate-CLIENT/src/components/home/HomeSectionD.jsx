@@ -16,7 +16,7 @@ const SectionD = styled.div`
   }
 `;
 
-const SectionDgroup = styled.div`
+const SectionGroupD = styled.div`
   @media (min-width: 768px) {
     display: grid;
     grid-template-columns: repeat(2, auto);
@@ -60,7 +60,7 @@ const Form = styled.div`
 
 const HomeSectionD = () => (
   <SectionD>
-    <SectionDgroup>
+    <SectionGroupD>
       <div className="info">
         <h4>Visit Our Office</h4>
         <h6>
@@ -91,12 +91,12 @@ const HomeSectionD = () => (
           <p>emergencySupport@EtherRealEstate.com </p>
         </h6>
       </div>
-    </SectionDgroup>
+    </SectionGroupD>
     <Form>
       <form>
-        <input className="input" type="text" name="fname" placeholder="Enter your name"/>
+        <input className="input" type="text" name="name" placeholder="Enter your name"/>
         <input className="input" name="email" placeholder="Enter email address" type="email" required/>
-        <textarea className="input text" name="message" placeholder="Messege" required/>
+        <textarea className="input text" name="message" placeholder="Message" required/>
         <button>Send Message</button>
       </form>
     </Form>

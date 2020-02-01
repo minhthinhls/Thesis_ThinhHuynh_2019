@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import styled from 'styled-components';
-import Navbar from '../Navbar';
+import Navbar from '../NavBar';
 import Footer from '../Footer';
 import back from '../../../assets/pexels-photo-534233.jpeg'
 
@@ -48,7 +48,7 @@ const Form = styled.form`
 `;
 
 const Show = styled.div`
-  .dontshow {
+  .doNotShow {
     display: none;
   }
 `;
@@ -79,10 +79,10 @@ const LogForm = styled.form`
     height: 40px;
     margin-bottom: 20px;
   }
-  .logbtn {
+  .logBtn {
     margin: 20px 0;
   }
-  .logbtn input {
+  .logBtn input {
     height: 45px;
     width: 192px;
     border: 0;
@@ -252,7 +252,7 @@ export default class SignUpPage extends Component {
           </div>
           <div className="right">
             <Show>
-              <div className={this.state.condition ? "show" : "dontshow"}>
+              <div className={this.state.condition ? "show" : "doNotShow"}>
                 <LogForm onSubmit={this.handleSubmit}>
                   <h4>Log In</h4>
                   {this.state.error && <h5 onClick={this.dismissError}>
@@ -263,7 +263,7 @@ export default class SignUpPage extends Component {
 
                   <label>Password</label>
                   <input type="password" value={this.state.password} onChange={this.handlePassChange}/>
-                  <div className="logbtn">
+                  <div className="logBtn">
                     <input type="submit" value="Log In"/>
                   </div>
                 </LogForm>

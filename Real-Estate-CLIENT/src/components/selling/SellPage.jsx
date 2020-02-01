@@ -1,14 +1,14 @@
 import React, {Component, Fragment} from 'react'
 import styled from 'styled-components';
 import axios from 'axios';
-import Navbar from '../Navbar';
+import Navbar from '../NavBar';
 import Footer from '../Footer';
 
-const SellpageStyle = styled.div`
+const SellPageStyle = styled.div`
   width: 90%;
   margin: 0px auto;
   padding-top: 60px;
-  .sellhead {
+  .sellHead {
     text-align: center;
     background-color: #293064;
     color: #b7c2f1;
@@ -75,7 +75,7 @@ const SellGroup = styled.div`
     .item {
       margin: 10px 0;
     }
-    textarea {
+    textArea {
       width: 90%;
     }
     .btn {
@@ -97,7 +97,7 @@ const SellGroup = styled.div`
   }
 `;
 
-class Sellpage extends Component {
+class SellPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -273,14 +273,14 @@ class Sellpage extends Component {
     return (
       <Fragment>
         <Navbar/>
-        <SellpageStyle>
-          <div className="sellhead">
+        <SellPageStyle>
+          <div className="sellHead">
             <h3>Want to sell your home?</h3>
             <h4>Lets take that burden off you, just fill the form below and we will contact you</h4>
           </div>
           <SellGroup>
             <div className="sellLeft">
-              <img src={require('../../../assets/pexels-photo-955793.jpeg')} alt="sellpage"/>
+              <img src={require('../../../assets/pexels-photo-955793.jpeg')} alt="sellPage"/>
             </div>
             <div className="sellRight">
               <form onSubmit={this.sellingHouse.bind(this)}>
@@ -358,7 +358,7 @@ class Sellpage extends Component {
 
                 <div className="formInput">
                   <label htmlFor="Summary">Summary:</label>
-                  <textarea name="Summary" cols="30" rows="10" onChange={this.inputSummary.bind(this)}/>
+                  <textArea name="Summary" cols="30" rows="10" onChange={this.inputSummary.bind(this)}/>
                 </div>
 
                 <div className="formInput">
@@ -372,11 +372,11 @@ class Sellpage extends Component {
               </form>
             </div>
           </SellGroup>
-        </SellpageStyle>
+        </SellPageStyle>
         <Footer/>
       </Fragment>
     )
   }
 }
 
-export default Sellpage;
+export default SellPage;

@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2129e231-2154-49fa-a06b-035a082a30b2" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Real-Estate-API.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Minh_Thinh.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/address.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/contracts/Authentication.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/contracts/ERC20.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/contracts/House.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/contracts/HouseAdmin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/contracts/Migrations.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/contracts/SafeMath.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.idea/Real-Estate-CLIENT.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.idea/dictionaries/Minh_Thinh.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/0e6fed1c0e836f982f30b77b7d84f893.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/4432fb37e848d05f8adc639b4375d6af.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/6014380ebeaeb95aa7d6f579999fe8f9.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/618ca58292dc1ec9bdfa1532156eff8c.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/68eb0988ab757c1d0e3a56b9d0355cbe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/8ae45420ace67a174310c3c45fdd89e6.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/95547d12fd984cae704bf83d94936397.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/a13dceb047949b2166aa5862b24f0f0f.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/bb21890a52629b7cfe89d7b932bb56f6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/bba95743a745904ce369d35e5e49d8e8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/bea9dc20f81c4928d21e8f907743ee3b.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/c7b052ebb04ea5089201d887bbf2e791.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/e5629459d271a8fabc6fd7d972609199.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/e833b76154c6a5f468c3c68d1f900158.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/ef315e28f0ed5b90853d396d4571386b.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/fc4171dae50d399a9c9b37f4c672c165.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/feaad760682472933d1e738601481475.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/contact/ContactPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/contact/ContactPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/home/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/home/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/home/HomeSectionD.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/home/HomeSectionD.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/listing/HouseDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/listing/HouseDetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/listing/ListHouse.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/listing/ListHouse.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/selling/SellPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/selling/SellPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/signing/SignUpPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-CLIENT/src/components/signing/SignUpPage.jsx" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Real-Estate-API" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="api.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/api.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="493">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".editorconfig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.editorconfig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Solidity Contract" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>,</find>
+      <find>:</find>
+      <find>this.state</find>
+      <find>Number(</find>
+      <find>;</find>
+      <find>address</find>
+      <find>0x</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>=</replace>
+      <replace>;</replace>
+      <replace>req.body</replace>
+      <replace>'];</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/../Ethereum-Backend_Express-REST-API/app.js" />
+        <option value="$PROJECT_DIR$/views/layout.pug" />
+        <option value="$PROJECT_DIR$/views/index.pug" />
+        <option value="$PROJECT_DIR$/views/error.pug" />
+        <option value="$PROJECT_DIR$/public/javascripts/deployer.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/compiler.js" />
+        <option value="$PROJECT_DIR$/src/js/compiler2.js" />
+        <option value="$PROJECT_DIR$/contracts/ERC20_Interface.sol" />
+        <option value="$PROJECT_DIR$/contracts/SafeMath.sol" />
+        <option value="$PROJECT_DIR$/.babelrc" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/bin/www" />
+        <option value="$PROJECT_DIR$/build/ERC20.json" />
+        <option value="$PROJECT_DIR$/src/js/imageUploader.js" />
+        <option value="$PROJECT_DIR$/routes/users.js" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/build/HouseAdmin.json" />
+        <option value="$PROJECT_DIR$/src/js/imageUpload.js" />
+        <option value="$PROJECT_DIR$/address.json" />
+        <option value="$PROJECT_DIR$/contracts/Authentication.sol" />
+        <option value="$PROJECT_DIR$/src/js/deployer.js" />
+        <option value="$PROJECT_DIR$/src/js/compiler.js" />
+        <option value="$PROJECT_DIR$/contracts/HouseAdmin.sol" />
+        <option value="$PROJECT_DIR$/contracts/House.sol" />
+        <option value="$PROJECT_DIR$/contracts/Migrations.sol" />
+        <option value="$PROJECT_DIR$/src/js/uploader.js" />
+        <option value="$PROJECT_DIR$/webpack.config.js" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/routes/api.js" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/.editorconfig" />
+        <option value="$PROJECT_DIR$/package.json" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="653" />
+    <option name="width" value="1268" />
+    <option name="height" value="1041" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Real-Estate-API" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Real-Estate-API" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Real-Estate-API" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Real-Estate-API" type="462c0819:PsiDirectoryNode" />
+              <item name="contracts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Real-Estate-API" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Real-Estate-API" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Real-Estate-API" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Real-Estate-API" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.14.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Node.js.deployer.js">
+    <configuration name="compiler.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="compiler.js" working-dir="$PROJECT_DIR$/src/js" />
+    <configuration name="deployer.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="deployer.js" working-dir="$PROJECT_DIR$/src/js" />
+    <configuration name="start" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+    </configuration>
+    <list>
+      <item itemvalue="npm.start" />
+      <item itemvalue="Node.js.compiler.js" />
+      <item itemvalue="Node.js.deployer.js" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.deployer.js" />
+        <item itemvalue="Node.js.compiler.js" />
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2129e231-2154-49fa-a06b-035a082a30b2" name="Default" comment="" />
+      <created>1573154782499</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573154782499</updated>
+      <workItem from="1573154784285" duration="581000" />
+      <workItem from="1573155395257" duration="14000" />
+      <workItem from="1573157068993" duration="18282000" />
+      <workItem from="1575362762465" duration="1197000" />
+      <workItem from="1575375000028" duration="44107000" />
+      <workItem from="1575903289515" duration="2380000" />
+      <workItem from="1575985725190" duration="14000" />
+      <workItem from="1575985817531" duration="621000" />
+      <workItem from="1575987576385" duration="96000" />
+      <workItem from="1575987683921" duration="27000" />
+      <workItem from="1575987718672" duration="1000" />
+      <workItem from="1575987727769" duration="5000" />
+      <workItem from="1575987768045" duration="31000" />
+      <workItem from="1575987819467" duration="11000" />
+      <workItem from="1575987908686" duration="12655000" />
+      <workItem from="1576210339633" duration="11000" />
+      <workItem from="1576240253086" duration="632000" />
+      <workItem from="1576773024786" duration="845000" />
+      <workItem from="1576823862070" duration="681000" />
+      <workItem from="1576841467940" duration="5192000" />
+      <workItem from="1577637498816" duration="37162000" />
+      <workItem from="1577810952770" duration="4834000" />
+      <workItem from="1577856029494" duration="37880000" />
+      <workItem from="1578212237820" duration="6761000" />
+      <workItem from="1578245954328" duration="9389000" />
+      <workItem from="1578384077292" duration="696000" />
+      <workItem from="1578387846474" duration="7374000" />
+      <workItem from="1578751020254" duration="3160000" />
+      <workItem from="1579445729753" duration="1987000" />
+      <workItem from="1579580098046" duration="5865000" />
+      <workItem from="1580446794097" duration="10096000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="212587000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="653" y="0" width="1268" height="1041" extended-state="1" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4988938" visible="true" weight="0.2675719" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32901832" />
+      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.32901832" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info id="Favorites" order="3" sideWeight="0.5011062" side_tool="true" weight="0.22229595" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.399137" />
+      <window_info anchor="bottom" id="TypeScript" order="0" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32901832" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="5" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/node_modules/web3/lib/web3.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/web3-core-method/dist/web3-core-method.cjs.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/web3-eth/types/index.d.ts" />
+    <entry file="file://$PROJECT_DIR$/build/bundle.js" />
+    <entry file="file://$PROJECT_DIR$/app.js" />
+    <entry file="file://$PROJECT_DIR$/src/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/build/ERC20.json" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/10.14.2/core-modules/path.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/uploads/IMAGE-1577794770031.jpg" />
+    <entry file="file://$PROJECT_DIR$/public/uploads/IMAGE-1577785116023.jpg" />
+    <entry file="file://$PROJECT_DIR$/public/uploads/IMAGE-1577796571694.jpg" />
+    <entry file="file://$PROJECT_DIR$/public/uploads/IMAGE-1577796671438.jpg" />
+    <entry file="file://$PROJECT_DIR$/public/uploads/IMAGE-1577797116337.jpg" />
+    <entry file="file://$PROJECT_DIR$/truffle-config.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/babel-cli/lib/_babel-node.js" />
+    <entry file="file://$PROJECT_DIR$/bin/www" />
+    <entry file="file://$PROJECT_DIR$/contracts/SafeMath.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/ERC20_Interface.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/layout.pug" />
+    <entry file="file://$PROJECT_DIR$/views/index.pug" />
+    <entry file="file://$PROJECT_DIR$/views/error.pug" />
+    <entry file="file://$PROJECT_DIR$/build/SafeMath.json" />
+    <entry file="file://$PROJECT_DIR$/build/Marketplace.json" />
+    <entry file="file://$PROJECT_DIR$/build/HouseAdmin.json" />
+    <entry file="file://$PROJECT_DIR$/build/House.json" />
+    <entry file="file://$PROJECT_DIR$/build/ERC20.json" />
+    <entry file="file://$PROJECT_DIR$/build/Authentication.json" />
+    <entry file="file://$PROJECT_DIR$/node_modules/truffle-contract/index.js" />
+    <entry file="file://$PROJECT_DIR$/build/contracts/House.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/contracts/HouseAdmin.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/Authentication.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/House.sol">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/Marketplace.sol" />
+    <entry file="file://$PROJECT_DIR$/contracts/Migrations.sol">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contracts/HouseAdmin.sol">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js" />
+    <entry file="file://$PROJECT_DIR$/routes/users.js" />
+    <entry file="file://$PROJECT_DIR$/src/js/uploader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/address.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.editorconfig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/compiler.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/deployer.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

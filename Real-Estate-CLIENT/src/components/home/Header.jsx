@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import HomeImage from '../../../assets/home.jpeg';
-import Navbar from '../Navbar';
+import Navbar from '../NavBar';
 
 const HeaderStyle = styled.header`
   background: url(${HomeImage}) no-repeat center center/cover;
