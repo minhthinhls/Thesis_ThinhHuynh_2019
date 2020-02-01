@@ -9,7 +9,7 @@ if (typeof web3 !== 'undefined') {
   window.web3 = new Web3(web3.currentProvider);
 } else {
   // Specify default instance if no web3 instance provided
-  window.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+  window.web3 = new Web3(new Web3.providers.HttpProvider(process.env.HTTP_PROVIDER));
 }
 
 web3.eth.defaultAccount = web3.eth.accounts[0]; // Set first accounts as default one !

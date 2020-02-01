@@ -75,7 +75,7 @@ const SellGroup = styled.div`
     .item {
       margin: 10px 0;
     }
-    textArea {
+    textarea {
       width: 90%;
     }
     .btn {
@@ -358,7 +358,7 @@ class SellPage extends Component {
 
                 <div className="formInput">
                   <label htmlFor="Summary">Summary:</label>
-                  <textArea name="Summary" cols="30" rows="10" onChange={this.inputSummary.bind(this)}/>
+                  <textarea name="Summary" cols="30" rows="10" onChange={this.inputSummary.bind(this)}/>
                 </div>
 
                 <div className="formInput">
