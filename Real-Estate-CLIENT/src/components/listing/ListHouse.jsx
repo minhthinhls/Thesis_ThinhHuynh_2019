@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import Navbar from '../Navbar';
+import Navbar from '../NavBar';
 import Footer from '../Footer';
 import HouseCard from './HouseCard';
 import Loader from '../../../assets/loader.gif';
@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const List = styled.div`
   padding: 50px 0;
-  .listgroup {
+  .listGroup {
     width: 90%;
     margin: 0px auto;
   }
@@ -72,7 +72,7 @@ const List = styled.div`
     color: #000000;
   }
   @media (min-width: 1024px) {
-    .listgroup {
+    .listGroup {
       display: grid;
       grid-template-columns: 1fr 3fr;
       grid-gap: 20px;
@@ -293,7 +293,7 @@ class Listing extends Component {
       <div>
         <Navbar/>
         <List>
-          <div className="listgroup">
+          <div className="listGroup">
             <div className="listLeft">
               <h3>Filter</h3>
               <form>

@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="59e83ae1-0da6-4d17-8a79-3d1da28e719c" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.idea/Real-Estate-API.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.idea/dictionaries/Minh_Thinh.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/address.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/build/contracts/Authentication.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/build/contracts/ERC20.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/build/contracts/House.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/build/contracts/HouseAdmin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/build/contracts/Migrations.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/build/contracts/SafeMath.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/dist/bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Real-Estate-API/dist/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Real-Estate-CLIENT.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Minh_Thinh.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/0e6fed1c0e836f982f30b77b7d84f893.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/4432fb37e848d05f8adc639b4375d6af.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/6014380ebeaeb95aa7d6f579999fe8f9.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/618ca58292dc1ec9bdfa1532156eff8c.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/68eb0988ab757c1d0e3a56b9d0355cbe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/8ae45420ace67a174310c3c45fdd89e6.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/95547d12fd984cae704bf83d94936397.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/a13dceb047949b2166aa5862b24f0f0f.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/bb21890a52629b7cfe89d7b932bb56f6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/bba95743a745904ce369d35e5e49d8e8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/bea9dc20f81c4928d21e8f907743ee3b.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/c7b052ebb04ea5089201d887bbf2e791.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/e5629459d271a8fabc6fd7d972609199.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/e833b76154c6a5f468c3c68d1f900158.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/ef315e28f0ed5b90853d396d4571386b.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/fc4171dae50d399a9c9b37f4c672c165.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/feaad760682472933d1e738601481475.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-API/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-API/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-API/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-API/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-API/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-API/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Real-Estate-API/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Real-Estate-API/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contact/ContactPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contact/ContactPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/HomeSectionD.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/HomeSectionD.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/listing/HouseDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/listing/HouseDetail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/listing/ListHouse.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/listing/ListHouse.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/selling/SellPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/selling/SellPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/signing/SignUpPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/signing/SignUpPage.jsx" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/docs/" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>PremiumPropts.com</find>
+      <find>this.compiledContract</find>
+      <find>Filte</find>
+      <find>Filter</find>
+      <find>listgroup</find>
+      <find>listGroup</find>
+      <find>viewleft</find>
+      <find>viewright</find>
+      <find>textarea</find>
+      <find>dontshow</find>
+      <find>logbtn</find>
+      <find>footergrid</find>
+      <find>navlinks</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>EtherRealEstate.com</replace>
+      <replace>compiledContract</replace>
+      <replace>listGroup</replace>
+      <replace>viewLeft</replace>
+      <replace>viewRight</replace>
+      <replace>textArea</replace>
+      <replace>dontShow</replace>
+      <replace>doNotShow</replace>
+      <replace>logBtn</replace>
+      <replace>footerGrid</replace>
+      <replace>navLinks</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/components/Signup_Login/SignupPage.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Listings/ListItems.jsx" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/.editorconfig" />
+        <option value="$PROJECT_DIR$/src/components/Index.jsx" />
+        <option value="$PROJECT_DIR$/src/components/MetamaskAccounts.jsx" />
+        <option value="$PROJECT_DIR$/src/components/contact/Contact.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Upload/ImageUpload.jsx" />
+        <option value="$PROJECT_DIR$/.babelrc" />
+        <option value="$PROJECT_DIR$/src/components/Home.jsx" />
+        <option value="$PROJECT_DIR$/src/components/MetaMaskAccounts.jsx" />
+        <option value="$PROJECT_DIR$/src/components/SellPage/Sellpage.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Listings/Listing.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Listings/ListView.jsx" />
+        <option value="$PROJECT_DIR$/src/components/listing/HouseCard.jsx" />
+        <option value="$PROJECT_DIR$/src/components/GlobalStyle.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Header.jsx" />
+        <option value="$PROJECT_DIR$/src/components/HomeCards.jsx" />
+        <option value="$PROJECT_DIR$/src/components/HomeSectionBCard.jsx" />
+        <option value="$PROJECT_DIR$/src/components/HomeSectionC.jsx" />
+        <option value="$PROJECT_DIR$/src/components/HomeSectionD.jsx" />
+        <option value="$PROJECT_DIR$/src/components/HomeSectionB.jsx" />
+        <option value="$PROJECT_DIR$/src/components/HomeSectionA.jsx" />
+        <option value="$PROJECT_DIR$/src/routes.jsx" />
+        <option value="$PROJECT_DIR$/src/components/HomePage.jsx" />
+        <option value="$PROJECT_DIR$/src/components/home/HomePage.jsx" />
+        <option value="$PROJECT_DIR$/src/components/home/HomeSectionA.jsx" />
+        <option value="$PROJECT_DIR$/src/components/home/HomeSectionB.jsx" />
+        <option value="$PROJECT_DIR$/src/components/home/HomeSectionC.jsx" />
+        <option value="$PROJECT_DIR$/src/index.html" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/webpack.config.js" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/src/components/home/HomeSectionD.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Footer.jsx" />
+        <option value="$PROJECT_DIR$/src/components/contact/ContactPage.jsx" />
+        <option value="$PROJECT_DIR$/src/components/home/Header.jsx" />
+        <option value="$PROJECT_DIR$/src/components/listing/HouseDetail.jsx" />
+        <option value="$PROJECT_DIR$/src/components/listing/ListHouse.jsx" />
+        <option value="$PROJECT_DIR$/src/components/selling/SellPage.jsx" />
+        <option value="$PROJECT_DIR$/src/components/signing/SignUpPage.jsx" />
+        <option value="$PROJECT_DIR$/src/components/Navbar.jsx" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="653" />
+    <option name="width" value="1268" />
+    <option name="height" value="1041" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Real-Estate-CLIENT" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Real-Estate-CLIENT" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Real-Estate-CLIENT" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Real-Estate-CLIENT" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Real-Estate-CLIENT" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Real-Estate-CLIENT" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/Work/Thesis_ThinhHuynh_2019/Real-Estate-CLIENT/src/index.js&#10;web3&#9;null&#9;null&#10;Web3&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.14.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Real-Estate-API" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="server.js" working-dir="$PROJECT_DIR$" />
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.server.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="59e83ae1-0da6-4d17-8a79-3d1da28e719c" name="Default" comment="" />
+      <created>1573383331220</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573383331220</updated>
+      <workItem from="1573383334261" duration="8816000" />
+      <workItem from="1573410100009" duration="4103000" />
+      <workItem from="1573443708354" duration="1336000" />
+      <workItem from="1575362125511" duration="40624000" />
+      <workItem from="1575903289268" duration="1433000" />
+      <workItem from="1575985743153" duration="1000" />
+      <workItem from="1575985798725" duration="648000" />
+      <workItem from="1575987553348" duration="161000" />
+      <workItem from="1575987841716" duration="27000" />
+      <workItem from="1575987894287" duration="2694000" />
+      <workItem from="1576210362800" duration="29000" />
+      <workItem from="1576240207707" duration="1214000" />
+      <workItem from="1576773028383" duration="610000" />
+      <workItem from="1576823861787" duration="598000" />
+      <workItem from="1576841467579" duration="2432000" />
+      <workItem from="1577637370133" duration="40444000" />
+      <workItem from="1577810903619" duration="77457000" />
+      <workItem from="1578177317345" duration="19000" />
+      <workItem from="1578212186407" duration="19508000" />
+      <workItem from="1578245380393" duration="40000" />
+      <workItem from="1578245916197" duration="33963000" />
+      <workItem from="1578384076802" duration="693000" />
+      <workItem from="1578387629787" duration="102000" />
+      <workItem from="1578387770684" duration="22076000" />
+      <workItem from="1578751018975" duration="5525000" />
+      <workItem from="1579445729579" duration="2974000" />
+      <workItem from="1579580097601" duration="4219000" />
+      <workItem from="1580446793792" duration="26563000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="298309000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="653" y="0" width="1268" height="1041" extended-state="1" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49946064" visible="true" weight="0.2675719" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32901832" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32901832" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32901832" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Structure" order="1" sideWeight="0.50053936" side_tool="true" weight="0.2675719" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.29989213" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TypeScript" order="7" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="21" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/node_modules/@truffle/contract/typings/index.d.ts" />
+    <entry file="file://$PROJECT_DIR$/node_modules/truffle-contract/index.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/web3/lib/web3.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/contact/Contact.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/truffle-contract/dist/truffle-contract.js" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/web-forms2.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.editorconfig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Upload/ImageUpload.jsx" />
+    <entry file="file://$PROJECT_DIR$/src/components/MetaMaskAccounts.jsx" />
+    <entry file="file://$PROJECT_DIR$/src/components/SellPage/Sellpage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="393" lean-forward="true" selection-start-line="393" selection-end-line="393" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Listings/ListView.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="297" lean-forward="true" selection-start-line="297" selection-end-line="297" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Listings/ListItems.jsx">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Signup_Login/SignupPage.jsx">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Listings/Listing.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomeSectionBCard.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomeSectionC.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomeSectionD.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomeCards.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Home.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomeCard.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomeSectionB.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomeSectionA.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Header.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomePage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/HomeCardSectionA.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/HomeCardSectionB.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/HomePage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/HomeSectionA.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/HomeSectionB.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/HomeSectionC.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/HomeSectionD.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/listing/HouseCard.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Footer.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/GlobalStyle.jsx">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/listing/HouseDetail.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/listing/ListHouse.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/selling/SellPage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/signing/SignUpPage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/Header.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/contact/ContactPage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/NavBar.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

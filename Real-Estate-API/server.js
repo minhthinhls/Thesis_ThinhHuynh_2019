@@ -1,3 +1,5 @@
+/* SERVER FILE TO RUN NODE ENVIRONMENT */
+require('dotenv').config(); // Read <.env> file into $<process.env> global variable.
 const path = require('path');
 const express = require('express');
 const bodyParser = require("body-parser");
@@ -17,7 +19,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.urlencoded({extended: false}));
 
 if (process.env.NODE_ENV === 'development') {
-  console.log("Environment: " + process.env.NODE_ENV);
   const webpack = require('webpack');
   const config = require('./webpack.config');
   const compiler = webpack(config);

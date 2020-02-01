@@ -1,4 +1,5 @@
-require('dotenv').config();
+/* SERVER FILE TO RUN NODE ENVIRONMENT */
+require('dotenv').config(); // Read <.env> file into $<process.env> global variable.
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
@@ -11,7 +12,7 @@ const app = express();
 /* Enable Hot Module Replacement */
 if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack');
-  const config = require('../webpack.config');
+  const config = require('./webpack.config');
   const compiler = webpack(config);
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -35,7 +36,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(helmet());
 
 // Using all file within folder ./dist, which was built using <$npm run build>
-app.use('/dist', express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.all('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

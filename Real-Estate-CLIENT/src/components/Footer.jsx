@@ -6,7 +6,7 @@ const Foot = styled.footer`
   p {
     text-align: center;
   }
-  .footergrid {
+  .footerGrid {
     background-color: #00000cfa;
     height: 100%;
     text-align: center;
@@ -33,7 +33,7 @@ const Year = new Date().getFullYear();
 
 const Footer = () => (
   <Foot>
-    <div className="footergrid">
+    <div className="footerGrid">
       <div className="footer-about">
         <h4>About Us</h4>
         <p>

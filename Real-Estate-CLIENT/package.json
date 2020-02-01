@@ -4,10 +4,9 @@
   "description": "Real-Estate Application with ReactJS, Webpack and Babel.",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/bundle.js",
+    "start": "node server.js",
     "dev": "webpack-dev-server --mode development --hot",
-    "build": "webpack",
-    "test": "node server.js"
+    "build": "webpack"
   },
   "author": "Thinh Huynh",
   "license": "ISC",

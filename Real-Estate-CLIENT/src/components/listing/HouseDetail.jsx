@@ -1,19 +1,19 @@
 import React, {Fragment, Component} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import Navbar from '../Navbar';
+import Navbar from '../NavBar';
 import Footer from '../Footer';
 import {Link} from 'react-router-dom';
 import Loader from '../../../assets/loader.gif';
 
-const Liststyle = styled.div`
+const ListStyle = styled.div`
   width: 90%;
   padding-top: 120px;
   margin: 0px auto;
   img {
     width: 100%;
   }
-  .viewright {
+  .viewRight {
     text-align: justified;
     h5 {
       background-color: #b7c2f1;
@@ -56,7 +56,7 @@ const Info = styled.div`
   justify-items: center;
 `;
 
-const Listgroup = styled.div`
+const ListGroup = styled.div`
   @media (min-width: 1024px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -240,15 +240,15 @@ class ListView extends Component {
     return (
       <Fragment>
         <Navbar/>
-        <Liststyle>
+        <ListStyle>
           {ready === 'loading' ? (<img src={Loader} className='Image' alt="loader"/>) : ''}
           {ready === 'loaded' && (
             <Fragment>
-              <Listgroup>
-                <div className="viewleft">
+              <ListGroup>
+                <div className="viewLeft">
                   <img src={`http://localhost:8080/public/images/${house.address}.jpg`} alt="listing items"/>
                 </div>
-                <div className="viewright">
+                <div className="viewRight">
                   <h2>Type: Apartment</h2>
                   <h4>Price: {house.price} $</h4>
                   <h5>Summary: House for renting</h5>
@@ -278,10 +278,10 @@ class ListView extends Component {
                     </div>
                   </Info>
                 </div>
-              </Listgroup>
+              </ListGroup>
             </Fragment>
           )}
-        </Liststyle>
+        </ListStyle>
         <Footer/>
       </Fragment>
     );
