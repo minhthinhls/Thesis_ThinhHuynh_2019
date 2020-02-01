@@ -8,7 +8,8 @@
     "build": "webpack",
     "nodemon": "nodemon server.js",
     "compile": "node ./src/js/compiler.js",
-    "deploy": "node ./src/js/deployer.js"
+    "deploy": "node ./src/js/deployer.js",
+    "truffle-deploy": "./node_modules/.bin/truffle migrate --reset --network ropsten"
   },
   "author": "Thinh Huynh",
   "license": "ISC",
@@ -23,6 +24,8 @@
     "html-webpack-plugin": "^3.2.0",
     "image-webpack-loader": "^4.6.0",
     "nodemon": "^2.0.2",
+    "truffle": "^5.1.11",
+    "truffle-hdwallet-provider": "^1.0.17",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",
     "webpack-node-externals": "^1.7.2"
@@ -39,6 +42,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "solc": "^0.5.12",
+    "truffle-contract": "^4.0.31",
     "web3": "^2.0.0-alpha",
     "webpack": "^4.27.1",
     "webpack-dev-middleware": "^3.4.0",

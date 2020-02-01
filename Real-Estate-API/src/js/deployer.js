@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const root = require('app-root-path').path;
 const createEmptyFolder = require('./compiler');
 
-const web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+const web3Provider = new Web3.providers.HttpProvider(process.env.HTTP_PROVIDER);
 const OPTIONS = {
     defaultBlock: "latest",
     transactionConfirmationBlocks: 1,
