@@ -16,5 +16,6 @@ contract ERC20 {
     function transferFrom(address from, address to, uint tokens) public returns (bool success);
 
     event Transfer(address indexed from, address indexed to, uint tokens);
+
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 }
