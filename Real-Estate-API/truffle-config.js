@@ -20,6 +20,8 @@
 
 require('dotenv').config();
 const HDWalletProvider = require('truffle-hdwallet-provider');
+const MNEMONIC = process.env.MNEMONIC;
+const INFURA_KEY = process.env.INFURA_KEY;
 
 module.exports = {
   /**
@@ -56,7 +58,7 @@ module.exports = {
     /* Useful for deploying to a public network.
     NB: It's important to wrap the provider as a function. */
     ropsten: {
-      provider: () => new HDWalletProvider(process.env.MNEMONIC, process.env.ROPSTEN),
+      provider: () => new HDWalletProvider(MNEMONIC, process.env.ROPSTEN + INFURA_KEY),
       network_id: 3,       // Ropsten's id
       gas: 5500000,        // Ropsten has a lower block limit than main network
       confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
@@ -74,7 +76,7 @@ module.exports = {
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
-    // timeout: 100000
+    timeout: 100000
   },
 
   // Configure your compilers

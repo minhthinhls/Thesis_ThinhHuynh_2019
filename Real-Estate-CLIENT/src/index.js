@@ -4,15 +4,18 @@ import Routes from './routes';
 
 const Web3 = require('web3');
 
-if (typeof web3 !== 'undefined') {
-  // If a web3 instance is already provided by Meta Mask.
-  window.web3 = new Web3(web3.currentProvider);
-} else {
-  // Specify default instance if no web3 instance provided
-  window.web3 = new Web3(new Web3.providers.HttpProvider(process.env.HTTP_PROVIDER));
+try {
+  if (typeof web3 !== 'undefined') {
+    // If a web3 instance is already provided by Meta Mask.
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    // Specify default instance if no web3 instance provided
+    window.web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_HTTP_PROVIDER));
+  }
+  web3.eth.defaultAccount = web3.eth.accounts[0]; // Set first accounts as default one !
+} catch (Exception) {
+  console.log(Exception);
 }
-
-web3.eth.defaultAccount = web3.eth.accounts[0]; // Set first accounts as default one !
 
 render(<Routes/>, document.getElementById('app'));
 
@@ -21,8 +24,7 @@ try {
     web3.eth.defaultAccount = accounts[0];
     render(<Routes/>, document.getElementById('app'));
   });
-
-  window.ethereum.on('networkChanged', function (netId) {
+  window.ethereum.on('networkChanged', function (networkId) {
     render(<Routes/>, document.getElementById('app'));
   });
 } catch (Exception) {

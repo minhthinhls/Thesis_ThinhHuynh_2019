@@ -9,7 +9,8 @@
     "nodemon": "nodemon server.js",
     "compile": "node ./src/js/compiler.js",
     "deploy": "node ./src/js/deployer.js",
-    "truffle-deploy": "./node_modules/.bin/truffle migrate --reset --network ropsten"
+    "truffle-test": "npx truffle test --network development",
+    "truffle-deploy": "npx truffle migrate --reset --network ropsten"
   },
   "author": "Thinh Huynh",
   "license": "ISC",

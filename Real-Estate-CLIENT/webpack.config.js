@@ -65,6 +65,10 @@ const config = {
       template: 'src/index.html',
       favicon: 'assets/favicon.ico',
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.WEB3_HTTP_PROVIDER': JSON.stringify(process.env.WEB3_HTTP_PROVIDER || 'http://localhost:7545')
+    }),
     new webpack.HotModuleReplacementPlugin()
   ]
 };
