@@ -52,7 +52,7 @@ const List = styled.div`
       width: 280px;
     }
   }
-  .propt_btn {
+  .prop_btn {
     height: 45px;
     width: 192px;
     border: 0;
@@ -307,7 +307,7 @@ class Listing extends Component {
                     <option value="3">Urban Townhouse</option>
                     <option value="3">Downtown Condo</option>
                     <option value="3">Modern Beach House</option>
-                    <option value="3"> Luxury Hamptons Home</option>
+                    <option value="3"> Luxury Hampton Home</option>
                     <option value="3"> Detached Duplex</option>
                     <option value="3"> Semi-Detached Duplex</option>
                     <option value="3"> Detached Bungalow</option>
@@ -332,7 +332,7 @@ class Listing extends Component {
                   <input type="text" id="range2" name="range" placeholder='Area Range'/>
                 </div>
                 <div className="button">
-                  <button className='propt_btn'>Search Properties</button>
+                  <button className='prop_btn'>Search Properties</button>
                 </div>
               </form>
             </div>

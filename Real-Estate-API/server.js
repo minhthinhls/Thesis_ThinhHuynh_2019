@@ -27,7 +27,8 @@ if (process.env.NODE_ENV === 'development') {
 
   app.use(webpackDevMiddleware(compiler, {
     hot: true,
-    filename: 'bundle.js',
+    path: config.output.path,
+    filename: config.output.filename,
     publicPath: config.output.publicPath,
     stats: {colors: true},
     historyApiFallback: true
