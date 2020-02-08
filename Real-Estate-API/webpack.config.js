@@ -12,8 +12,8 @@ const config = {
   mode: 'development',
   entry: entries,
   output: {
-    filename: 'bundle.js',
     path: `${__dirname}/dist`,
+    filename: 'bundle.js',
     publicPath: '/',
   },
   target: 'node',

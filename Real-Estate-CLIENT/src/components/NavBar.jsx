@@ -4,7 +4,7 @@ import Logo from '../../assets/logo-via-logohub.png';
 import styled from 'styled-components';
 import NavLogo from '../../assets/iconfinder_menu-alt_134216.png';
 
-const Nav = styled.div`
+const NavPanel = styled.div`
   a img {
     width: 200px;
     height: 30px;
@@ -91,7 +91,7 @@ class NavBar extends Component {
     this.state = {
       condition: false
     };
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
@@ -102,7 +102,7 @@ class NavBar extends Component {
 
   render() {
     return (
-      <Nav>
+      <NavPanel>
         <div className="nav_respond">
           <div className="collapse">
             <Link to="/">
@@ -127,7 +127,7 @@ class NavBar extends Component {
             <button>Sign In</button>
           </Link>
         </NavGroup>
-      </Nav>
+      </NavPanel>
     )
   }
 

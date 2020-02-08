@@ -9,7 +9,7 @@ try {
     // If a web3 instance is already provided by Meta Mask.
     window.web3 = new Web3(web3.currentProvider);
   } else {
-    // Specify default instance if no web3 instance provided
+    // Specify default instance at http://localhost:8545 if no web3 instance provided
     window.web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_HTTP_PROVIDER));
   }
   web3.eth.defaultAccount = web3.eth.accounts[0]; // Set first accounts as default one !
