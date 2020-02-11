@@ -66,6 +66,7 @@ const config = {
       favicon: 'assets/favicon.ico',
     }),
     new webpack.DefinePlugin({
+      'process.env.NETWORK_ID': JSON.stringify(process.env.NETWORK_ID),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.WEB3_HTTP_PROVIDER': JSON.stringify(process.env.WEB3_HTTP_PROVIDER || 'http://localhost:7545')
     }),

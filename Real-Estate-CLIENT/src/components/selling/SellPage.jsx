@@ -114,7 +114,6 @@ class SellPage extends Component {
       Summary: null,
       Images: null,
       houseAdminContract: null,
-      houseAdminAddress: null,
       houseAdminDeployed: null,
       baseOption: null,
       gasLimit: 6721975 // For ganache !
@@ -128,18 +127,12 @@ class SellPage extends Component {
         url: `http://localhost:8080/api/contract/houseAdmin`
       }).then(response => {
         return response.data;
-      }),
-      houseAdminAddress: await axios({
-        method: 'get',
-        url: `http://localhost:8080/api/address/houseAdmin`
-      }).then(response => {
-        return response.data;
       })
     });
 
     this.setState({
       houseAdminDeployed: web3.eth.contract(this.state.houseAdminContract['abi'])
-        .at(this.state.houseAdminAddress),
+        .at(this.state.houseAdminContract['networks'][web3.version.network].address),
       baseOption: {
         gas: this.state.gasLimit,
         gasPrice: await new Promise((resolve, reject) => {

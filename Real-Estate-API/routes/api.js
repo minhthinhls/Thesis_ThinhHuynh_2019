@@ -11,10 +11,7 @@ router.get('/contract/houseAdmin', (req, res) => {
     res.json(require('../build/contracts/HouseAdmin.json'));
 });
 
-router.get('/address/houseAdmin', (req, res) => {
-    res.json(require('../address.json')['HouseAdmin']);
-});
-
+// Service to receive Image Uploaded from Clients.
 router.post('/upload', (req, res) => {
     uploader(req, res, (err) => {
         console.log("Request ---", req.body);
