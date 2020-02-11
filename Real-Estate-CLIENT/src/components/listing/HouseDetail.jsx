@@ -74,7 +74,6 @@ class ListView extends Component {
       houseAddress: null,
       houseDeployed: null,
       houseAdminContract: null,
-      houseAdminAddress: null,
       houseAdminDeployed: null,
       baseOption: null,
       gasLimit: 6721975 // For ganache !
@@ -97,12 +96,6 @@ class ListView extends Component {
       }).then(response => {
         return response.data;
       }),
-      houseAdminAddress: await axios({
-        method: 'get',
-        url: `http://localhost:8080/api/address/houseAdmin`
-      }).then(response => {
-        return response.data;
-      }),
       houseAddress: params.id
     });
 
@@ -110,7 +103,7 @@ class ListView extends Component {
       houseDeployed: web3.eth.contract(this.state.houseContract['abi'])
         .at(this.state.houseAddress),
       houseAdminDeployed: web3.eth.contract(this.state.houseAdminContract['abi'])
-        .at(this.state.houseAdminAddress),
+        .at(this.state.houseAdminContract['networks'][web3.version.network].address),
       baseOption: {
         gas: this.state.gasLimit,
         gasPrice: await new Promise((resolve, reject) => {

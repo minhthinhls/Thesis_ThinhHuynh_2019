@@ -7,10 +7,10 @@
     "dev": "webpack-dev-server --mode development --hot",
     "build": "webpack",
     "nodemon": "nodemon server.js",
-    "compile": "node ./src/js/compiler.js",
-    "deploy": "node ./src/js/deployer.js",
-    "truffle-test": "npx truffle test --network development",
-    "truffle-deploy": "npx truffle migrate --reset --network ropsten"
+    "compile": "npx truffle compile --all",
+    "test": "npx truffle test --network development",
+    "deploy": "npx truffle migrate --reset --network ropsten",
+    "test-deploy": "npx truffle migrate --reset --network development"
   },
   "author": "Thinh Huynh",
   "license": "ISC",
