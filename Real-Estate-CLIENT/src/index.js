@@ -12,7 +12,6 @@ try {
     /* Injecting new Web3 instance with customized HTTP Provider at
        http://localhost:8545 if no web3 instance provided */
     window.web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_HTTP_PROVIDER));
-    web3.version.network = process.env.NETWORK_ID;
   }
   web3.eth.defaultAccount = web3.eth.accounts[0]; // Set first accounts as default one !
 } catch (Exception) {
@@ -28,11 +27,10 @@ try {
     render(<Routes/>, document.getElementById('app'));
   });
   window.ethereum.on('networkChanged', function (networkID) {
-    web3.version.network = networkID;
     render(<Routes/>, document.getElementById('app'));
   });
 } catch (Exception) {
-  console.log(Exception);
+  console.log("You have not installed and opened MetaMask Extension yet!", Exception);
 }
 
 if (module.hot) {
