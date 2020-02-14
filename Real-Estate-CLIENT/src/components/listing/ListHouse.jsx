@@ -5,7 +5,8 @@ import Navbar from '../NavBar';
 import Footer from '../Footer';
 import HouseCard from './HouseCard';
 import Loader from '../../../assets/loader.gif';
-import axios from 'axios';
+import {getHouseContract} from '../../services/HouseService';
+import {getHouseAddresses, getAllHouseInfo} from '../../services/HouseAdminService';
 
 const List = styled.div`
   padding: 50px 0;
@@ -133,129 +134,17 @@ class Listing extends Component {
       ready: 'initial',
       location: "",
       propertyType: "",
-      houseContract: null,
-      houseAdminContract: null,
-      houseAdminDeployed: null,
-      baseOption: null,
-      gasLimit: 6721975 // For ganache !
+      addresses: []
     };
   }
 
   async componentDidMount() {
     this.setState({
       ready: 'loading',
-      houseContract: await axios({
-        method: 'get',
-        url: `http://localhost:8080/api/contract/house`
-      }).then(response => {
-        return response.data;
-      }),
-      houseAdminContract: await axios({
-        method: 'get',
-        url: `http://localhost:8080/api/contract/houseAdmin`
-      }).then(response => {
-        return response.data;
-      })
+      addresses: await getHouseAddresses()
     });
 
-    this.setState({
-      houseAdminDeployed: web3.eth.contract(this.state.houseAdminContract['abi'])
-        .at(this.state.houseAdminContract['networks'][web3.version.network].address),
-      baseOption: {
-        gas: this.state.gasLimit,
-        gasPrice: await new Promise((resolve, reject) => {
-          web3.eth.getGasPrice((error, _gasPrice) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_gasPrice);
-          })
-        })
-      }
-    });
-
-    const {houseContract, houseAdminDeployed, baseOption} = this.state;
-
-    const addresses = await new Promise((resolve, reject) => {
-      houseAdminDeployed.getAllHouses(baseOption, (error, addresses) => {
-        if (error) {
-          reject(error);
-        }
-        resolve(addresses);
-      })
-    });
-
-    const houseContractABI = web3.eth.contract(houseContract['abi']);
-
-    const getHouseInfo = async (_houseAddress) => {
-      const houseContractDeployed = houseContractABI.at(_houseAddress);
-      return {
-        address: _houseAddress,
-        owner: await new Promise((resolve, reject) => {
-          houseContractDeployed.getOwner.call((error, _owner) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_owner);
-          })
-        }),
-        location: await new Promise((resolve, reject) => {
-          houseContractDeployed.getLocation.call((error, _location) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_location);
-          })
-        }),
-        bedrooms: await new Promise((resolve, reject) => {
-          houseContractDeployed.getBedrooms.call((error, _bedrooms) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_bedrooms.toNumber());
-          })
-        }),
-        bathrooms: await new Promise((resolve, reject) => {
-          houseContractDeployed.getBathrooms.call((error, _bathrooms) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_bathrooms.toNumber());
-          })
-        }),
-        area: await new Promise((resolve, reject) => {
-          houseContractDeployed.getArea.call((error, _area) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_area.toNumber());
-          })
-        }),
-        price: await new Promise((resolve, reject) => {
-          houseContractDeployed.getPrice.call((error, _price) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_price.toNumber());
-          })
-        }),
-        status: await new Promise((resolve, reject) => {
-          houseContractDeployed.getState.call((error, _state) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_state);
-          })
-        })
-      }
-    };
-
-    const getAllHouseInfo = async (_addresses) => {
-      return Promise.all(_addresses.map(_address => {
-          return getHouseInfo(_address)
-        }
-      ));
-    };
+    const {addresses} = this.state;
 
     this.setState({
       houses: await getAllHouseInfo(addresses),
@@ -277,10 +166,14 @@ class Listing extends Component {
   }
 
   render() {
-    const {houses, ready, location} = this.state;
+    const {houses, ready, location, houseContract, addresses} = this.state;
     const filteredHouses = houses.filter(house => {
       return house.location.toLowerCase().indexOf(location.toLowerCase()) !== -1;
     });
+
+    const filter = {
+      location: location
+    };
 
     return (
       <div>
@@ -336,11 +229,18 @@ class Listing extends Component {
                   <div className='loader-img'><img src={Loader} className='Image' alt="loader"/></div>) : ''}
               </div>
               <div className="right">
+                {/*{addresses.map(address => (*/}
+                {/*<div key={address}>*/}
+                {/*<Link to={`/house/${address}`}>*/}
+                {/*<HouseCard address={address} abi={houseContract['abi']} filter={filter}/>*/}
+                {/*</Link>*/}
+                {/*</div>*/}
+                {/*))}*/}
                 {filteredHouses.map(house => (
                   <div key={house.address}>
                     <Link to={`/house/${house.address}`}>
-                      <HouseCard image={`http://localhost:8080/public/images/${house.address}.jpg`}>
-                        <h2>Price: {house.price} $</h2>
+                      <HouseCard address={house.address}>
+                        <h2>Price: {web3.fromWei(house.price, 'ether').toNumber()} $</h2>
                         <Info>
                           <h4>Location: {house.location}</h4>
                           <h4>

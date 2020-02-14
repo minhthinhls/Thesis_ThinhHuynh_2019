@@ -2,7 +2,9 @@
   <dictionary name="Minh Thinh">
     <words>
       <w>axios</w>
+      <w>buyable</w>
       <w>dgroup</w>
+      <w>editorconfig</w>
       <w>ganache</w>
       <w>metamask</w>
       <w>navbar</w>
@@ -10,6 +12,7 @@
       <w>roboto</w>
       <w>textarea</w>
       <w>timeline</w>
+      <w>unmount</w>
     </words>
   </dictionary>
 </component>

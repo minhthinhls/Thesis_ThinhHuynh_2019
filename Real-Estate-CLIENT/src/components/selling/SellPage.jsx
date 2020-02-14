@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Navbar from '../NavBar';
 import Footer from '../Footer';
+import {getBaseOption} from '../../services/EthereumService';
+import {getDeployedHouseAdmin} from '../../services/HouseAdminService';
+import {toWei} from '../../services/Utils';
 
 const SellPageStyle = styled.div`
   width: 90%;
@@ -101,56 +104,26 @@ class SellPage extends Component {
   constructor() {
     super();
     this.state = {
-      Name: "",
-      Email: "@gmail.com",
-      Phone: "",
-      Address: "",
-      Type: "",
-      Bedrooms: 0,
-      Bathrooms: 0,
-      Area: 0,
-      Price: 0,
-      DateListed: null,
-      Summary: null,
-      Images: null,
-      houseAdminContract: null,
-      houseAdminDeployed: null,
-      baseOption: null,
-      gasLimit: 6721975 // For ganache !
+      location: "",
+      price: 0,
+      area: 0,
+      image: null,
+      deployedHouseAdmin: null,
+      baseOption: null
     };
   }
 
   async componentDidMount() {
     this.setState({
-      houseAdminContract: await axios({
-        method: 'get',
-        url: `http://localhost:8080/api/contract/houseAdmin`
-      }).then(response => {
-        return response.data;
-      })
-    });
-
-    this.setState({
-      houseAdminDeployed: web3.eth.contract(this.state.houseAdminContract['abi'])
-        .at(this.state.houseAdminContract['networks'][web3.version.network].address),
-      baseOption: {
-        gas: this.state.gasLimit,
-        gasPrice: await new Promise((resolve, reject) => {
-          web3.eth.getGasPrice((error, _gasPrice) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_gasPrice);
-          })
-        })
-      }
+      deployedHouseAdmin: await getDeployedHouseAdmin(),
+      baseOption: await getBaseOption()
     });
 
   }
 
   async sellingHouse(event) {
     event.preventDefault();
-    const {houseAdminDeployed, baseOption} = this.state;
+    const {deployedHouseAdmin, baseOption} = this.state;
     const formData = new FormData();
     const config = {
       headers: {
@@ -158,14 +131,15 @@ class SellPage extends Component {
       }
     };
     try {
-      const args = Object.values(this.state).slice(0, 9);
-      if (this.state.Images == null) {
+      const args = Object.values(this.state).slice(0, 3);
+      console.log(args);
+      if (this.state.image == null) {
         throw new ReferenceError("All value must be input before sending form !");
       }
-      houseAdminDeployed.sellHouse
+      deployedHouseAdmin.sellHouse
         .call(...args, (error, address) => {
           if (!error) {
-            formData.append('Images', this.state.Images, address);
+            formData.append('Images', this.state.image, address);
             axios.post("http://localhost:8080/api/upload", formData, config)
               .then(response => {
                 console.log(response, "The file is successfully uploaded !");
@@ -175,7 +149,7 @@ class SellPage extends Component {
               });
           }
         });
-      houseAdminDeployed.sellHouse(...args, {
+      deployedHouseAdmin.sellHouse(...args, {
         ...baseOption,
         from: web3.eth.defaultAccount
       }, (error, hash) => {
@@ -208,15 +182,15 @@ class SellPage extends Component {
     })
   }
 
-  inputAddress(event) {
+  inputLocation(event) {
     this.setState({
-      Address: event.target.value
+      location: event.target.value
     })
   }
 
   inputArea(event) {
     this.setState({
-      Area: Number(event.target.value)
+      area: Number(event.target.value)
     })
   }
 
@@ -246,7 +220,7 @@ class SellPage extends Component {
 
   inputPrice(event) {
     this.setState({
-      Price: Number(event.target.value)
+      price: Number(event.target.value)
     })
   }
 
@@ -256,9 +230,9 @@ class SellPage extends Component {
     })
   }
 
-  inputImages(event) {
+  inputImage(event) {
     this.setState({
-      Images: event.target.files[0]
+      image: event.target.files[0]
     })
   }
 
@@ -294,8 +268,8 @@ class SellPage extends Component {
                 </div>
 
                 <div className="formInput">
-                  <label htmlFor="Address">Address:</label>
-                  <input type="text" name="Address" onChange={this.inputAddress.bind(this)}/>
+                  <label htmlFor="Location">Location:</label>
+                  <input type="text" name="Location" onChange={this.inputLocation.bind(this)}/>
                 </div>
 
                 <div className="info formInput">
@@ -356,7 +330,7 @@ class SellPage extends Component {
 
                 <div className="formInput">
                   <label htmlFor="Upload">Send us an image:</label>
-                  <input type="file" name="Images" onChange={this.inputImages.bind(this)}/>
+                  <input type="file" name="Images" onChange={this.inputImage.bind(this)}/>
                 </div>
 
                 <div className='btn'>

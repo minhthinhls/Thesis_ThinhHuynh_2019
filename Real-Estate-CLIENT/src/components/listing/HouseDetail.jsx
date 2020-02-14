@@ -1,10 +1,12 @@
 import React, {Fragment, Component} from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Navbar from '../NavBar';
 import Footer from '../Footer';
 import {Link} from 'react-router-dom';
 import Loader from '../../../assets/loader.gif';
+import {getHouseContract, getDeployedHouse, getHouseInfo} from '../../services/HouseService';
+import {getHouseAddresses} from '../../services/HouseAdminService';
+import {getBaseOption} from '../../services/EthereumService';
 
 const ListStyle = styled.div`
   width: 90%;
@@ -64,19 +66,16 @@ const ListGroup = styled.div`
   }
 `;
 
-class ListView extends Component {
+class HouseDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      house: {},
+      houseInfo: {},
       ready: 'initial',
       houseContract: null,
       houseAddress: null,
-      houseDeployed: null,
-      houseAdminContract: null,
-      houseAdminDeployed: null,
-      baseOption: null,
-      gasLimit: 6721975 // For ganache !
+      deployedHouse: null,
+      baseOption: null
     }
   }
 
@@ -84,130 +83,35 @@ class ListView extends Component {
     const {match: {params}} = this.props;
     this.setState({
       ready: 'loading',
-      houseContract: await axios({
-        method: 'get',
-        url: `http://localhost:8080/api/contract/house`
-      }).then(response => {
-        return response.data;
-      }),
-      houseAdminContract: await axios({
-        method: 'get',
-        url: `http://localhost:8080/api/contract/houseAdmin`
-      }).then(response => {
-        return response.data;
-      }),
-      houseAddress: params.id
+      houseContract: await getHouseContract(),
+      baseOption: await getBaseOption(),
+      houseAddress: params.address
     });
 
-    this.setState({
-      houseDeployed: web3.eth.contract(this.state.houseContract['abi'])
-        .at(this.state.houseAddress),
-      houseAdminDeployed: web3.eth.contract(this.state.houseAdminContract['abi'])
-        .at(this.state.houseAdminContract['networks'][web3.version.network].address),
-      baseOption: {
-        gas: this.state.gasLimit,
-        gasPrice: await new Promise((resolve, reject) => {
-          web3.eth.getGasPrice((error, _gasPrice) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_gasPrice);
-          })
-        })
-      }
-    });
-
-    const {houseDeployed, houseAddress, houseAdminDeployed} = this.state;
-
-    const getHouseInfo = async () => {
-      return {
-        address: houseAddress,
-        id: await new Promise((resolve, reject) => {
-          houseAdminDeployed.getAllHouses.call((error, _owner) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_owner.indexOf(houseAddress));
-          })
-        }),
-        owner: await new Promise((resolve, reject) => {
-          houseDeployed.getOwner.call((error, _owner) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_owner);
-          })
-        }),
-        location: await new Promise((resolve, reject) => {
-          houseDeployed.getLocation.call((error, _location) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_location);
-          })
-        }),
-        bedrooms: await new Promise((resolve, reject) => {
-          houseDeployed.getBedrooms.call((error, _bedrooms) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_bedrooms.toNumber());
-          })
-        }),
-        bathrooms: await new Promise((resolve, reject) => {
-          houseDeployed.getBathrooms.call((error, _bathrooms) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_bathrooms.toNumber());
-          })
-        }),
-        area: await new Promise((resolve, reject) => {
-          houseDeployed.getArea.call((error, _area) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_area.toNumber());
-          })
-        }),
-        price: await new Promise((resolve, reject) => {
-          houseDeployed.getPrice.call((error, _price) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_price.toNumber());
-          })
-        }),
-        status: await new Promise((resolve, reject) => {
-          houseDeployed.getState.call((error, _state) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(_state);
-          })
-        })
-      }
-    };
+    const {houseContract, houseAddress} = this.state;
 
     this.setState({
-      house: await getHouseInfo(),
+      deployedHouse: await getDeployedHouse(houseContract['abi'], houseAddress),
+      houseInfo: {
+        ...(await getHouseInfo(houseContract['abi'], houseAddress)),
+        id: (await getHouseAddresses()).indexOf(houseAddress)
+      },
       ready: 'loaded'
     });
-
   }
 
   async buyingHouse(event) {
     event.preventDefault();
-    const {house, houseAdminDeployed, baseOption} = this.state;
+    const {houseInfo, deployedHouse, baseOption} = this.state;
     try {
       this.setState({
         ready: 'loading'
       });
       const transactionHash = await new Promise((resolve, reject) => {
-        houseAdminDeployed.buyHouse(house.id, {
+        deployedHouse.buy({
           ...baseOption,
           from: web3.eth.defaultAccount,
-          value: web3.toWei(house.price, 'ether')
+          value: houseInfo.price // $price has BigNumber() type !
         }, (error, txHash) => {
           if (error) {
             reject(error);
@@ -217,7 +121,7 @@ class ListView extends Component {
       });
       console.log("Transaction succeed:", transactionHash);
       this.setState({
-        house: {...this.state.house, owner: web3.eth.defaultAccount},
+        houseInfo: {...this.state.houseInfo, owner: web3.eth.defaultAccount},
         ready: 'loaded'
       });
     } catch (Exception) {
@@ -229,7 +133,7 @@ class ListView extends Component {
   }
 
   render() {
-    const {house, ready} = this.state;
+    const {houseInfo, houseAddress, ready} = this.state;
     return (
       <Fragment>
         <Navbar/>
@@ -239,20 +143,20 @@ class ListView extends Component {
             <Fragment>
               <ListGroup>
                 <div className="viewLeft">
-                  <img src={`http://localhost:8080/public/images/${house.address}.jpg`} alt="listing items"/>
+                  <img src={`http://localhost:8080/public/images/${houseAddress}.jpg`} alt="listing items"/>
                 </div>
                 <div className="viewRight">
                   <h2>Type: Apartment</h2>
-                  <h4>Price: {house.price} $</h4>
+                  <h4>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h4>
                   <h5>Summary: House for renting</h5>
                   <Info>
-                    <h6>Bedrooms: {house.bedrooms} bedroom(s)</h6>
-                    <h6>Bathrooms: {house.bathrooms} bathroom(s)</h6>
-                    <h6>Area: {house.area} square meters</h6>
-                    <h6>Status: {house.status ? 'In Active' : 'Not Active'}</h6>
+                    <h6>Bedrooms: {houseInfo.bedrooms} bedroom(s)</h6>
+                    <h6>Bathrooms: {houseInfo.bathrooms} bathroom(s)</h6>
+                    <h6>Area: {houseInfo.area} square meters</h6>
+                    <h6>Status: {houseInfo.status ? 'In Active' : 'Not Active'}</h6>
                   </Info>
                   <Info>
-                    {web3.eth.defaultAccount === house.owner
+                    {web3.eth.defaultAccount === houseInfo.owner
                       ?
                       <div className="btn">
                         <button type="submit" className='buy_btn'>OWNED !</button>
@@ -281,4 +185,4 @@ class ListView extends Component {
   }
 }
 
-export default ListView;
+export default HouseDetail;
