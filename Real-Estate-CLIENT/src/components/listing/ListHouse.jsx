@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from '../NavBar';
 import Footer from '../Footer';
 import HouseCard from './HouseCard';
 import Loader from '../../../assets/loader.gif';
-import {getHouseContract} from '../../services/HouseService';
 import {getHouseAddresses, getAllHouseInfo} from '../../services/HouseAdminService';
 
 const List = styled.div`
@@ -71,6 +70,9 @@ const List = styled.div`
     font-size: large;
     background-color: #ff3b00;
     color: #000000;
+  }
+  .cannot_buy {
+    background-color: #bbbbbb;
   }
   @media (min-width: 1024px) {
     .listGroup {
@@ -236,24 +238,42 @@ class Listing extends Component {
                 {/*</Link>*/}
                 {/*</div>*/}
                 {/*))}*/}
-                {filteredHouses.map(house => (
-                  <div key={house.address}>
-                    <Link to={`/house/${house.address}`}>
-                      <HouseCard address={house.address}>
-                        <h2>Price: {web3.fromWei(house.price, 'ether').toNumber()} $</h2>
+                {filteredHouses.map(houseInfo => (
+                  <div key={houseInfo.address}>
+                    <Link to={`/house/${houseInfo.address}`}>
+                      <HouseCard address={houseInfo.address}>
+                        <h2>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h2>
                         <Info>
-                          <h4>Location: {house.location}</h4>
+                          <h4>Location: {houseInfo.location}</h4>
                           <h4>
-                            {web3.eth.defaultAccount === house.owner ? 'OWNED' :
-                              <button type="submit" className='buy_btn'>Buy Now !</button>
+                            {web3.eth.defaultAccount === houseInfo.owner
+                              ?
+                              <button className='buy_btn cannot_buy'>OWNED !</button>
+                              :
+                              (houseInfo.buyable
+                                  ?
+                                  <button className='buy_btn'>Buy Now !</button>
+                                  :
+                                  <button className='buy_btn cannot_buy'>Cannot Buy Now !</button>
+                              )
                             }
                           </h4>
                         </Info>
                         <Info>
-                          <h6>Bedrooms: {house.bedrooms} bedroom(s)</h6>
-                          <h6>Bathrooms: {house.bathrooms} bathroom(s)</h6>
-                          <h6>Area: {house.area} square meters</h6>
-                          <h6>Status: {house.status ? 'In Active' : 'Not Active'}</h6>
+                          {web3.eth.defaultAccount === houseInfo.owner ? '' :
+                            <Fragment>
+                              <h5>{houseInfo.rented ?
+                                'House has been Rented !' :
+                                (houseInfo.rentable ? 'Rent Now !' : 'Cannot Rent !')}
+                              </h5>
+                              <h5>{houseInfo.inProcess ?
+                                'House has been in Installment Paid process !' :
+                                (houseInfo.installable ? 'Pay by Installment Now !' : 'Cannot Installment Paid !')}
+                              </h5>
+                            </Fragment>
+                          }
+                          <h6>Area: {houseInfo.area} square meters</h6>
+                          <h6>Status: {houseInfo.active ? 'In Active' : 'Not Active'}</h6>
                         </Info>
                       </HouseCard>
                     </Link>

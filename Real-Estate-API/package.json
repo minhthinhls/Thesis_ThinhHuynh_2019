@@ -9,8 +9,10 @@
     "nodemon": "nodemon server.js",
     "compile": "npx truffle compile --all",
     "test": "npx truffle test --network development",
-    "deploy": "npx truffle migrate --reset --network ropsten",
-    "test-deploy": "npx truffle migrate --reset --network development"
+    "deploy-admin-ropsten": "npx truffle migrate --reset --network ropsten",
+    "deploy-admin-development": "npx truffle migrate --reset --network development",
+    "deploy-house-ropsten": "node ./src/js/deployHouse.js --network 3",
+    "deploy-house-development": "node ./src/js/deployHouse.js --network 5777"
   },
   "author": "Thinh Huynh",
   "license": "ISC",
@@ -40,6 +42,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "http-errors": "^1.6.3",
+    "minimist": "^1.2.0",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "solc": "^0.5.12",

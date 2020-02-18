@@ -47,24 +47,30 @@ contract Installable is Buyable {
 
     /* Start pay the house by installment in this smart contract ! */
     function installmentPayment() public payable _installable() _isOwner(false) _enoughEther(installmentPaymentCharge) {
-        require(now >= installmentDueDate);
+        require(now >= installmentDueDate, "THE HOUSE IS CURRENTLY IN INSTALLMENT PROCESS !");
         safeTransferTo(owner, installmentPaymentCharge);
         installmentDueDate = now + installmentDuration;
         installmentPaymentDate = now + installmentPaymentStep;
         installmentBuyer = msg.sender;
         inProcess = true;
+        buyable = false;
         emit InitializeInstallmentSuccess(installmentBuyer);
     }
 
     /* Pay the monthly fee to keep the contract installment payment in process */
     function chargeInstallmentContract() public payable _isOwner(false) _enoughEther(installmentPaymentCharge) {
-        require(msg.sender == installmentBuyer);
+        require(inProcess && msg.sender == installmentBuyer, "YOU ARE NOT BUYER OR HOUSE IS NOT IN PROCESS !");
+        require(installmentPaymentDate < installmentDueDate, "INSTALLMENT CONTRACT PAYMENT OVERTIME !");
         safeTransferTo(owner, installmentPaymentCharge);
         installmentPaymentDate += installmentPaymentStep;
         /* Set the new owner if he or she successfully payed for the last partial step ! */
         if (installmentPaymentDate >= installmentDueDate) {
             owner = installmentBuyer;
-            this.resetInstallmentContract();
+            installmentBuyer = address(0);
+            inProcess = false;
+            installable = false;
+            installmentDueDate = now;
+            installmentPaymentDate = now;
             emit TransferOwnerSuccess(owner);
         }
     }
@@ -72,10 +78,14 @@ contract Installable is Buyable {
     /* If reached payment day but buyer has not yet pay,
     the owner could kick the buyer out of the contract !*/
     function resetInstallmentContract() public _isOwner(true) {
-        require(now >= installmentPaymentDate);
+        require(now >= installmentPaymentDate, "IT HAS NOT BEEN YET REACHED PAYMENT DATE !");
+        require(inProcess, "THE HOUSE HAS NOT BEEN INSTALLMENT PAID YET !");
         installmentBuyer = address(0);
         inProcess = false;
         installable = false;
+        buyable = true;
+        installmentDueDate = now;
+        installmentPaymentDate = now;
     }
 
     /* Only Getter methods ! */
@@ -94,7 +104,11 @@ contract Installable is Buyable {
     function setInstallmentPayment(uint256 _interestRate, uint256 _installmentPaymentStep,
         uint256 _installmentDuration, bool _canInstallmentPaid) public _isOwner(true) _inProcess(false)
     {
-        uint256 totalPayment = price + price * _interestRate / 100;
+        require(_interestRate > 0, "INTEREST RATE MUST BE LARGER THAN 0 !");
+        require(_installmentPaymentStep > 0, "PAYMENT STEP MUST BE LARGER THAN 0 !");
+        require(_installmentDuration >= _installmentPaymentStep, "DURATION MUST BE GREATER THAN OR EQUAL TO PAYMENT STEP !");
+        require((_installmentDuration % _installmentPaymentStep) == 0, "DURATION MUST BE DIVISIBLE BY PAYMENT STEP !");
+        uint256 totalPayment = price + price * (_interestRate + 2) / 100;
         installmentPaymentCharge = uint256(totalPayment * _installmentPaymentStep) / _installmentDuration;
         installmentPaymentStep = _installmentPaymentStep;
         installmentDuration = _installmentDuration;

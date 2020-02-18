@@ -6,12 +6,12 @@ const Web3 = require('web3');
 
 try {
   if (typeof web3 !== 'undefined') {
-    // If a web3 instance is already provided by MetaMask Browser Extension.
+    /* If a web3 instance is already provided by MetaMask Browser Extension. */
     window.web3 = new Web3(web3.currentProvider);
   } else {
     /* Injecting new Web3 instance with customized HTTP Provider at
-       http://localhost:8545 if no web3 instance provided */
-    window.web3 = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_HTTP_PROVIDER));
+     * http://localhost:8545 if no web3 instance provided */
+    window.web3 = new Web3(new Web3.providers.HttpProvider(process.env.GANACHE_HTTP_PROVIDER));
   }
   web3.eth.defaultAccount = web3.eth.accounts[0]; // Set first accounts as default one !
 } catch (Exception) {
@@ -38,11 +38,11 @@ if (module.hot) {
 }
 
 /* READ MORE ABOUT METAMASK AT:
-https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md
-https://metamask.github.io/metamask-docs/Advanced_Concepts/Provider_API
-https://ethereum.stackexchange.com/questions/42768/how-can-i-detect-change-in-account-in-metamask
+ * https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md
+ * https://metamask.github.io/metamask-docs/Advanced_Concepts/Provider_API
+ * https://ethereum.stackexchange.com/questions/42768/how-can-i-detect-change-in-account-in-metamask
  */
 
 /* READ MORE ABOUT WEB3 VERSION 0.20.0 AT:
-https://github.com/ethereum/wiki/wiki/JavaScript-API
+ * https://github.com/ethereum/wiki/wiki/JavaScript-API
  */

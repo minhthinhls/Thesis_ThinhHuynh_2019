@@ -23,13 +23,15 @@ contract House is HouseProperty, Rentable, Installable {
         buyable = true;
         /* Renting Part */
         rented = false;
-        rentable = false;
+        rentable = true;
+        rentalDueDate = now;
         rentalPaymentCharge = 1 ether;
         rentalPaymentStep = 30 days;
-        rentalDuration = 30 days;
+        rentalDuration = 60 days;
         /* Installment Payment Part */
         inProcess = false;
-        installable = false;
+        installable = true;
+        installmentDueDate = now;
         installmentPaymentCharge = 1 ether;
         installmentPaymentStep = 30 days;
         installmentDuration = 90 days;

@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component, Fragment} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Navbar from '../NavBar';
@@ -118,7 +118,6 @@ class SellPage extends Component {
       deployedHouseAdmin: await getDeployedHouseAdmin(),
       baseOption: await getBaseOption()
     });
-
   }
 
   async sellingHouse(event) {
@@ -132,7 +131,6 @@ class SellPage extends Component {
     };
     try {
       const args = Object.values(this.state).slice(0, 3);
-      console.log(args);
       if (this.state.image == null) {
         throw new ReferenceError("All value must be input before sending form !");
       }

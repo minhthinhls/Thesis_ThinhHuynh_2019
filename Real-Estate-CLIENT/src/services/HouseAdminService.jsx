@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {getBaseOption} from "./EthereumService";
-import {getHouseContract, getHouseInfo} from "./HouseService";
+import {getBaseOption} from './EthereumService';
+import {getHouseContract, getHouseInfo} from './HouseService';
 
 const getHouseAdminContract = async () => await axios({
   method: 'get',
