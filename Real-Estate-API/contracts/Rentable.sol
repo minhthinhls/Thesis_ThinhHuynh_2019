@@ -51,7 +51,7 @@ contract Rentable is Authentication {
 
     /* Start renting the house in this smart contract ! */
     function rent() public payable _rentable() _isOwner(false) _enoughEther(rentalPaymentCharge) {
-        require(now >= rentalDueDate);
+        require(now >= rentalDueDate, "THE HOUSE IS CURRENTLY BEING RENTED !");
         safeTransferTo(owner, rentalPaymentCharge);
         rentalDueDate = now + rentalDuration;
         rentalPaymentDate = now + rentalPaymentStep;
@@ -62,8 +62,8 @@ contract Rentable is Authentication {
 
     /* Pay the monthly fee to extend renting time */
     function chargeRentalContract() public payable _isOwner(false) _enoughEther(rentalPaymentCharge) {
-        require(rented && msg.sender == renter);
-        require(rentalPaymentDate < rentalDueDate);
+        require(rented && msg.sender == renter, "YOU ARE NOT RENTER OR HOUSE NOT RENTED !");
+        require(rentalPaymentDate < rentalDueDate, "RENTAL CONTRACT PAYMENT OVERTIME !");
         safeTransferTo(owner, rentalPaymentCharge);
         rentalPaymentDate += rentalPaymentStep;
         emit ExtendSuccess(renter);
@@ -72,7 +72,8 @@ contract Rentable is Authentication {
     /* If reached payment day but renter has not yet pay, 
     the owner could kick the renter out of the contract !*/
     function resetRentalContract() public _isOwner(true) {
-        require(now >= rentalPaymentDate);
+        require(now >= rentalPaymentDate, "IT HAS NOT BEEN YET REACHED PAYMENT DATE !");
+        require(rented, "THE HOUSE HAS NOT BEEN RENTED YET !");
         renter = address(0);
         rented = false;
         rentable = false;
@@ -94,6 +95,10 @@ contract Rentable is Authentication {
     function setRentalPayment(uint256 _rentalPaymentCharge, uint256 _rentalPaymentStep,
         uint256 _rentalDuration, bool _allowRent) public _isOwner(true) _isRented(false)
     {
+        require(_rentalPaymentCharge > 0, "PAYMENT CHARGE MUST BE LARGER THAN 0 !");
+        require(_rentalPaymentStep > 0, "PAYMENT STEP MUST BE LARGER THAN 0 !");
+        require(_rentalDuration >= _rentalPaymentStep, "DURATION MUST BE GREATER THAN OR EQUAL TO PAYMENT STEP !");
+        require((_rentalDuration % _rentalPaymentStep) == 0, "DURATION MUST BE DIVISIBLE BY PAYMENT STEP !");
         rentalPaymentCharge = _rentalPaymentCharge;
         rentalPaymentStep = _rentalPaymentStep;
         rentalDuration = _rentalDuration;

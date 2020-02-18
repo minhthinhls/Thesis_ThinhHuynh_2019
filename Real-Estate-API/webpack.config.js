@@ -81,7 +81,7 @@ const config = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      'process.env.WEB3_HTTP_PROVIDER': JSON.stringify(process.env.WEB3_HTTP_PROVIDER || 'http://localhost:7545')
+      'process.env.GANACHE_HTTP_PROVIDER': JSON.stringify(process.env.GANACHE_HTTP_PROVIDER || 'http://localhost:8545')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
