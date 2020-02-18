@@ -70,7 +70,7 @@ class HouseDetailPopUp extends Component {
         </div>
         <div className="btn formInput">
           {web3.eth.defaultAccount === houseInfo.owner ?
-            <button onClick={this.setHouseDetail.bind(this)}>Submit</button> : ''
+            <button onClick={this.setHouseDetail.bind(this)}>Update !</button> : ''
           }
         </div>
       </PopUpForm>

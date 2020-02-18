@@ -93,7 +93,7 @@ class RentalPopUp extends Component {
           </select>
         </div>
         <div className="btn formInput">
-          <button onClick={this.setRentalPayment.bind(this)}>Submit</button>
+          <button onClick={this.setRentalPayment.bind(this)}>Update !</button>
         </div>
       </PopUpForm>
     );

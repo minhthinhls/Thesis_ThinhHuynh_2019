@@ -13,7 +13,8 @@ import RentalOption from '../payment/RentalOption';
 import InstallmentOption from '../payment/InstallmentOption';
 import OwnerRentalOption from '../owner/OwnerRentalOption';
 import OwnerInstallmentOption from '../owner/OwnerInstallmentOption';
-import HouseDetailPopUp from "./HouseDetailPopUp";
+import HouseDetailPopUp from './HouseDetailPopUp';
+import CheckBalancePopUp from './CheckBalancePopUp';
 
 const ListStyle = styled.div`
   width: 90%;
@@ -150,20 +151,23 @@ class HouseDetail extends Component {
                   <img src={`http://localhost:8080/public/images/${houseAddress}.jpg`} alt="listing items"/>
                 </div>
                 <div className="viewRight">
-                  <h2>Type: Apartment</h2>
+                  <Info>
+                    <h2>Type: Apartment</h2>
+                    <h3>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h3>
+                  </Info>
                   <h5>Contact me via https://facebook.com/minhthinh.huynhle</h5>
                   <Info>
-                    <h3>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h3>
+                    <CheckBalancePopUp button={<button className='buy_btn cannot_buy'>Check Balance !</button>}/>
                     <HouseDetailPopUp button={<button className='buy_btn cannot_buy'>Show House Info !</button>}
                                       position={"left top"} deployedHouse={deployedHouse} houseInfo={houseInfo}/>
                   </Info>
                   <h5>Owner of this house:
                     {is(houseInfo.owner) ? 'You' :
-                      (Number(toBigNumber(houseInfo.owner)) === 0 ? 'None' : houseInfo.installmentBuyer)}
+                      (Number(toBigNumber(houseInfo.owner)) === 0 ? 'None' : houseInfo.owner)}
                   </h5>
                   <h5>This house is rented by:
                     {is(houseInfo.renter) ? 'You' :
-                      (Number(toBigNumber(houseInfo.renter)) === 0 ? 'None' : houseInfo.installmentBuyer)}
+                      (Number(toBigNumber(houseInfo.renter)) === 0 ? 'None' : houseInfo.renter)}
                   </h5>
                   <h5>This house is paid by installment by:
                     {is(houseInfo.installmentBuyer) ? 'You' :
