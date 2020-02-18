@@ -68,9 +68,11 @@ const getHouseInfo = async (abi, address) => {
     installmentPaymentCharge: installmentDetail[2],
     installmentPaymentStep: installmentDetail[3],
     installmentDuration: installmentDetail[4],
-    installmentBuyer: installmentDetail[5],
-    inProcess: installmentDetail[6],
-    installable: installmentDetail[7],
+    interestRate: installmentDetail[5],
+    repayRate: installmentDetail[6],
+    installmentBuyer: installmentDetail[7],
+    inProcess: installmentDetail[8],
+    installable: installmentDetail[9],
   }
 };
 

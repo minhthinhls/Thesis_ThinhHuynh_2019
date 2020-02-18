@@ -108,10 +108,12 @@ const resetInstallmentContract = async (deployedHouse) => {
 const setInstallmentPayment = async (deployedHouse, installmentDetail) => {
   const baseOption = await getBaseOption();
   const args = [
+    installmentDetail.repayRate,
     installmentDetail.interestRate,
     installmentDetail.installmentPaymentStep,
     installmentDetail.installmentDuration,
-    installmentDetail.installable
+    installmentDetail.installable,
+    installmentDetail.acceptAddress
   ];
   return await new Promise((resolve, reject) => {
     deployedHouse.setInstallmentPayment(...args, {

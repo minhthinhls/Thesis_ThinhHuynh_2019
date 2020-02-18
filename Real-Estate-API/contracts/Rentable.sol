@@ -14,7 +14,7 @@ contract Rentable is Authentication {
     bool internal rentable;
 
     /* <now> is the alias for <block.timestamp> expression, which
-    is the Unix timestamp of the 'latest' block had been mined */
+    is the Unix timestamp of the 'latest' block had been mined ! */
     event RentSuccess(
         address renter
     );
@@ -60,7 +60,7 @@ contract Rentable is Authentication {
         emit RentSuccess(renter);
     }
 
-    /* Pay the monthly fee to extend renting time */
+    /* Pay the monthly fee to extend renting time ! */
     function chargeRentalContract() public payable _isOwner(false) _enoughEther(rentalPaymentCharge) {
         require(rented && msg.sender == renter, "YOU ARE NOT RENTER OR HOUSE NOT RENTED !");
         require(rentalPaymentDate < rentalDueDate, "RENTAL CONTRACT PAYMENT OVERTIME !");
@@ -70,7 +70,7 @@ contract Rentable is Authentication {
     }
 
     /* If reached payment day but renter has not yet pay, 
-    the owner could kick the renter out of the contract !*/
+    the owner could kick the renter out of the contract ! */
     function resetRentalContract() public _isOwner(true) {
         require(now >= rentalPaymentDate, "IT HAS NOT BEEN YET REACHED PAYMENT DATE !");
         require(rented, "THE HOUSE HAS NOT BEEN RENTED YET !");
