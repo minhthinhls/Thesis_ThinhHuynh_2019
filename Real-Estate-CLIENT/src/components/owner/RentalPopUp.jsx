@@ -7,11 +7,11 @@ class RentalPopUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rentalPaymentCharge: null,
-      rentalPaymentStep: null,
-      rentalDuration: null,
-      rentable: null,
-      timeUnit: 'Day'
+      rentalPaymentCharge: 1,
+      rentalPaymentStep: 1,
+      rentalDuration: 3,
+      rentable: true,
+      timeUnit: 'Month'
     };
   }
 
@@ -66,19 +66,22 @@ class RentalPopUp extends Component {
       <PopUpForm button={button}>
         <div className="formInput">
           <label htmlFor="PaymentCharge">Annual Payment Fee (Ether):</label>
-          <input type="number" name="PaymentCharge" onChange={this.inputPaymentCharge.bind(this)}/>
+          <input type="number" name="PaymentCharge" value={this.state.rentalPaymentCharge}
+                 onChange={this.inputPaymentCharge.bind(this)}/>
         </div>
         <div className="formInput">
           <label htmlFor="PaymentStep">Pay After x ({timeUnit}):</label>
-          <input type="number" name="PaymentStep" onChange={this.inputPaymentStep.bind(this)}/>
+          <input type="number" name="PaymentStep" value={this.state.rentalPaymentStep}
+                 onChange={this.inputPaymentStep.bind(this)}/>
         </div>
         <div className="formInput">
           <label htmlFor="Duration">Rental Duration ({timeUnit}):</label>
-          <input type="number" name="Duration" onChange={this.inputDuration.bind(this)}/>
+          <input type="number" name="Duration" value={this.state.rentalDuration}
+                 onChange={this.inputDuration.bind(this)}/>
         </div>
         <div className="formInput">
           <label htmlFor="Type">Time Unit:</label>
-          <select name="Type" onChange={this.inputTimeUnit.bind(this)}>
+          <select name="Type" value={this.state.timeUnit} onChange={this.inputTimeUnit.bind(this)}>
             <option value="Day">Day</option>
             <option value="Week">Week</option>
             <option value="Month">Month</option>
@@ -87,7 +90,7 @@ class RentalPopUp extends Component {
         </div>
         <div className="formInput">
           <label htmlFor="Type">Allow Rent:</label>
-          <select name="Type" onChange={this.inputRentable.bind(this)}>
+          <select name="Type" value={this.state.rentable} onChange={this.inputRentable.bind(this)}>
             <option value="true">Yes</option>
             <option value="">No</option>
           </select>

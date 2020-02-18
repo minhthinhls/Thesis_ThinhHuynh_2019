@@ -7,16 +7,24 @@ class InstallmentPopUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      interestRate: null,
-      installmentPaymentStep: null,
-      installmentDuration: null,
-      installable: null,
-      timeUnit: 'Day'
+      repayRate: 0,
+      interestRate: 10,
+      installmentPaymentStep: 1,
+      installmentDuration: 3,
+      installable: true,
+      acceptAddress: '0x2b6FcDcb83b804d482FAf1D1444DF6C7b9f423AA',
+      timeUnit: 'Month'
     };
   }
 
   async componentDidMount() {
     // To Do !
+  }
+
+  inputRepayRate(event) {
+    this.setState({
+      repayRate: event.target.value
+    })
   }
 
   inputInterestRate(event) {
@@ -49,13 +57,21 @@ class InstallmentPopUp extends Component {
     })
   }
 
+  inputAcceptAddress(event) {
+    this.setState({
+      acceptAddress: event.target.value
+    })
+  }
+
   async setInstallmentPayment(event) {
     const {deployedHouse} = this.props;
     await setInstallmentPayment(deployedHouse, {
+      repayRate: this.state.interestRate,
       interestRate: this.state.interestRate,
       installmentPaymentStep: toSecond(this.state.installmentPaymentStep, this.state.timeUnit),
       installmentDuration: toSecond(this.state.installmentDuration, this.state.timeUnit),
-      installable: Boolean(this.state.installable)
+      installable: Boolean(this.state.installable),
+      acceptAddress: this.state.acceptAddress
     });
   }
 
@@ -65,20 +81,33 @@ class InstallmentPopUp extends Component {
     return (
       <PopUpForm button={button}>
         <div className="formInput">
+          <label htmlFor="RepayRate">Repay Rate (%):</label>
+          <input type="number" name="RepayRate" value={this.state.repayRate}
+                 onChange={this.inputRepayRate.bind(this)}/>
+        </div>
+        <div className="formInput">
           <label htmlFor="InterestRate">Interest Rate (%):</label>
-          <input type="number" name="InterestRate" onChange={this.inputInterestRate.bind(this)}/>
+          <input type="number" name="InterestRate" value={this.state.interestRate}
+                 onChange={this.inputInterestRate.bind(this)}/>
         </div>
         <div className="formInput">
           <label htmlFor="PaymentStep">Pay After x ({timeUnit}):</label>
-          <input type="number" name="PaymentStep" onChange={this.inputPaymentStep.bind(this)}/>
+          <input type="number" name="PaymentStep" value={this.state.installmentPaymentStep}
+                 onChange={this.inputPaymentStep.bind(this)}/>
         </div>
         <div className="formInput">
           <label htmlFor="Duration">Installment Duration ({timeUnit}):</label>
-          <input type="number" name="Duration" onChange={this.inputDuration.bind(this)}/>
+          <input type="number" name="Duration" value={this.state.installmentDuration}
+                 onChange={this.inputDuration.bind(this)}/>
+        </div>
+        <div className="formInput">
+          <label htmlFor="AcceptAddress">Accept Only Address:</label>
+          <input type="text" name="AcceptAddress" value={this.state.acceptAddress}
+                 onChange={this.inputAcceptAddress.bind(this)}/>
         </div>
         <div className="formInput">
           <label htmlFor="Type">Time Unit:</label>
-          <select name="Type" onChange={this.inputTimeUnit.bind(this)}>
+          <select name="Type" value={this.state.timeUnit} onChange={this.inputTimeUnit.bind(this)}>
             <option value="Day">Day</option>
             <option value="Week">Week</option>
             <option value="Month">Month</option>
@@ -87,7 +116,7 @@ class InstallmentPopUp extends Component {
         </div>
         <div className="formInput">
           <label htmlFor="Type">Allow Installment Paid:</label>
-          <select name="Type" onChange={this.inputInstallable.bind(this)}>
+          <select name="Type" value={this.state.timeUnit} onChange={this.inputInstallable.bind(this)}>
             <option value="true">Yes</option>
             <option value="">No</option>
           </select>

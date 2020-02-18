@@ -4,8 +4,6 @@ contract Authentication {
 
     address payable internal owner;
 
-    event Logger(string text);
-
     modifier _isOwner(bool _option) {
         if (_option) {
             if (msg.sender == owner) {
@@ -34,10 +32,10 @@ contract Authentication {
         return _amount * 1 ether;
     }
 
-    /* If transferring more than the required amount then the leftover go back to sender account */
-    function safeTransferTo(address payable _to, uint256 _amount) public payable {
+    /* If transferring more than the required amount then the leftover go back to sender account ! */
+    function safeTransferTo(address payable _to, uint256 _amount) internal {
         address(_to).transfer(_amount);
-        // Leftover money go back to sender wallet !
+        /* Leftover money go back to sender wallet ! */
         address(msg.sender).transfer(msg.value - _amount);
     }
 

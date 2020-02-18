@@ -27,7 +27,7 @@ contract House is HouseProperty, Rentable, Installable {
         rentalDueDate = now;
         rentalPaymentCharge = 1 ether;
         rentalPaymentStep = 30 days;
-        rentalDuration = 60 days;
+        rentalDuration = 90 days;
         /* Installment Payment Part */
         inProcess = false;
         installable = true;
@@ -35,6 +35,12 @@ contract House is HouseProperty, Rentable, Installable {
         installmentPaymentCharge = 1 ether;
         installmentPaymentStep = 30 days;
         installmentDuration = 90 days;
+        interestRate = 10;
+        repayRate = 10;
+    }
+
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
     }
 
     /* Fallback methods ! */
