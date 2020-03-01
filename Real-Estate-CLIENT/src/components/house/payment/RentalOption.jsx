@@ -1,27 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import styled from 'styled-components';
-import {rentHouse, chargeRentalContract} from '../../services/TransactionService';
+import {rentHouse, chargeRentalContract} from '../../../services/TransactionService';
+import {ToastButton} from '../../utils/ToastNotification';
+import SelectOption from '../stylesheet/SelectOption';
+import {is} from '../../../services/Utils';
 
-const Selector = styled.div`
-  text-align: center;
-  display: block;
-  margin: 10px 0;
-  @media (min-width: 1440px) {
-    height: fit-content;
-    margin: auto 0px;
-  }
-  select {
-    width: 80%;
-  }
-  .rent_btn {
-    height: 45px;
-    width: 192px;
-    border: 0;
-    border-radius: 1em;
-    font-size: large;
-    background-color: #3fff00;
-    color: #000000;
-    cursor: pointer;
+/* Override the background color <gray> of component button ! */
+const Selector = styled(SelectOption)`
+  && button {
+    background-color: Lime;
   }
 `;
 
@@ -57,7 +44,7 @@ class RentalOption extends Component {
     const {houseInfo} = this.props;
     return (
       <Selector>
-        {!houseInfo.rented || web3.eth.defaultAccount === houseInfo.renter
+        {!houseInfo.rented || is(houseInfo.renter)
           ?
           <Fragment>
             <label htmlFor="RentalOption">Rental Options:</label>
@@ -66,20 +53,17 @@ class RentalOption extends Component {
               <option value="Rent">Start Renting</option>
               <option value="Charge">Rental Annual Payment</option>
             </select>
-            <div className="btn">
-              <button className="rent_btn" onClick={this.performRentalOption.bind(this)}>
-                {rentalOption}
-              </button>
-            </div>
+            <ToastButton onSuccess={`Successfully Charge Rental Contract !`}
+                         onClick={this.performRentalOption.bind(this)}>
+              {rentalOption}
+            </ToastButton>
           </Fragment>
           :
           <Fragment>
             <label htmlFor="RentalOption">Rental Options:</label>
-            <div className="btn">
-              <button className="rent_btn">
-                House Has Been Rented !
-              </button>
-            </div>
+            <button>
+              House Has Been Rented !
+            </button>
           </Fragment>
         }
       </Selector>

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {setInstallmentPayment} from '../../services/OwnerService';
-import {toSecond} from '../../services/Utils';
-import PopUpForm from './PopUpForm';
+import {setInstallmentPayment} from '../../../services/OwnerService';
+import {ToastButton} from '../../utils/ToastNotification';
+import {toSecond} from '../../../services/Utils';
+import {PopUpForm} from '../../utils/PopUpForm';
 
 class InstallmentPopUp extends Component {
   constructor(props) {
@@ -64,8 +65,7 @@ class InstallmentPopUp extends Component {
   }
 
   async setInstallmentPayment(event) {
-    const {deployedHouse} = this.props;
-    await setInstallmentPayment(deployedHouse, {
+    await setInstallmentPayment(this.props.deployedHouse, {
       repayRate: this.state.interestRate,
       interestRate: this.state.interestRate,
       installmentPaymentStep: toSecond(this.state.installmentPaymentStep, this.state.timeUnit),
@@ -77,9 +77,8 @@ class InstallmentPopUp extends Component {
 
   render() {
     const {timeUnit} = this.state;
-    const {button} = this.props;
     return (
-      <PopUpForm button={button}>
+      <PopUpForm trigger={this.props.trigger}>
         <div className="formInput">
           <label htmlFor="RepayRate">Repay Rate (%):</label>
           <input type="number" name="RepayRate" value={this.state.repayRate}
@@ -116,13 +115,15 @@ class InstallmentPopUp extends Component {
         </div>
         <div className="formInput">
           <label htmlFor="Type">Allow Installment Paid:</label>
-          <select name="Type" value={this.state.timeUnit} onChange={this.inputInstallable.bind(this)}>
+          <select name="Type" value={this.state.installable} onChange={this.inputInstallable.bind(this)}>
             <option value="true">Yes</option>
             <option value="">No</option>
           </select>
         </div>
-        <div className="btn formInput">
-          <button onClick={this.setInstallmentPayment.bind(this)}>Update !</button>
+        <div className="formInput">
+          <ToastButton onSuccess={`Successfully Update Installment Payment !`}
+                       onClick={this.setInstallmentPayment.bind(this)}>Update !
+          </ToastButton>
         </div>
       </PopUpForm>
     );

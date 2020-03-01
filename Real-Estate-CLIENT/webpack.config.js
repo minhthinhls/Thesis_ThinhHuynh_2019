@@ -67,6 +67,8 @@ const config = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.API_HTTP_PROVIDER': JSON.stringify(process.env.API_HTTP_PROVIDER || 'http://localhost:8080/api'),
+      'process.env.PUBLIC_HTTP_PROVIDER': JSON.stringify(process.env.PUBLIC_HTTP_PROVIDER || 'http://localhost:8080/public'),
       'process.env.GANACHE_HTTP_PROVIDER': JSON.stringify(process.env.GANACHE_HTTP_PROVIDER || 'http://localhost:8545')
     }),
     new webpack.HotModuleReplacementPlugin()

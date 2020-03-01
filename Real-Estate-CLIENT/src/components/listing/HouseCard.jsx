@@ -118,7 +118,7 @@ class HouseCards extends Component {
 }
 
 const HouseCard = ({children, address}) => {
-  const image = `http://localhost:8080/public/images/${address}.jpg`;
+  const image = `${process.env.PUBLIC_HTTP_PROVIDER}/images/${address}.jpg`;
   return (
     <HouseCardStyle>
       <img src={image || 'http://placehold.it/200'} alt="List item"/>

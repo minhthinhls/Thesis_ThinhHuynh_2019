@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PopUpForm, {PopUp} from '../owner/PopUpForm';
+import {PopUpForm} from '../utils/PopUpForm';
 
 class CheckBalancePopUp extends Component {
   constructor(props) {
@@ -31,10 +31,9 @@ class CheckBalancePopUp extends Component {
   }
 
   render() {
-    const {button, position} = this.props;
     const {balance} = this.state;
     return (
-      <PopUpForm button={button} position={position}>
+      <PopUpForm {...this.props}>
         <div className="formInput">
           <label htmlFor="Address">Address (Public Key):</label>
           <input type="text" name="Address" onChange={this.inputAddress.bind(this)}/>
