@@ -4,7 +4,7 @@ import {getHouseContract, getHouseInfo} from './HouseService';
 
 const getHouseAdminContract = async () => await axios({
   method: 'get',
-  url: `http://localhost:8080/api/contract/houseAdmin`
+  url: `${process.env.API_HTTP_PROVIDER}/contract/houseAdmin`
 }).then(response => {
   return response.data;
 });

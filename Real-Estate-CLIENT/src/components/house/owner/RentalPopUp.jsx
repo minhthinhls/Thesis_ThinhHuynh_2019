@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {setRentalPayment} from '../../services/OwnerService';
-import {toSecond} from '../../services/Utils';
-import PopUpForm from './PopUpForm';
+import {setRentalPayment} from '../../../services/OwnerService';
+import {ToastButton} from '../../utils/ToastNotification';
+import {toSecond} from '../../../services/Utils';
+import {PopUpForm} from '../../utils/PopUpForm';
 
 class RentalPopUp extends Component {
   constructor(props) {
@@ -50,8 +51,7 @@ class RentalPopUp extends Component {
   }
 
   async setRentalPayment(event) {
-    const {deployedHouse} = this.props;
-    await setRentalPayment(deployedHouse, {
+    await setRentalPayment(this.props.deployedHouse, {
       rentalPaymentCharge: web3.toWei(this.state.rentalPaymentCharge, 'ether'),
       rentalPaymentStep: toSecond(this.state.rentalPaymentStep, this.state.timeUnit),
       rentalDuration: toSecond(this.state.rentalDuration, this.state.timeUnit),
@@ -61,9 +61,8 @@ class RentalPopUp extends Component {
 
   render() {
     const {timeUnit} = this.state;
-    const {button} = this.props;
     return (
-      <PopUpForm button={button}>
+      <PopUpForm trigger={this.props.trigger}>
         <div className="formInput">
           <label htmlFor="PaymentCharge">Annual Payment Fee (Ether):</label>
           <input type="number" name="PaymentCharge" value={this.state.rentalPaymentCharge}
@@ -95,8 +94,10 @@ class RentalPopUp extends Component {
             <option value="">No</option>
           </select>
         </div>
-        <div className="btn formInput">
-          <button onClick={this.setRentalPayment.bind(this)}>Update !</button>
+        <div className="formInput">
+          <ToastButton onSuccess={`Successfully Update Rental Payment !`}
+                       onClick={this.setRentalPayment.bind(this)}>Update !
+          </ToastButton>
         </div>
       </PopUpForm>
     );

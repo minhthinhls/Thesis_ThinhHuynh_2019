@@ -1777,39 +1777,6 @@
     "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
   "networks": {
-    "3": {
-      "events": {
-        "0xcf34ef537ac33ee1ac626ca1587a0a7e8e51561e5514f8cb36afa1c5102b3bab": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "text",
-              "type": "string"
-            }
-          ],
-          "name": "Log",
-          "type": "event"
-        },
-        "0x65e06b3884a88e13243953e5160aec7a836e4cc7abc0762f84c66d6b918efe7f": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "text",
-              "type": "string"
-            }
-          ],
-          "name": "Logger",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x78FffB8b18825B5bdfB5013c19CD977B12F8A3D2",
-      "transactionHash": "0xb5b2516f0dd79d7adafb5843e74770c3dd87ad8c8f0be41612bc0003ed17fc20"
-    },
     "5777": {
       "events": {
         "0xcf34ef537ac33ee1ac626ca1587a0a7e8e51561e5514f8cb36afa1c5102b3bab": {
@@ -1824,28 +1791,15 @@
           ],
           "name": "Log",
           "type": "event"
-        },
-        "0x65e06b3884a88e13243953e5160aec7a836e4cc7abc0762f84c66d6b918efe7f": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "text",
-              "type": "string"
-            }
-          ],
-          "name": "Logger",
-          "type": "event"
         }
       },
       "links": {},
-      "address": "0x7F94074C62de8F98FA89E6db339A9a3dD5df0253",
-      "transactionHash": "0xe33c8674881fc93d6d95c44dff9b7a443da9ebdee67825cba8a029ba3bcfce53"
+      "address": "0x3950dE939f294Af5a33200463aBdCE7AE9824905",
+      "transactionHash": "0x425c67fd644bb7bb571b16e7543c6b69b361df1e679badd2d9b82800d7ddd237"
     }
   },
   "schemaVersion": "3.0.23",
-  "updatedAt": "2020-02-18T23:01:11.799Z",
+  "updatedAt": "2020-02-24T07:00:19.255Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

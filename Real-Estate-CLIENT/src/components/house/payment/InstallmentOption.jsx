@@ -1,27 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import styled from 'styled-components';
-import {installmentPayment, chargeInstallmentContract} from '../../services/TransactionService';
+import {installmentPayment, chargeInstallmentContract} from '../../../services/TransactionService';
+import {ToastButton} from '../../utils/ToastNotification';
+import SelectOption from '../stylesheet/SelectOption';
+import {is} from '../../../services/Utils';
 
-const Selector = styled.div`
-  text-align: center;
-  display: block;
-  margin: 10px 0;
-  @media (min-width: 1440px) {
-    height: fit-content;
-    margin: auto 0px;
-  }
-  select {
-    width: 80%;
-  }
-  .installment_btn {
-    height: 45px;
-    width: 192px;
-    border: 0;
-    border-radius: 1em;
-    font-size: large;
-    background-color: #00ffff;
-    color: #000000;
-    cursor: pointer;
+/* Override the background color <gray> of component button ! */
+const Selector = styled(SelectOption)`
+  && button {
+    background-color: Aqua;
   }
 `;
 
@@ -57,7 +44,7 @@ class InstallmentOption extends Component {
     const {houseInfo} = this.props;
     return (
       <Selector>
-        {!houseInfo.inProcess || web3.eth.defaultAccount === houseInfo.installmentBuyer
+        {!houseInfo.inProcess || is(houseInfo.installmentBuyer)
           ?
           <Fragment>
             <label htmlFor="InstallmentPaymentOption">Installment Payment Options:</label>
@@ -66,20 +53,17 @@ class InstallmentOption extends Component {
               <option value="InstallmentPayment">Initialize Installment Process</option>
               <option value="Charge">Installment Monthly Payment</option>
             </select>
-            <div className="btn">
-              <button className="installment_btn" onClick={this.performInstallmentOption.bind(this)}>
-                {installmentOption}
-              </button>
-            </div>
+            <ToastButton onSuccess={`Successfully Charge Installment Contract !`}
+                         onClick={this.performInstallmentOption.bind(this)}>
+              {installmentOption}
+            </ToastButton>
           </Fragment>
           :
           <Fragment>
             <label htmlFor="InstallmentOption">Installment Payment Options:</label>
-            <div className="btn">
-              <button className="installment_btn">
-                House Has Been Partially Paid !
-              </button>
-            </div>
+            <button>
+              House Has Been Partially Paid !
+            </button>
           </Fragment>
         }
       </Selector>

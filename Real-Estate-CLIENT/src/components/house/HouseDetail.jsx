@@ -9,14 +9,15 @@ import {getHouseContract, getDeployedHouse, getHouseInfo} from '../../services/H
 import {getHouseAddresses} from '../../services/HouseAdminService';
 import {buyHouse} from '../../services/TransactionService';
 import {toBigNumber, is} from '../../services/Utils';
-import RentalOption from '../payment/RentalOption';
-import InstallmentOption from '../payment/InstallmentOption';
-import OwnerRentalOption from '../owner/OwnerRentalOption';
-import OwnerInstallmentOption from '../owner/OwnerInstallmentOption';
+import RentalOption from './payment/RentalOption';
+import InstallmentOption from './payment/InstallmentOption';
+import OwnerRentalOption from './owner/OwnerRentalOption';
+import OwnerInstallmentOption from './owner/OwnerInstallmentOption';
 import HouseDetailPopUp from './HouseDetailPopUp';
 import CheckBalancePopUp from './CheckBalancePopUp';
+import Toggle from '../utils/Toggle';
 
-const ListStyle = styled.div`
+const HouseStyle = styled.div`
   width: 90%;
   padding-top: 80px;
   margin: 0px auto;
@@ -24,7 +25,6 @@ const ListStyle = styled.div`
     width: 100%;
   }
   .viewRight {
-    text-align: justified;
     h3 {
       margin-top: auto;
       margin-bottom: auto;
@@ -34,32 +34,22 @@ const ListStyle = styled.div`
       padding: 20px;
     }
   }
-  .btn {
-    text-align: center;
-    cursor: pointer;
-  }
-  .buy_btn {
-    height: 45px;
-    width: 192px;
-    border: 0;
-    border-radius: 1em;
-    font-size: large;
-    background-color: #ff3b00;
-    color: #000000;
-    cursor: pointer;
-  }
-  .cannot_buy {
-    background-color: #bbbbbb;
-  }
-  input[type="button"] {
+  button {
     height: 45px;
     width: 192px;
     border: 0;
     border-radius: 1em;
     font-size: larger;
-    padding: -23px;
+    background-color: #bbbbbb;
+    color: black;
+    cursor: pointer;
+  }
+  .bg-color_orange {
+    background-color: #ff3b00;
+  }
+  .return_btn {
     background-color: #031249;
-    color: #b7c2f1;
+    color: white;
   }
   .Image {
     width: 25%;
@@ -69,14 +59,14 @@ const ListStyle = styled.div`
   }
 `;
 
-const Info = styled.div`
+const GridStyle = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   text-align: center;
 `;
 
-const ListGroup = styled.div`
+const ResponsiveDetail = styled.div`
   @media (min-width: 1024px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -139,30 +129,36 @@ class HouseDetail extends Component {
 
   render() {
     const {houseInfo, deployedHouse, houseAddress, ready} = this.state;
+    const image = `${process.env.PUBLIC_HTTP_PROVIDER}/images/${houseAddress}.jpg`;
+    const isOwner = is(houseInfo.owner);
     return (
       <Fragment>
         <Navbar/>
-        <ListStyle>
-          {ready === 'loading' ? (<img src={Loader} className='Image' alt="loader"/>) : ''}
+        <HouseStyle>
+          {ready === 'loading' ? (<img src={Loader} className="Image" alt="loader"/>) : ''}
           {ready === 'loaded' && (
             <Fragment>
-              <ListGroup>
+              <ResponsiveDetail>
                 <div className="viewLeft">
-                  <img src={`http://localhost:8080/public/images/${houseAddress}.jpg`} alt="listing items"/>
+                  <img src={image || 'http://placehold.it/200'} alt="listing items"/>
                 </div>
                 <div className="viewRight">
-                  <Info>
+                  <GridStyle>
+                    <h3>Leave your interest here !</h3>
+                    <Toggle checked={true} houseAddress={houseAddress}/>
+                  </GridStyle>
+                  <GridStyle>
                     <h2>Type: Apartment</h2>
                     <h3>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h3>
-                  </Info>
+                  </GridStyle>
                   <h5>Contact me via https://facebook.com/minhthinh.huynhle</h5>
-                  <Info>
-                    <CheckBalancePopUp button={<button className='buy_btn cannot_buy'>Check Balance !</button>}/>
-                    <HouseDetailPopUp button={<button className='buy_btn cannot_buy'>Show House Info !</button>}
+                  <GridStyle>
+                    <CheckBalancePopUp trigger={<button>Check Balance !</button>}/>
+                    <HouseDetailPopUp trigger={<button>Show House Info !</button>}
                                       position={"left top"} deployedHouse={deployedHouse} houseInfo={houseInfo}/>
-                  </Info>
+                  </GridStyle>
                   <h5>Owner of this house:
-                    {is(houseInfo.owner) ? 'You' :
+                    {isOwner ? 'You' :
                       (Number(toBigNumber(houseInfo.owner)) === 0 ? 'None' : houseInfo.owner)}
                   </h5>
                   <h5>This house is rented by:
@@ -173,17 +169,16 @@ class HouseDetail extends Component {
                     {is(houseInfo.installmentBuyer) ? 'You' :
                       (Number(toBigNumber(houseInfo.installmentBuyer)) === 0 ? 'None' : houseInfo.installmentBuyer)}
                   </h5>
-                  <Info>
-                    {web3.eth.defaultAccount !== houseInfo.owner
-                      ?
-                      <Fragment>
-                        <RentalOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
-                        <InstallmentOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
-                      </Fragment>
-                      :
+                  <GridStyle>
+                    {isOwner ?
                       <Fragment>
                         <OwnerRentalOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
                         <OwnerInstallmentOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
+                      </Fragment>
+                      :
+                      <Fragment>
+                        <RentalOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
+                        <InstallmentOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
                       </Fragment>
                     }
                     <h4>Renting Left-Time:
@@ -198,38 +193,26 @@ class HouseDetail extends Component {
                     <h4>Installment Due-Time:
                       <Countdown date={new Date(Number(houseInfo.installmentDueDate.mul(1000)))}/>
                     </h4>
-                  </Info>
-                  <Info>
-                    {web3.eth.defaultAccount === houseInfo.owner
-                      ?
-                      <div className="btn">
-                        <button type="submit" className='buy_btn cannot_buy'>OWNED !</button>
-                      </div>
+                  </GridStyle>
+                  <GridStyle>
+                    {isOwner ?
+                      <button>OWNED !</button>
                       :
-                      (houseInfo.buyable
-                          ?
-                          <div className="btn">
-                            <form onSubmit={this.buyingHouse.bind(this)}>
-                              <button type="submit" className='buy_btn'>Buy Now !</button>
-                            </form>
-                          </div>
+                      (houseInfo.buyable ?
+                          <button className="bg-color_orange" onClick={this.buyingHouse.bind(this)}>Buy Now !</button>
                           :
-                          <div className="btn">
-                            <button className='buy_btn cannot_buy'>Cannot Buy Now !</button>
-                          </div>
+                          <button>Cannot Buy Now !</button>
                       )
                     }
-                    <div className="btn">
-                      <Link to="/listing">
-                        <input type="button" value="Return"/>
-                      </Link>
-                    </div>
-                  </Info>
+                    <Link to="/listing">
+                      <button className="return_btn">Return</button>
+                    </Link>
+                  </GridStyle>
                 </div>
-              </ListGroup>
+              </ResponsiveDetail>
             </Fragment>
           )}
-        </ListStyle>
+        </HouseStyle>
         <Footer/>
       </Fragment>
     );

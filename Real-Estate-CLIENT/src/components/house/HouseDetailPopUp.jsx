@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {setHouseDetail} from '../../services/OwnerService';
-import PopUpForm, {PopUp} from '../owner/PopUpForm';
+import {ToastButton} from '../utils/ToastNotification';
+import {PopUpForm} from '../utils/PopUpForm';
+import {is} from '../../services/Utils';
 
 class HouseDetailPopUp extends Component {
   constructor(props) {
@@ -44,33 +46,36 @@ class HouseDetailPopUp extends Component {
   }
 
   render() {
-    const {button, position, houseInfo} = this.props;
+    const {trigger, houseInfo} = this.props;
+    const isOwner = is(houseInfo.owner);
     return (
-      <PopUpForm button={button} position={position}>
+      <PopUpForm trigger={trigger}>
         <div className="formInput">
           <label htmlFor="Location">Location: {houseInfo.location}</label>
-          {web3.eth.defaultAccount === houseInfo.owner ?
+          {isOwner ?
             <input type="text" name="Location" onChange={this.inputLocation.bind(this)}/> : ''
           }
         </div>
         <div className="formInput">
           <label htmlFor="Area">Area: {houseInfo.area} (m^2)</label>
-          {web3.eth.defaultAccount === houseInfo.owner ?
+          {isOwner ?
             <input type="text" name="Area" onChange={this.inputArea.bind(this)}/> : ''
           }
         </div>
         <div className="formInput">
           <label htmlFor="Active">Active House: {houseInfo.active ? 'In Active' : 'Not Active'}</label>
-          {web3.eth.defaultAccount === houseInfo.owner ?
+          {isOwner ?
             <select name="Active" onChange={this.inputActive.bind(this)}>
               <option value="true">Yes</option>
               <option value="">No</option>
             </select> : ''
           }
         </div>
-        <div className="btn formInput">
-          {web3.eth.defaultAccount === houseInfo.owner ?
-            <button onClick={this.setHouseDetail.bind(this)}>Update !</button> : ''
+        <div className="formInput">
+          {isOwner ?
+            <ToastButton onSuccess={`Successfully Update Installment Payment !`}
+                         onClick={this.setHouseDetail.bind(this)}>Update !
+            </ToastButton> : ''
           }
         </div>
       </PopUpForm>

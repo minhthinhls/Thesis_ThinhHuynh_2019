@@ -3,7 +3,7 @@ import axios from 'axios';
 const getHouseContract = async () => {
   return await axios({
     method: 'get',
-    url: `http://localhost:8080/api/contract/house`
+    url: `${process.env.API_HTTP_PROVIDER}/contract/house`
   }).then(response => {
     return response.data;
   });
