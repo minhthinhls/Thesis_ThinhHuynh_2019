@@ -109,6 +109,7 @@ contract Installable is Buyable {
         buyable = true;
         installmentDueDate = now;
         installmentPaymentDate = now;
+        emit TransactionSuccess();
     }
 
     /* Only Getter methods ! */
@@ -142,10 +143,12 @@ contract Installable is Buyable {
         acceptAddress = _acceptAddress;
         interestRate = _interestRate;
         repayRate = _repayRate;
+        emit TransactionSuccess();
     }
 
     function setInstallable(bool _canInstallmentPaid) public _isOwner(true) {
         installable = _canInstallmentPaid;
+        emit TransactionSuccess();
     }
 
     /* Fallback methods ! */

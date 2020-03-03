@@ -11,7 +11,7 @@ class RentalPopUp extends Component {
       rentalPaymentCharge: 1,
       rentalPaymentStep: 1,
       rentalDuration: 3,
-      rentable: true,
+      rentable: 'true',
       timeUnit: 'Month'
     };
   }
@@ -23,31 +23,31 @@ class RentalPopUp extends Component {
   inputPaymentCharge(event) {
     this.setState({
       rentalPaymentCharge: event.target.value
-    })
+    });
   }
 
   inputPaymentStep(event) {
     this.setState({
       rentalPaymentStep: event.target.value
-    })
+    });
   }
 
   inputDuration(event) {
     this.setState({
       rentalDuration: event.target.value
-    })
+    });
   }
 
   inputRentable(event) {
     this.setState({
       rentable: event.target.value
-    })
+    });
   }
 
   inputTimeUnit(event) {
     this.setState({
       timeUnit: event.target.value
-    })
+    });
   }
 
   async setRentalPayment(event) {
@@ -55,7 +55,7 @@ class RentalPopUp extends Component {
       rentalPaymentCharge: web3.toWei(this.state.rentalPaymentCharge, 'ether'),
       rentalPaymentStep: toSecond(this.state.rentalPaymentStep, this.state.timeUnit),
       rentalDuration: toSecond(this.state.rentalDuration, this.state.timeUnit),
-      rentable: Boolean(this.state.rentable)
+      rentable: JSON.parse(this.state.rentable)
     });
   }
 
@@ -89,9 +89,9 @@ class RentalPopUp extends Component {
         </div>
         <div className="formInput">
           <label htmlFor="Type">Allow Rent:</label>
-          <select name="Type" value={this.state.rentable} onChange={this.inputRentable.bind(this)}>
-            <option value="true">Yes</option>
-            <option value="">No</option>
+          <select name="Type" defaultValue={this.state.rentable} onChange={this.inputRentable.bind(this)}>
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
           </select>
         </div>
         <div className="formInput">

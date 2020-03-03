@@ -12,7 +12,7 @@ class InstallmentPopUp extends Component {
       interestRate: 10,
       installmentPaymentStep: 1,
       installmentDuration: 3,
-      installable: true,
+      installable: 'true',
       acceptAddress: '0x2b6FcDcb83b804d482FAf1D1444DF6C7b9f423AA',
       timeUnit: 'Month'
     };
@@ -25,43 +25,43 @@ class InstallmentPopUp extends Component {
   inputRepayRate(event) {
     this.setState({
       repayRate: event.target.value
-    })
+    });
   }
 
   inputInterestRate(event) {
     this.setState({
       interestRate: event.target.value
-    })
+    });
   }
 
   inputPaymentStep(event) {
     this.setState({
       installmentPaymentStep: event.target.value
-    })
+    });
   }
 
   inputDuration(event) {
     this.setState({
       installmentDuration: event.target.value
-    })
+    });
   }
 
   inputInstallable(event) {
     this.setState({
       installable: event.target.value
-    })
+    });
   }
 
   inputTimeUnit(event) {
     this.setState({
       timeUnit: event.target.value
-    })
+    });
   }
 
   inputAcceptAddress(event) {
     this.setState({
       acceptAddress: event.target.value
-    })
+    });
   }
 
   async setInstallmentPayment(event) {
@@ -70,7 +70,7 @@ class InstallmentPopUp extends Component {
       interestRate: this.state.interestRate,
       installmentPaymentStep: toSecond(this.state.installmentPaymentStep, this.state.timeUnit),
       installmentDuration: toSecond(this.state.installmentDuration, this.state.timeUnit),
-      installable: Boolean(this.state.installable),
+      installable: JSON.parse(this.state.installable),
       acceptAddress: this.state.acceptAddress
     });
   }
@@ -115,9 +115,9 @@ class InstallmentPopUp extends Component {
         </div>
         <div className="formInput">
           <label htmlFor="Type">Allow Installment Paid:</label>
-          <select name="Type" value={this.state.installable} onChange={this.inputInstallable.bind(this)}>
-            <option value="true">Yes</option>
-            <option value="">No</option>
+          <select name="Type" defaultValue={this.state.installable} onChange={this.inputInstallable.bind(this)}>
+            <option value={true}>Yes</option>
+            <option value={false}>No</option>
           </select>
         </div>
         <div className="formInput">

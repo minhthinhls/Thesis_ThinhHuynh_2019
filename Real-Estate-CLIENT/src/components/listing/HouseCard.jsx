@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Loader from '../../../assets/loader.gif';
 import {getDeployedHouse, getHouseInfo} from '../../services/HouseService';
+import {toBigNumber, is} from '../../services/Utils';
 
 const HouseCardStyle = styled.div`
   border-radius: 0.4em;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  background: #031249;
+  background: MidnightBlue;
   color: #fff;
   overflow: hidden;
   margin: 10px;
@@ -31,7 +33,7 @@ const HouseCardStyle = styled.div`
   }
 `;
 
-const Info = styled.div`
+const GridStyle = styled.div`
   @media (min-width: 375px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -39,11 +41,10 @@ const Info = styled.div`
   }
 `;
 
-class HouseCards extends Component {
+class HouseCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reloaded: false,
       houseInfo: null,
       deployedHouse: null
     };
@@ -55,26 +56,24 @@ class HouseCards extends Component {
     const {abi, address} = this.props;
     this.setState({
       houseInfo: await getHouseInfo(abi, address),
-      deployedHouse: await getDeployedHouse(abi, address),
-      reloaded: true
+      deployedHouse: await getDeployedHouse(abi, address)
     });
     this.watchEvents();
   }
 
   watchEvents() {
     const {abi, address} = this.props;
-    // TODO: trigger event when vote is counted, not when component renders
+    // TODO: trigger event when transaction is made, not when component renders
     this.state.deployedHouse.allEvents({}, {
       fromBlock: 'latest',
       toBlock: 'latest'
     }).watch((error, event) => {
-      if (this._isMounted) {
-        console.log(error, event);
-        this.setState({
-          reloaded: false
-        });
-        this.setState({
-          reloaded: true
+      if (this._isMounted && !error) {
+        console.log("Catch Events emitted by Solidity Contract:", event);
+        getHouseInfo(abi, address).then((info) => {
+          this.setState({
+            houseInfo: info,
+          });
         });
       }
     });
@@ -86,38 +85,52 @@ class HouseCards extends Component {
 
   render() {
     const {address, filter} = this.props;
-    const {houseInfo, reloaded} = this.state;
-    const image = `http://localhost:8080/public/images/${address}.jpg`;
+    const {houseInfo} = this.state;
+    const image = `${process.env.PUBLIC_HTTP_PROVIDER}/images/${address}.jpg`;
     const filtered = () => {
       return houseInfo.location.toLowerCase().indexOf(filter.location.toLowerCase()) !== -1;
     };
 
-    return (houseInfo && reloaded && filtered()) ? (
-      <HouseCardStyle>
-        <img src={image || 'http://placehold.it/200'} alt="List item"/>
-        <div>
-          <h2>Price: {houseInfo.price} $</h2>
-          <Info>
-            <h4>Location: {houseInfo.location}</h4>
-            <h4>
-              {web3.eth.defaultAccount === houseInfo.owner ? 'OWNED' :
-                <button type="submit" className='buy_btn'>Buy Now !</button>
+    return (houseInfo) ? (
+      <HouseCardStyle style={{display: filtered() ? 'block' : 'none'}}>
+        <Link to={`/house/${address}`}>
+          <img src={image || 'http://placehold.it/200'} alt="List item"/>
+          <div>
+            <h2>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h2>
+            <GridStyle>
+              <h4>Location: {houseInfo.location}</h4>
+              {is(houseInfo.owner) ?
+                <button>OWNED !</button>
+                :
+                (houseInfo.buyable ?
+                    <button className='bg-color_orange'>Buy Now !</button>
+                    :
+                    <button>Cannot Buy Now !</button>
+                )
               }
-            </h4>
-          </Info>
-          <Info>
-            <h6>Bedrooms: {houseInfo.bedrooms} bedroom(s)</h6>
-            <h6>Bathrooms: {houseInfo.bathrooms} bathroom(s)</h6>
-            <h6>Area: {houseInfo.area} square meters</h6>
-            <h6>Status: {houseInfo.status ? 'In Active' : 'Not Active'}</h6>
-          </Info>
-        </div>
+              {is(houseInfo.owner) ? '' :
+                <Fragment>
+                  <h5>{houseInfo.rented ?
+                    'House has been Rented !' :
+                    (houseInfo.rentable ? 'Rent Now !' : 'Cannot Rent !')}
+                  </h5>
+                  <h5>{houseInfo.inProcess ?
+                    'House has been in Installment Paid process !' :
+                    (houseInfo.installable ? 'Pay by Installment Now !' : 'Cannot Installment Paid !')}
+                  </h5>
+                </Fragment>
+              }
+              <h6>Area: {houseInfo.area} square meters</h6>
+              <h6>Status: {houseInfo.active ? 'In Active' : 'Not Active'}</h6>
+            </GridStyle>
+          </div>
+        </Link>
       </HouseCardStyle>
     ) : (<div className='loader-img'><img src={Loader} className='Image' alt="loader"/></div>);
   }
 }
 
-const HouseCard = ({children, address}) => {
+const HouseCards = ({children, address}) => {
   const image = `${process.env.PUBLIC_HTTP_PROVIDER}/images/${address}.jpg`;
   return (
     <HouseCardStyle>
@@ -130,3 +143,4 @@ const HouseCard = ({children, address}) => {
 };
 
 export default HouseCard;
+export {HouseCards};

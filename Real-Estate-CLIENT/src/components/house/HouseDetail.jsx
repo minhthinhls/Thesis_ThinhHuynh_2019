@@ -48,7 +48,7 @@ const HouseStyle = styled.div`
     background-color: #ff3b00;
   }
   .return_btn {
-    background-color: #031249;
+    background-color: MidnightBlue;
     color: white;
   }
   .Image {
@@ -83,19 +83,19 @@ class HouseDetail extends Component {
       houseContract: null,
       houseAddress: null,
       deployedHouse: null
-    }
+    };
+    this.watchEvents = this.watchEvents.bind(this);
   }
 
   async componentDidMount() {
+    this._isMounted = true;
     const {match: {params}} = this.props;
     this.setState({
       ready: 'loading',
       houseContract: await getHouseContract(),
       houseAddress: params.address
     });
-
     const {houseContract, houseAddress} = this.state;
-
     this.setState({
       deployedHouse: await getDeployedHouse(houseContract['abi'], houseAddress),
       houseInfo: {
@@ -104,6 +104,29 @@ class HouseDetail extends Component {
       },
       ready: 'loaded'
     });
+    this.watchEvents();
+  }
+
+  watchEvents() {
+    const {houseContract, houseAddress} = this.state;
+    // TODO: trigger event when transaction is made, not when component renders
+    this.state.deployedHouse.allEvents({}, {
+      fromBlock: 'latest',
+      toBlock: 'latest'
+    }).watch((error, event) => {
+      if (this._isMounted && !error) {
+        console.log("Catch Events emitted by Solidity Contract:", event);
+        getHouseInfo(houseContract['abi'], houseAddress).then((info) => {
+          this.setState({
+            houseInfo: info,
+          });
+        });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   async buyingHouse(event) {

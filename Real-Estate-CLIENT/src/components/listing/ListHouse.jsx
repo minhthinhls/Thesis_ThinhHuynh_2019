@@ -1,11 +1,11 @@
-import React, {Component, Fragment} from 'react';
-import {Link} from 'react-router-dom';
+import React, {Component} from 'react';
 import styled from 'styled-components';
+import LazyLoad from 'react-lazyload';
 import Navbar from '../NavBar';
 import Footer from '../Footer';
 import HouseCard from './HouseCard';
-import Loader from '../../../assets/loader.gif';
-import {getHouseAddresses, getAllHouseInfo} from '../../services/HouseAdminService';
+import {getHouseAddresses} from '../../services/HouseAdminService';
+import {getHouseContract} from '../../services/HouseService';
 
 const List = styled.div`
   padding: 50px 0;
@@ -52,27 +52,23 @@ const List = styled.div`
       width: 280px;
     }
   }
-  .prop_btn {
-    height: 45px;
-    width: 192px;
-    border: 0;
-    border-radius: 0.5em;
-    font-size: larger;
-    padding: -23px;
-    background-color: #031249;
-    color: #b7c2f1;
-  }
-  .buy_btn {
+  button {
+    margin: auto;
     height: 45px;
     width: 75%;
     border: 0;
-    border-radius: 1em;
-    font-size: large;
-    background-color: #ff3b00;
-    color: #000000;
-  }
-  .cannot_buy {
+    border-radius: 0.8em;
+    font-size: larger;
     background-color: #bbbbbb;
+    color: black;
+    cursor: pointer;
+  }
+  .bg-color_orange {
+    background-color: #ff3b00;
+  }
+  .search_btn {
+    background-color: MidnightBlue;
+    color: white;
   }
   @media (min-width: 1024px) {
     .listGroup {
@@ -107,11 +103,11 @@ const ListRight = styled.div`
   .right {
     @media (min-width: 768px) {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
     @media (min-width: 1440px) {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
   .Image {
@@ -120,59 +116,38 @@ const ListRight = styled.div`
   }
 `;
 
-const Info = styled.div`
-  @media (min-width: 375px) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    text-align: center;
-  }
-`;
-
 class Listing extends Component {
   constructor() {
     super();
     this.state = {
-      houses: [],
-      ready: 'initial',
+      addresses: [],
       location: "",
       propertyType: "",
-      addresses: []
+      houseContract: null
     };
   }
 
   async componentDidMount() {
     this.setState({
-      ready: 'loading',
+      houseContract: await getHouseContract(),
       addresses: await getHouseAddresses()
     });
-
-    const {addresses} = this.state;
-
-    this.setState({
-      houses: await getAllHouseInfo(addresses),
-      ready: 'loaded'
-    });
-
   }
 
   locationChange(e) {
     this.setState({
       location: e.target.value
-    })
+    });
   }
 
   propertyChange(e) {
     this.setState({
       propertyType: e.target.value
-    })
+    });
   }
 
   render() {
-    const {houses, ready, location, houseContract, addresses} = this.state;
-    const filteredHouses = houses.filter(house => {
-      return house.location.toLowerCase().indexOf(location.toLowerCase()) !== -1;
-    });
-
+    const {addresses, location, houseContract} = this.state;
     const filter = {
       location: location
     };
@@ -219,65 +194,18 @@ class Listing extends Component {
                 <div className="AreaRange">
                   <input type="text" id="range2" name="range" placeholder='Area Range'/>
                 </div>
-                <div className="button">
-                  <button className='prop_btn'>Search Properties</button>
-                </div>
+                <button className='search_btn'>Search Properties</button>
               </form>
             </div>
             <ListRight>
               <div className="loader">
-                {houses.length ? '' : (<h3>There are no list items</h3>)}
-                {ready === 'loading' ? (
-                  <div className='loader-img'><img src={Loader} className='Image' alt="loader"/></div>) : ''}
+                {addresses.length ? '' : (<h3>There are no list items</h3>)}
               </div>
               <div className="right">
-                {/*{addresses.map(address => (*/}
-                {/*<div key={address}>*/}
-                {/*<Link to={`/house/${address}`}>*/}
-                {/*<HouseCard address={address} abi={houseContract['abi']} filter={filter}/>*/}
-                {/*</Link>*/}
-                {/*</div>*/}
-                {/*))}*/}
-                {filteredHouses.map(houseInfo => (
-                  <div key={houseInfo.address}>
-                    <Link to={`/house/${houseInfo.address}`}>
-                      <HouseCard address={houseInfo.address}>
-                        <h2>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h2>
-                        <Info>
-                          <h4>Location: {houseInfo.location}</h4>
-                          <h4>
-                            {web3.eth.defaultAccount === houseInfo.owner
-                              ?
-                              <button className='buy_btn cannot_buy'>OWNED !</button>
-                              :
-                              (houseInfo.buyable
-                                  ?
-                                  <button className='buy_btn'>Buy Now !</button>
-                                  :
-                                  <button className='buy_btn cannot_buy'>Cannot Buy Now !</button>
-                              )
-                            }
-                          </h4>
-                        </Info>
-                        <Info>
-                          {web3.eth.defaultAccount === houseInfo.owner ? '' :
-                            <Fragment>
-                              <h5>{houseInfo.rented ?
-                                'House has been Rented !' :
-                                (houseInfo.rentable ? 'Rent Now !' : 'Cannot Rent !')}
-                              </h5>
-                              <h5>{houseInfo.inProcess ?
-                                'House has been in Installment Paid process !' :
-                                (houseInfo.installable ? 'Pay by Installment Now !' : 'Cannot Installment Paid !')}
-                              </h5>
-                            </Fragment>
-                          }
-                          <h6>Area: {houseInfo.area} square meters</h6>
-                          <h6>Status: {houseInfo.active ? 'In Active' : 'Not Active'}</h6>
-                        </Info>
-                      </HouseCard>
-                    </Link>
-                  </div>
+                {addresses.map(address => (
+                  <LazyLoad key={address} offset={[-50, 0]} height={200} once={true}>
+                    <HouseCard address={address} abi={houseContract['abi']} filter={filter}/>
+                  </LazyLoad>
                 ))}
               </div>
             </ListRight>
