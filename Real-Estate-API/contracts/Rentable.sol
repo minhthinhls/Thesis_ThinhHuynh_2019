@@ -77,6 +77,7 @@ contract Rentable is Authentication {
         renter = address(0);
         rented = false;
         rentable = false;
+        emit TransactionSuccess();
     }
 
     /* Only Getter methods ! */
@@ -103,10 +104,12 @@ contract Rentable is Authentication {
         rentalPaymentStep = _rentalPaymentStep;
         rentalDuration = _rentalDuration;
         rentable = _allowRent;
+        emit TransactionSuccess();
     }
 
     function setRentable(bool _allowRent) public _isOwner(true) {
         rentable = _allowRent;
+        emit TransactionSuccess();
     }
 
 }

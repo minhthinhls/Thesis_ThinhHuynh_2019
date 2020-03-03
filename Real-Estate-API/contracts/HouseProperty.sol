@@ -22,10 +22,12 @@ contract HouseProperty is Authentication {
         location = _location;
         area = _area;
         active = _active;
+        emit TransactionSuccess();
     }
 
     function setState(bool _active) public _isOwner(true) {
         active = _active;
+        emit TransactionSuccess();
     }
 
 }

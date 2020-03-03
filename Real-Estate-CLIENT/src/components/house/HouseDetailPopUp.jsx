@@ -15,25 +15,25 @@ class HouseDetailPopUp extends Component {
   }
 
   async componentDidMount() {
-    // To Do !
+    this.setState({...this.props.houseInfo});
   }
 
   inputLocation(event) {
     this.setState({
       location: event.target.value
-    })
+    });
   }
 
   inputArea(event) {
     this.setState({
       area: event.target.value
-    })
+    });
   }
 
   inputActive(event) {
     this.setState({
       active: event.target.value
-    })
+    });
   }
 
   async setHouseDetail(event) {
@@ -41,33 +41,34 @@ class HouseDetailPopUp extends Component {
     await setHouseDetail(deployedHouse, {
       location: this.state.location,
       area: this.state.area,
-      active: Boolean(this.state.active)
+      active: JSON.parse(this.state.active)
     });
   }
 
   render() {
     const {trigger, houseInfo} = this.props;
+    const {location, area, active} = this.state;
     const isOwner = is(houseInfo.owner);
     return (
       <PopUpForm trigger={trigger}>
         <div className="formInput">
           <label htmlFor="Location">Location: {houseInfo.location}</label>
           {isOwner ?
-            <input type="text" name="Location" onChange={this.inputLocation.bind(this)}/> : ''
+            <input type="text" name="Location" value={location} onChange={this.inputLocation.bind(this)}/> : ''
           }
         </div>
         <div className="formInput">
           <label htmlFor="Area">Area: {houseInfo.area} (m^2)</label>
           {isOwner ?
-            <input type="text" name="Area" onChange={this.inputArea.bind(this)}/> : ''
+            <input type="text" name="Area" value={area} onChange={this.inputArea.bind(this)}/> : ''
           }
         </div>
         <div className="formInput">
           <label htmlFor="Active">Active House: {houseInfo.active ? 'In Active' : 'Not Active'}</label>
           {isOwner ?
-            <select name="Active" onChange={this.inputActive.bind(this)}>
-              <option value="true">Yes</option>
-              <option value="">No</option>
+            <select name="Active" defaultValue={active} onChange={this.inputActive.bind(this)}>
+              <option value={true}>Yes</option>
+              <option value={false}>No</option>
             </select> : ''
           }
         </div>

@@ -1,12 +1,8 @@
-import React, {Component} from 'react';
-import styled from "styled-components";
+import React, {Component, Fragment} from 'react';
+import styled from 'styled-components';
 import Switch from 'react-switch';
 import HouseInterestPopUp from '../house/HouseInterestPopUp';
 import {removeInterestHouse, getInterestUsers} from '../../services/MongoService';
-
-const BlockStyle = styled.div`
-  display: block;
-`;
 
 class Toggle extends Component {
   constructor(props) {
@@ -45,12 +41,10 @@ class Toggle extends Component {
   render() {
     const {checked, hasClicked} = this.state;
     return (
-      <div>
-        <BlockStyle>
-          <Switch onChange={this.handleChange} checked={this.state.checked}/>
-        </BlockStyle>
+      <Fragment>
+        <Switch onChange={this.handleChange} checked={this.state.checked}/>
         <HouseInterestPopUp open={checked && hasClicked} {...this.props}/>
-      </div>
+      </Fragment>
     );
   }
 }

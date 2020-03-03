@@ -27,7 +27,7 @@ class RentalOption extends Component {
   inputRentalOption(event) {
     this.setState({
       rentalOption: event.target.value
-    })
+    });
   }
 
   async performRentalOption(event) {

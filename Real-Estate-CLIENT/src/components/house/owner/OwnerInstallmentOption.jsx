@@ -27,7 +27,7 @@ class OwnerInstallmentOption extends Component {
   inputInstallmentOption(event) {
     this.setState({
       installmentOption: event.target.value
-    })
+    });
   }
 
   async performInstallmentOption(event) {

@@ -7,10 +7,6 @@ import "./Rentable.sol";
 
 contract House is HouseProperty, Rentable, Installable {
 
-    event TransferOwnerSuccess(
-        address payable newOwner
-    );
-
     constructor(address payable _owner, string memory _location, uint _price, uint _area) public payable {
         /* Default Part */
         owner = _owner;

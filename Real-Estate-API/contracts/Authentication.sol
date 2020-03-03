@@ -4,6 +4,12 @@ contract Authentication {
 
     address payable internal owner;
 
+    event TransactionSuccess();
+
+    event TransferOwnerSuccess(
+        address payable newOwner
+    );
+
     modifier _isOwner(bool _option) {
         if (_option) {
             if (msg.sender == owner) {
@@ -40,9 +46,9 @@ contract Authentication {
     }
 
     /* Only current owner could set the new owner ! */
-    function setOwner(address payable _newOwner) public payable _isOwner(true) returns (bool _success) {
+    function setOwner(address payable _newOwner) public payable _isOwner(true) {
         owner = _newOwner;
-        return true;
+        emit TransferOwnerSuccess(owner);
     }
 
     function getOwner() public view returns (address payable _currentOwner) {

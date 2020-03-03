@@ -20,19 +20,19 @@ class HouseInterestPopUp extends Component {
   inputName(event) {
     this.setState({
       name: event.target.value
-    })
+    });
   }
 
   inputEmail(event) {
     this.setState({
       email: event.target.value
-    })
+    });
   }
 
   inputPhone(event) {
     this.setState({
       phone: event.target.value
-    })
+    });
   }
 
   setHouseDetail(event) {
@@ -42,7 +42,6 @@ class HouseInterestPopUp extends Component {
       phone: this.state.phone,
       ...this.props
     }).then(() => {
-      this.setState({});
       console.log("Upload success !");
     }).catch(error => {
       console.log(error);

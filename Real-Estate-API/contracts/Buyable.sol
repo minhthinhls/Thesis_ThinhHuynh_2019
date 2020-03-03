@@ -7,10 +7,6 @@ contract Buyable is Authentication {
     uint256 internal price;
     bool internal buyable;
 
-    event TransferOwnerSuccess(
-        address payable newOwner
-    );
-
     modifier _buyable() {
         if (buyable) {
             _;
@@ -37,6 +33,7 @@ contract Buyable is Authentication {
     function setBuyPayment(uint256 _price, bool _canBuyImmediately) public _isOwner(true) {
         price = _price;
         buyable = _canBuyImmediately;
+        emit TransactionSuccess();
     }
 
 }
