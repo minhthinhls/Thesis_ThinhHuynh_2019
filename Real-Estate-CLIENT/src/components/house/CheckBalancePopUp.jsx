@@ -38,9 +38,7 @@ class CheckBalancePopUp extends Component {
           <label htmlFor="Address">Address (Public Key):</label>
           <input type="text" name="Address" onChange={this.inputAddress.bind(this)}/>
         </div>
-        <div className="formInput">
-          <button>{Number(web3.fromWei(balance, 'ether'))} Ether</button>
-        </div>
+        <button>{Number(web3.fromWei(balance, 'ether'))} Ether</button>
       </PopUpForm>
     );
   }

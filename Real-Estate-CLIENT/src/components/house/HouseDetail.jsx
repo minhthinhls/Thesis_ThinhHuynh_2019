@@ -14,7 +14,7 @@ import InstallmentOption from './payment/InstallmentOption';
 import OwnerRentalOption from './owner/OwnerRentalOption';
 import OwnerInstallmentOption from './owner/OwnerInstallmentOption';
 import HouseDetailPopUp from './HouseDetailPopUp';
-import CheckBalancePopUp from './CheckBalancePopUp';
+import UserInterestPopUp from './owner/UserInterestPopUp';
 import Toggle from '../utils/Toggle';
 
 const HouseStyle = styled.div`
@@ -168,7 +168,7 @@ class HouseDetail extends Component {
                 <div className="viewRight">
                   <GridStyle>
                     <h3>Leave your interest here !</h3>
-                    <Toggle checked={true} houseAddress={houseAddress}/>
+                    <Toggle houseAddress={houseAddress}/>
                   </GridStyle>
                   <GridStyle>
                     <h2>Type: Apartment</h2>
@@ -176,9 +176,10 @@ class HouseDetail extends Component {
                   </GridStyle>
                   <h5>Contact me via https://facebook.com/minhthinh.huynhle</h5>
                   <GridStyle>
-                    <CheckBalancePopUp trigger={<button>Check Balance !</button>}/>
-                    <HouseDetailPopUp trigger={<button>Show House Info !</button>}
-                                      position={"left top"} deployedHouse={deployedHouse} houseInfo={houseInfo}/>
+                    <UserInterestPopUp trigger={<button>Show Interest Users</button>} houseInfo={houseInfo}
+                                       houseAddress={houseAddress} deployedHouse={deployedHouse}/>
+                    <HouseDetailPopUp trigger={<button>Show House Info !</button>} houseInfo={houseInfo}
+                                      position={"left top"} deployedHouse={deployedHouse}/>
                   </GridStyle>
                   <h5>Owner of this house:
                     {isOwner ? 'You' :

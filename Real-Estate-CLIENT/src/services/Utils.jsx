@@ -15,7 +15,14 @@ const toSecond = (value, unit) => {
     return web3.toBigNumber(value).mul(86400).mul(7);
   } else if (unit === 'Day') {
     return web3.toBigNumber(value).mul(86400);
+  } else if (unit === 'Hour') {
+    return web3.toBigNumber(value).mul(3600);
+  } else if (unit === 'Minute') {
+    return web3.toBigNumber(value).mul(60);
+  } else if (unit === 'Second') {
+    return web3.toBigNumber(value);
   }
+  throw Error("Please input the Unit !");
 };
 
 const toBigNumber = (value) => {
@@ -26,4 +33,15 @@ const is = (who) => {
   return web3.eth.defaultAccount === who;
 };
 
-export {toUSD, toWei, toSecond, toBigNumber, is};
+const getBalance = async (userAddress) => {
+  return await new Promise((resolve, reject) => {
+    web3.eth.getBalance(userAddress, (error, _balance) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(_balance);
+    });
+  });
+};
+
+export {toUSD, toWei, toSecond, toBigNumber, is, getBalance};

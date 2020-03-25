@@ -72,13 +72,11 @@ class HouseDetailPopUp extends Component {
             </select> : ''
           }
         </div>
-        <div className="formInput">
-          {isOwner ?
-            <ToastButton onSuccess={`Successfully Update Installment Payment !`}
-                         onClick={this.setHouseDetail.bind(this)}>Update !
-            </ToastButton> : ''
-          }
-        </div>
+        {isOwner ?
+          <ToastButton onSuccess={`Successfully Update Installment Payment !`}
+                       onClick={this.setHouseDetail.bind(this)}>Update !
+          </ToastButton> : ''
+        }
       </PopUpForm>
     );
   }
