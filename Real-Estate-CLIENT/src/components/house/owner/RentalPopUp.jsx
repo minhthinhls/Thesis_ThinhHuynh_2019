@@ -94,11 +94,9 @@ class RentalPopUp extends Component {
             <option value={false}>No</option>
           </select>
         </div>
-        <div className="formInput">
-          <ToastButton onSuccess={`Successfully Update Rental Payment !`}
-                       onClick={this.setRentalPayment.bind(this)}>Update !
-          </ToastButton>
-        </div>
+        <ToastButton onSuccess={`Successfully Update Rental Payment !`}
+                     onClick={this.setRentalPayment.bind(this)}>Update !
+        </ToastButton>
       </PopUpForm>
     );
   }

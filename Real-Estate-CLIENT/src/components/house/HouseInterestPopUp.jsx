@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {PopUpForm} from '../utils/PopUpForm';
 import {ToastButton} from '../utils/ToastNotification';
-import {interestHouse} from '../../services/MongoService';
+import {getUserInfo, updateUserInfo} from '../../services/MongoService';
 
 class HouseInterestPopUp extends Component {
   constructor(props) {
@@ -13,8 +13,12 @@ class HouseInterestPopUp extends Component {
     };
   }
 
-  async componentDidMount() {
-    // To Do !
+  componentDidMount() {
+    getUserInfo().then((info) => {
+      this.setState({
+        ...info
+      });
+    });
   }
 
   inputName(event) {
@@ -36,7 +40,7 @@ class HouseInterestPopUp extends Component {
   }
 
   setHouseDetail(event) {
-    interestHouse({
+    updateUserInfo({
       name: this.state.name,
       email: this.state.email,
       phone: this.state.phone,
@@ -49,25 +53,24 @@ class HouseInterestPopUp extends Component {
   }
 
   render() {
+    const {name, email, phone} = this.state;
     return (
       <PopUpForm {...this.props}>
         <div className="formInput">
           <label htmlFor="Name">Your Name:</label>
-          <input type="text" name="Name" onChange={this.inputName.bind(this)}/>
+          <input type="text" name="Name" value={name} onChange={this.inputName.bind(this)}/>
         </div>
         <div className="formInput">
           <label htmlFor="Email">Your Email:</label>
-          <input type="text" name="Email" onChange={this.inputEmail.bind(this)}/>
+          <input type="text" name="Email" value={email} onChange={this.inputEmail.bind(this)}/>
         </div>
         <div className="formInput">
           <label htmlFor="Phone">Your Phone:</label>
-          <input type="text" name="Phone" onChange={this.inputPhone.bind(this)}/>
+          <input type="text" name="Phone" value={phone} onChange={this.inputPhone.bind(this)}/>
         </div>
-        <div className="btn formInput">
-          <ToastButton onSuccess={`Successfully Sending Your Request !`}
-                       onClick={this.setHouseDetail.bind(this)}>Send Request !
-          </ToastButton>
-        </div>
+        <ToastButton onSuccess={`Successfully Sending Your Request !`}
+                     onClick={this.setHouseDetail.bind(this)}>Update Info !
+        </ToastButton>
       </PopUpForm>
     );
   }

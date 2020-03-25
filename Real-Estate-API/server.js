@@ -2,12 +2,13 @@
 require('dotenv').config(); // Read <.env> file into $<process.env> global variable.
 const path = require('path');
 const express = require('express');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const app = express();
+const {fetchMongoDB} = require('./src/js/services/EthereumService');
 
 /* All engine setup */
 app.use(cors());
@@ -46,6 +47,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 /* All router setup */
 app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/house'));
+app.use('/api', require('./routes/user'));
 
 /* Catch 404 and forward to error handler */
 app.use(function (req, res, next) {
@@ -70,6 +73,23 @@ app.all('*', (req, res) => {
 /* Finally, let's start our server... */
 var server = app.listen(8080, function () {
   console.log('Listening on port ' + server.address().port);
+  const fetchTimerID = setInterval(() => {
+    console.log('Initial Fetching MongoDB...');
+  }, 5000);
+  fetchMongoDB().then(() => {
+    console.log('Fetching Mongo Success !');
+  }).catch(error => {
+    console.log('Fetching Mongo Failed ->', error);
+  }).finally(() => {
+    clearInterval(fetchTimerID);
+    var onProcess = false;
+    setInterval(() => {
+      console.log('Automatically Fetching MongoDB...');
+      fetchMongoDB().then(() => {
+        console.log('Fetching Mongo Success !');
+      });
+    }, 5000);
+  });
 });
 
 module.exports = app;

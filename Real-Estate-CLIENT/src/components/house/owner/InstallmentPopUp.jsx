@@ -19,7 +19,9 @@ class InstallmentPopUp extends Component {
   }
 
   async componentDidMount() {
-    // To Do !
+    this.setState({
+      ...this.props
+    });
   }
 
   inputRepayRate(event) {
@@ -120,11 +122,9 @@ class InstallmentPopUp extends Component {
             <option value={false}>No</option>
           </select>
         </div>
-        <div className="formInput">
-          <ToastButton onSuccess={`Successfully Update Installment Payment !`}
-                       onClick={this.setInstallmentPayment.bind(this)}>Update !
-          </ToastButton>
-        </div>
+        <ToastButton onSuccess={`Successfully Update Installment Payment !`}
+                     onClick={this.setInstallmentPayment.bind(this)}>Contract Confirm !
+        </ToastButton>
       </PopUpForm>
     );
   }

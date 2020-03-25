@@ -1,8 +1,7 @@
 import React, {Component, Fragment} from 'react';
-import styled from 'styled-components';
 import Switch from 'react-switch';
 import HouseInterestPopUp from '../house/HouseInterestPopUp';
-import {removeInterestHouse, getInterestUsers} from '../../services/MongoService';
+import {interestHouse, removeInterestHouse, getInterestUsers} from '../../services/MongoService';
 
 class Toggle extends Component {
   constructor(props) {
@@ -19,30 +18,27 @@ class Toggle extends Component {
       this.setState({
         checked: users.includes(web3.eth.defaultAccount)
       });
-    })
+    });
   }
 
   handleChange(checked) {
-    if (!checked) {
-      removeInterestHouse({...this.props}).then(() => {
-        this.setState({
-          checked,
-          hasClicked: true
-        });
-      });
-    } else {
+    (checked ?
+        interestHouse({...this.props})
+        :
+        removeInterestHouse({...this.props})
+    ).then(() => {
       this.setState({
         checked,
         hasClicked: true
       });
-    }
+    });
   }
 
   render() {
     const {checked, hasClicked} = this.state;
     return (
       <Fragment>
-        <Switch onChange={this.handleChange} checked={this.state.checked}/>
+        <Switch onChange={this.handleChange} checked={checked}/>
         <HouseInterestPopUp open={checked && hasClicked} {...this.props}/>
       </Fragment>
     );

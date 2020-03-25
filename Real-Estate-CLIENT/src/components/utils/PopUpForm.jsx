@@ -26,6 +26,7 @@ const FormStyle = styled.div`
       border-radius: 0.1em;
     }
     button {
+      margin: auto;
       background-color: DarkOrange;
       color: DarkBlue;
     }
@@ -56,4 +57,4 @@ const PopUp = ({children, ...props}) => (
   </Popup>
 );
 
-export {PopUpForm, PopUp};
+export {FormStyle, PopUpForm, PopUp};
