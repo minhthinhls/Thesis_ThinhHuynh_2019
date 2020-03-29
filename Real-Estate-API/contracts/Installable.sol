@@ -13,7 +13,6 @@ contract Installable is Buyable {
     uint256 internal repayRate;
     address payable internal installmentBuyer;
     address internal acceptAddress;
-    bool internal inProcess;
     bool internal installable;
 
     /* <now> is the alias for <block.timestamp> expression, which
@@ -105,7 +104,7 @@ contract Installable is Buyable {
         /* Reset the state of house installment-paid contract ! */
         installmentBuyer = address(0);
         inProcess = false;
-        installable = false;
+        installable = true;
         buyable = true;
         installmentDueDate = now;
         installmentPaymentDate = now;

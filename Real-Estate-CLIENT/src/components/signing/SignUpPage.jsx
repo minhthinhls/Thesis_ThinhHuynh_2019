@@ -1,7 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import styled from 'styled-components';
-import Navbar from '../NavBar';
-import Footer from '../Footer';
 import back from '../../../assets/pexels-photo-534233.jpeg'
 
 const Form = styled.form`
@@ -211,7 +209,6 @@ export default class SignUpPage extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar/>
         <FormGrid>
           <div className="left">
             <Form onSubmit={this.handleSubmit}>
@@ -271,7 +268,6 @@ export default class SignUpPage extends Component {
             </Show>
           </div>
         </FormGrid>
-        <Footer/>
       </Fragment>
     );
   }

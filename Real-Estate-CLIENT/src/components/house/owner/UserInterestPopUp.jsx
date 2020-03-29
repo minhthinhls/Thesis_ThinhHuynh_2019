@@ -82,14 +82,18 @@ class UserInterestPopUp extends Component {
     const filteredTx = userTxInfo.transactions.filter(tx => {
       return tx.timestamp >= new Date().getTime() / 1000 - toSecond(installmentDuration, timeUnit).toNumber();
     });
+    // console.log('All filtered transactions', filteredTx);
     const totalIncomeInDuration = filteredTx.reduce((accumulator, tx) => {
       return accumulator.plus(tx.value);
     }, toBigNumber(0));
-    const totalPayment = toBigNumber(houseInfo.price).mul(interestRate + 100).div(100);
-    const installmentPaymentCharge = totalPayment.mul(installmentPaymentStep).div(installmentDuration);
-
-    return installmentPaymentCharge.lessThanOrEqualTo(userTxInfo.balance) &&
-      totalIncomeInDuration.plus(userTxInfo.balance).greaterThanOrEqualTo(totalPayment);
+    try {
+      const totalPayment = toBigNumber(houseInfo.price).mul(toBigNumber(interestRate).plus(100)).div(100);
+      const installmentPaymentCharge = totalPayment.mul(installmentPaymentStep).div(installmentDuration);
+      return installmentPaymentCharge.lessThanOrEqualTo(userTxInfo.balance) &&
+        totalIncomeInDuration.plus(userTxInfo.balance).greaterThanOrEqualTo(totalPayment);
+    } catch (Exception) {
+      return false;
+    }
   }
 
   render() {

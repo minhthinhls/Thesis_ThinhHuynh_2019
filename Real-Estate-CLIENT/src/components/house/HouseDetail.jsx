@@ -1,25 +1,25 @@
 import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Countdown from 'react-countdown';
-import Navbar from '../NavBar';
-import Footer from '../Footer';
 import Loader from '../../../assets/loader.gif';
 import {getHouseContract, getDeployedHouse, getHouseInfo} from '../../services/HouseService';
 import {getHouseAddresses} from '../../services/HouseAdminService';
 import {buyHouse} from '../../services/TransactionService';
-import {toBigNumber, is} from '../../services/Utils';
+import {fromWei, toBigNumber, is} from '../../services/Utils';
 import RentalOption from './payment/RentalOption';
 import InstallmentOption from './payment/InstallmentOption';
 import OwnerRentalOption from './owner/OwnerRentalOption';
 import OwnerInstallmentOption from './owner/OwnerInstallmentOption';
 import HouseDetailPopUp from './HouseDetailPopUp';
 import UserInterestPopUp from './owner/UserInterestPopUp';
-import Toggle from '../utils/Toggle';
+import UserInterestToggle from './UserInterestToggle';
+import BuyNowPopUp from './owner/BuyNowPopUp';
 
 const HouseStyle = styled.div`
   width: 90%;
-  padding-top: 80px;
+  padding-top: 20px;
   margin: 0px auto;
   img {
     width: 100%;
@@ -37,6 +37,7 @@ const HouseStyle = styled.div`
   button {
     height: 45px;
     width: 192px;
+    margin: auto;
     border: 0;
     border-radius: 1em;
     font-size: larger;
@@ -152,11 +153,11 @@ class HouseDetail extends Component {
 
   render() {
     const {houseInfo, deployedHouse, houseAddress, ready} = this.state;
+    const {unitCurrency} = this.props;
     const image = `${process.env.PUBLIC_HTTP_PROVIDER}/images/${houseAddress}.jpg`;
     const isOwner = is(houseInfo.owner);
     return (
       <Fragment>
-        <Navbar/>
         <HouseStyle>
           {ready === 'loading' ? (<img src={Loader} className="Image" alt="loader"/>) : ''}
           {ready === 'loaded' && (
@@ -167,17 +168,17 @@ class HouseDetail extends Component {
                 </div>
                 <div className="viewRight">
                   <GridStyle>
-                    <h3>Leave your interest here !</h3>
-                    <Toggle houseAddress={houseAddress}/>
-                  </GridStyle>
-                  <GridStyle>
                     <h2>Type: Apartment</h2>
-                    <h3>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h3>
+                    <h3>{`Price: ${fromWei(houseInfo.price, unitCurrency).toNumber()} (${unitCurrency})`}</h3>
                   </GridStyle>
                   <h5>Contact me via https://facebook.com/minhthinh.huynhle</h5>
                   <GridStyle>
-                    <UserInterestPopUp trigger={<button>Show Interest Users</button>} houseInfo={houseInfo}
-                                       houseAddress={houseAddress} deployedHouse={deployedHouse}/>
+                    {isOwner ?
+                      <UserInterestPopUp trigger={<button>Show Interest Users</button>} houseInfo={houseInfo}
+                                         houseAddress={houseAddress} deployedHouse={deployedHouse}/>
+                      :
+                      <UserInterestToggle houseAddress={houseAddress}/>
+                    }
                     <HouseDetailPopUp trigger={<button>Show House Info !</button>} houseInfo={houseInfo}
                                       position={"left top"} deployedHouse={deployedHouse}/>
                   </GridStyle>
@@ -220,7 +221,8 @@ class HouseDetail extends Component {
                   </GridStyle>
                   <GridStyle>
                     {isOwner ?
-                      <button>OWNED !</button>
+                      <BuyNowPopUp trigger={<button>Set Buyable Detail</button>} houseInfo={houseInfo}
+                                   houseAddress={houseAddress} deployedHouse={deployedHouse}/>
                       :
                       (houseInfo.buyable ?
                           <button className="bg-color_orange" onClick={this.buyingHouse.bind(this)}>Buy Now !</button>
@@ -237,10 +239,19 @@ class HouseDetail extends Component {
             </Fragment>
           )}
         </HouseStyle>
-        <Footer/>
       </Fragment>
     );
   }
 }
 
-export default HouseDetail;
+const mapStateToProps = function (store) {
+  return {
+    unitCurrency: store.unitCurrency,
+    unitArea: store.unitArea
+  };
+};
+
+export default connect(
+  mapStateToProps, /* mapStateToProps */
+  null /* mapDispatchToProps */
+)(HouseDetail);

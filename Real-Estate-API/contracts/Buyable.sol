@@ -6,9 +6,10 @@ contract Buyable is Authentication {
 
     uint256 internal price;
     bool internal buyable;
+    bool internal inProcess;
 
     modifier _buyable() {
-        if (buyable) {
+        if (buyable && !inProcess) {
             _;
         } else {
             revert("YOU CANNOT BUY THIS HOUSE !");

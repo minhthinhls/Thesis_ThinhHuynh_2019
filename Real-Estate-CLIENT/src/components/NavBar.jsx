@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Logo from '../../assets/logo-via-logohub.png';
 import styled from 'styled-components';
 import NavLogo from '../../assets/iconfinder_menu-alt_134216.png';
+import UtilBar from './UtilBar';
 
 const NavPanel = styled.div`
   a img {
@@ -103,6 +104,7 @@ class NavBar extends Component {
   render() {
     return (
       <NavPanel>
+        <UtilBar defaultAccount={web3.eth.defaultAccount}/>
         <div className="nav_respond">
           <div className="collapse">
             <Link to="/">

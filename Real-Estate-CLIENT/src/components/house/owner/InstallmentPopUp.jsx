@@ -107,8 +107,8 @@ class InstallmentPopUp extends Component {
                  onChange={this.inputAcceptAddress.bind(this)}/>
         </div>
         <div className="formInput">
-          <label htmlFor="Type">Time Unit:</label>
-          <select name="Type" value={this.state.timeUnit} onChange={this.inputTimeUnit.bind(this)}>
+          <label htmlFor="TimeUnit">Time Unit:</label>
+          <select name="TimeUnit" value={this.state.timeUnit} onChange={this.inputTimeUnit.bind(this)}>
             <option value="Day">Day</option>
             <option value="Week">Week</option>
             <option value="Month">Month</option>
@@ -116,8 +116,8 @@ class InstallmentPopUp extends Component {
           </select>
         </div>
         <div className="formInput">
-          <label htmlFor="Type">Allow Installment Paid:</label>
-          <select name="Type" defaultValue={this.state.installable} onChange={this.inputInstallable.bind(this)}>
+          <label htmlFor="Installable">Allow Installment Paid:</label>
+          <select name="Installable" defaultValue={this.state.installable} onChange={this.inputInstallable.bind(this)}>
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>
