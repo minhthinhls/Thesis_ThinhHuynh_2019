@@ -1,9 +1,23 @@
-const toUSD = (wei) => {
-  return web3.fromWei(wei, 'ether').toNumber() * 264;
+const fromWei = (value, unit) => {
+  if (unit === 'ETH') {
+    return toBigNumber(web3.fromWei(value, 'ether'));
+  } else if (unit === 'USD') {
+    return toBigNumber(web3.fromWei(value, 'ether')).mul(264);
+  } else if (unit === 'VND') {
+    return toBigNumber(web3.fromWei(value, 'ether')).mul(264).mul(23250);
+  }
+  throw Error("Please input the Unit !");
 };
 
-const toWei = (usd) => {
-  return web3.toWei(usd.toNumber() / 264);
+const toWei = (value, unit) => {
+  if (unit === 'ETH') {
+    return toBigNumber(web3.toWei(value, 'ether'));
+  } else if (unit === 'USD') {
+    return toBigNumber(web3.toWei(value, 'ether')).div(264);
+  } else if (unit === 'VND') {
+    return toBigNumber(web3.toWei(value, 'ether')).div(264).div(23250);
+  }
+  throw Error("Please input the Unit !");
 };
 
 const toSecond = (value, unit) => {
@@ -44,4 +58,4 @@ const getBalance = async (userAddress) => {
   });
 };
 
-export {toUSD, toWei, toSecond, toBigNumber, is, getBalance};
+export {fromWei, toWei, toSecond, toBigNumber, is, getBalance};

@@ -1,9 +1,17 @@
 import React, {Component, Fragment} from 'react';
+import styled from 'styled-components';
 import Switch from 'react-switch';
-import HouseInterestPopUp from '../house/HouseInterestPopUp';
-import {interestHouse, removeInterestHouse, getInterestUsers} from '../../services/MongoService';
+import HouseInterestPopUp from './HouseInterestPopUp';
+import {interestHouse, removeInterestHouse, getInterestUsers} from '../../services/MongoService'
 
-class Toggle extends Component {
+const GridOneColumn = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+`;
+
+class UserInterestToggle extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,11 +46,14 @@ class Toggle extends Component {
     const {checked, hasClicked} = this.state;
     return (
       <Fragment>
-        <Switch onChange={this.handleChange} checked={checked}/>
+        <GridOneColumn>
+          <h3>{checked ? `You've already interested !` : `Leave your interest here !`}</h3>
+          <Switch onChange={this.handleChange} checked={checked}/>
+        </GridOneColumn>
         <HouseInterestPopUp open={checked && hasClicked} {...this.props}/>
       </Fragment>
     );
   }
 }
 
-export default Toggle;
+export default UserInterestToggle;

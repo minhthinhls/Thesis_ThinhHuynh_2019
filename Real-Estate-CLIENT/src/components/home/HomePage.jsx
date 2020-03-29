@@ -4,18 +4,16 @@ import HomeSectionA from './HomeSectionA';
 import HomeSectionB from './HomeSectionB';
 import HomeSectionC from './HomeSectionC';
 import HomeSectionD from './HomeSectionD';
-import Footer from '../Footer';
 
 class HomePage extends Component {
   render() {
     return (
       <div>
-        <Header/>
+        <Header parent={this}/>
         <HomeSectionA/>
         <HomeSectionB/>
         <HomeSectionC/>
         <HomeSectionD/>
-        <Footer/>
       </div>
     );
   }

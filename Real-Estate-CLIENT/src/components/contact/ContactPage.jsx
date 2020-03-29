@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from '../NavBar';
-import Footer from '../Footer';
 import HomeSectionD from '../home/HomeSectionD';
 import styled from 'styled-components';
 import header from '../../../assets/contact.jpeg';
@@ -41,13 +39,11 @@ const ContactHeader = styled.div`
 
 const Contact = () => (
   <div>
-    <Navbar/>
     <ContactHeader>
       <img src={header} alt=""/>
       <h4>CONTACT US</h4>
     </ContactHeader>
     <HomeSectionD/>
-    <Footer/>
   </div>
 );
 

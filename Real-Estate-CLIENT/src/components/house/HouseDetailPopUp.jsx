@@ -37,8 +37,7 @@ class HouseDetailPopUp extends Component {
   }
 
   async setHouseDetail(event) {
-    const {deployedHouse} = this.props;
-    await setHouseDetail(deployedHouse, {
+    await setHouseDetail(this.props.deployedHouse, {
       location: this.state.location,
       area: this.state.area,
       active: JSON.parse(this.state.active)

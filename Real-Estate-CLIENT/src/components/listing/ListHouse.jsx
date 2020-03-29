@@ -1,19 +1,24 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
+import QueryString from 'query-string';
 import LazyLoad from 'react-lazyload';
-import Navbar from '../NavBar';
-import Footer from '../Footer';
 import HouseCard from './HouseCard';
+import {connect} from 'react-redux';
 import {getHouseAddresses} from '../../services/HouseAdminService';
 import {getHouseContract} from '../../services/HouseService';
+import {changeCurrencyUnit, changeAreaUnit} from '../../redux/actions/actions';
 
 const List = styled.div`
-  padding: 50px 0;
+  padding: 20px 0;
   .listGroup {
     width: 90%;
     margin: 0px auto;
   }
   .listLeft {
+    top: 5%;
+    position: sticky;
+    margin-top: 10px;
     text-align: center;
     @media (min-width: 1024px) {
       height: 515px;
@@ -32,7 +37,7 @@ const List = styled.div`
       width: 425px;
     }
     @media (min-width: 1024px) {
-      width: 280px;
+      width: 90%;
     }
   }
   select {
@@ -49,7 +54,7 @@ const List = styled.div`
       width: 425px;
     }
     @media (min-width: 1024px) {
-      width: 280px;
+      width: 90%;
     }
   }
   button {
@@ -78,8 +83,7 @@ const List = styled.div`
     }
     .listLeft {
       height: auto;
-      width: 300px;
-      padding: 15px 0;
+      width: 100%;
       background-color: #b7c2f1;
       border-radius: 0.4em;
       border-bottom-left-radius: 0.4em;
@@ -116,22 +120,64 @@ const ListRight = styled.div`
   }
 `;
 
+const GridStyle = styled.div`
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  text-align: center;
+`;
+
 class Listing extends Component {
   constructor() {
     super();
     this.state = {
       addresses: [],
       location: "",
-      propertyType: "",
+      status: null,
+      option: null,
+      priceLowerRange: "",
+      priceUpperRange: "",
+      areaLowerRange: "",
+      areaUpperRange: "",
       houseContract: null
     };
   }
 
   async componentDidMount() {
+    const {location: {search}} = this.props;
+    if (search) {
+      const params = QueryString.parse(search);
+      this.setState({
+        location: params.location,
+        status: JSON.parse(params.status),
+        option: params.option,
+        priceLowerRange: params.priceLowerRange,
+        priceUpperRange: params.priceUpperRange,
+        areaLowerRange: params.areaLowerRange,
+        areaUpperRange: params.areaUpperRange,
+      });
+      this.props.changeCurrencyUnit(params.unitCurrency);
+      this.props.changeAreaUnit(params.unitArea);
+    }
     this.setState({
       houseContract: await getHouseContract(),
       addresses: await getHouseAddresses()
     });
+  }
+
+  // async componentWillUpdate() {
+  //   const {location: {search}} = this.props;
+  //   if (search) {
+  //     const params = QueryString.parse(search);
+  //     this.props.changeCurrencyUnit(params.unitCurrency);
+  //     this.props.changeAreaUnit(params.unitArea);
+  //   }
+  // }
+
+  componentWillUnmount() {
+    console.log("List House Unmounted !");
   }
 
   locationChange(e) {
@@ -140,59 +186,96 @@ class Listing extends Component {
     });
   }
 
-  propertyChange(e) {
+  statusChange(e) {
     this.setState({
-      propertyType: e.target.value
+      status: JSON.parse(e.target.value)
+    });
+  }
+
+  optionChange(e) {
+    this.setState({
+      option: e.target.value
+    });
+  }
+
+  priceLowerRangeChange({target: {value}}) {
+    this.setState({
+      priceLowerRange: value
+    });
+  }
+
+  priceUpperRangeChange({target: {value}}) {
+    this.setState({
+      priceUpperRange: value
+    });
+  }
+
+  areaLowerRangeChange({target: {value}}) {
+    this.setState({
+      areaLowerRange: value
+    });
+  }
+
+  areaUpperRangeChange({target: {value}}) {
+    this.setState({
+      areaUpperRange: value
     });
   }
 
   render() {
-    const {addresses, location, houseContract} = this.state;
-    const filter = {
-      location: location
-    };
-
+    const {addresses, houseContract, ...restState} = this.state;
+    const filter = {...restState};
     return (
       <div>
-        <Navbar/>
         <List>
           <div className="listGroup">
             <div className="listLeft">
               <h3>Filter</h3>
-              <form>
-                <input type="search" name="search" placeholder='Location' onChange={this.locationChange.bind(this)}/>
-                <div className="Property">
-                  <select name="property-type" className="app-select" required
-                          onChange={this.propertyChange.bind(this)}>
-                    <option data-display="Property Type">Property Type</option>
-                    <option value="1">Modern Luxury Townhouse</option>
-                    <option value="2">Terraced duplex</option>
-                    <option value="3">Urban Townhouse</option>
-                    <option value="3">Downtown Condo</option>
-                    <option value="3">Modern Beach House</option>
-                    <option value="3"> Luxury Hampton Home</option>
-                    <option value="3"> Detached Duplex</option>
-                    <option value="3"> Semi-Detached Duplex</option>
-                    <option value="3"> Detached Bungalow</option>
+              <form className="app-select">
+                <div className="Location">
+                  <input type="search" id="location" name="location" placeholder='Location'
+                         onChange={this.locationChange.bind(this)} value={this.state.location}/>
+                </div>
+                <div className="Status">
+                  <select name="status" id="status"
+                          onChange={this.statusChange.bind(this)} value={this.state.status}>
+                    <option value={`null`}>Status</option>
+                    <option value={true}>Active</option>
+                    <option value={false}>Not Active</option>
                   </select>
                 </div>
-
-                <div className="bedrooms">
-                  <select name="bedroom" className="app-select" required>
-                    <option data-display="Bedrooms">Bedrooms</option>
-                    <option value="1">1BR</option>
-                    <option value="2">2BR</option>
-                    <option value="3">3BR</option>
-                    <option value="4">4BR</option>
-                    <option value="5">5BR</option>
+                <div className="Option">
+                  <select name="option" id="option"
+                          onChange={this.optionChange.bind(this)} value={this.state.option}>
+                    <option value="null">Option</option>
+                    <option value="buyable">Buy</option>
+                    <option value="rented">Rent</option>
+                    <option value="inProcess">Pay by Installment</option>
                   </select>
                 </div>
-
                 <div className="PriceRange">
-                  <input type="text" id="range" name="range" placeholder='Price Range'/>
+                  <div>{`House Price (${this.props.unitCurrency})`}</div>
+                  <GridStyle>
+                    <input type="number" id="priceLowerRange" name="priceLowerRange" placeholder="Lower Price"
+                           onChange={this.priceLowerRangeChange.bind(this)}
+                           defaultValue={this.state.priceLowerRange}/>
+                    <input type="number" id="priceUpperRange" name="priceUpperRange" placeholder="Upper Price"
+                           onChange={this.priceUpperRangeChange.bind(this)}
+                           defaultValue={this.state.priceUpperRange}/>
+                  </GridStyle>
                 </div>
                 <div className="AreaRange">
-                  <input type="text" id="range2" name="range" placeholder='Area Range'/>
+                  <div>{`House Area (${this.props.unitArea})`}</div>
+                  <GridStyle>
+                    <input type="text" id="areaLowerRange" name="areaLowerRange" placeholder="Lower Area"
+                           onChange={this.areaLowerRangeChange.bind(this)} defaultValue={this.state.areaLowerRange}/>
+                    <input type="text" id="areaUpperRange" name="areaUpperRange" placeholder="Upper Area"
+                           onChange={this.areaUpperRangeChange.bind(this)} defaultValue={this.state.areaUpperRange}/>
+                  </GridStyle>
+                </div>
+                <div style={{display: 'none'}}>
+                  <input type="text" id="unitCurrency" name="unitCurrency" defaultValue={this.props.unitCurrency}/>
+                  <input type="text" id="unitArea" name="unitArea" defaultValue={this.props.unitArea}/>
                 </div>
                 <button className='search_btn'>Search Properties</button>
               </form>
@@ -211,10 +294,22 @@ class Listing extends Component {
             </ListRight>
           </div>
         </List>
-        <Footer/>
       </div>
     )
   }
 }
 
-export default Listing;
+const mapStateToProps = function (store) {
+  return {
+    unitCurrency: store.unitCurrency,
+    unitArea: store.unitArea
+  };
+};
+
+export default connect(
+  mapStateToProps, /* mapStateToProps */
+  {
+    changeCurrencyUnit: changeCurrencyUnit,
+    changeAreaUnit: changeAreaUnit
+  } /* mapDispatchToProps */
+)(withRouter(Listing));

@@ -1,9 +1,10 @@
 import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Loader from '../../../assets/loader.gif';
 import {getDeployedHouse, getHouseInfo} from '../../services/HouseService';
-import {toBigNumber, is} from '../../services/Utils';
+import {fromWei, is} from '../../services/Utils';
 
 const HouseCardStyle = styled.div`
   border-radius: 0.4em;
@@ -64,19 +65,23 @@ class HouseCard extends Component {
   watchEvents() {
     const {abi, address} = this.props;
     // TODO: trigger event when transaction is made, not when component renders
-    this.state.deployedHouse.allEvents({}, {
-      fromBlock: 'latest',
-      toBlock: 'latest'
-    }).watch((error, event) => {
-      if (this._isMounted && !error) {
-        console.log("Catch Events emitted by Solidity Contract:", event);
-        getHouseInfo(abi, address).then((info) => {
-          this.setState({
-            houseInfo: info,
-          });
-        });
-      }
-    });
+    try {
+      this.state.deployedHouse.allEvents({}, {
+        fromBlock: 'latest',
+        toBlock: 'latest'
+      }).watch((error, event) => {
+        if (this._isMounted && !error) {
+          console.log("Catch Events emitted by Solidity Contract:", event);
+          getHouseInfo(abi, address).then((info) => {
+            this.setState({
+              houseInfo: info,
+            });
+          }).catch(error => console.log(error));
+        }
+      });
+    } catch (Exception) {
+      console.log("House has not been loaded !");
+    }
   }
 
   componentWillUnmount() {
@@ -84,11 +89,25 @@ class HouseCard extends Component {
   }
 
   render() {
-    const {address, filter} = this.props;
+    const {address, filter, unitCurrency, unitArea} = this.props;
     const {houseInfo} = this.state;
     const image = `${process.env.PUBLIC_HTTP_PROVIDER}/images/${address}.jpg`;
     const filtered = () => {
-      return houseInfo.location.toLowerCase().indexOf(filter.location.toLowerCase()) !== -1;
+      return (houseInfo.location.toLowerCase().indexOf(filter.location.toLowerCase()) !== -1) &&
+        (filter.status !== null ? houseInfo.active === filter.status : true) &&
+        (option => {
+          const selector = {
+            null: true,
+            'buyable': houseInfo[option],
+            'rented': !houseInfo[option],
+            'inProcess': !houseInfo[option]
+          };
+          return selector[option];
+        })(filter.option) &&
+        (filter.priceLowerRange ? fromWei(houseInfo.price, unitCurrency).greaterThanOrEqualTo(filter.priceLowerRange) : true) &&
+        (filter.priceUpperRange ? fromWei(houseInfo.price, unitCurrency).lessThanOrEqualTo(filter.priceUpperRange) : true) &&
+        (filter.areaLowerRange ? houseInfo.area >= Number(filter.areaLowerRange) : true) &&
+        (filter.areaUpperRange ? houseInfo.area <= Number(filter.areaUpperRange) : true);
     };
 
     return (houseInfo) ? (
@@ -96,7 +115,7 @@ class HouseCard extends Component {
         <Link to={`/house/${address}`}>
           <img src={image || 'http://placehold.it/200'} alt="List item"/>
           <div>
-            <h2>Price: {web3.fromWei(houseInfo.price, 'ether').toNumber()} $</h2>
+            <h2>{`Price: ${fromWei(houseInfo.price, unitCurrency).toNumber()} (${unitCurrency})`}</h2>
             <GridStyle>
               <h4>Location: {houseInfo.location}</h4>
               {is(houseInfo.owner) ?
@@ -120,7 +139,7 @@ class HouseCard extends Component {
                   </h5>
                 </Fragment>
               }
-              <h6>Area: {houseInfo.area} square meters</h6>
+              <h6>Area: {houseInfo.area} ({unitArea})</h6>
               <h6>Status: {houseInfo.active ? 'In Active' : 'Not Active'}</h6>
             </GridStyle>
           </div>
@@ -130,7 +149,26 @@ class HouseCard extends Component {
   }
 }
 
-const HouseCards = ({children, address}) => {
+const mapStateToProps = function (store) {
+  return {
+    unitCurrency: store.unitCurrency,
+    unitArea: store.unitArea
+  };
+};
+
+export default connect(
+  mapStateToProps, /* mapStateToProps */
+  null /* mapDispatchToProps */
+)(HouseCard);
+
+/**
+ * @Deprecated
+ * @param children
+ * @param address
+ * @returns HouseCard as React Hook Component
+ * @constructor
+ */
+const HouseCardHook = ({children, address}) => {
   const image = `${process.env.PUBLIC_HTTP_PROVIDER}/images/${address}.jpg`;
   return (
     <HouseCardStyle>
@@ -142,5 +180,4 @@ const HouseCards = ({children, address}) => {
   )
 };
 
-export default HouseCard;
-export {HouseCards};
+export {HouseCardHook};

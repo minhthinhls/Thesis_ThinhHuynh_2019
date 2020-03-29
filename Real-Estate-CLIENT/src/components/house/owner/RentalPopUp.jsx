@@ -79,8 +79,8 @@ class RentalPopUp extends Component {
                  onChange={this.inputDuration.bind(this)}/>
         </div>
         <div className="formInput">
-          <label htmlFor="Type">Time Unit:</label>
-          <select name="Type" value={this.state.timeUnit} onChange={this.inputTimeUnit.bind(this)}>
+          <label htmlFor="TimeUnit">Time Unit:</label>
+          <select name="TimeUnit" value={this.state.timeUnit} onChange={this.inputTimeUnit.bind(this)}>
             <option value="Day">Day</option>
             <option value="Week">Week</option>
             <option value="Month">Month</option>
@@ -88,14 +88,14 @@ class RentalPopUp extends Component {
           </select>
         </div>
         <div className="formInput">
-          <label htmlFor="Type">Allow Rent:</label>
-          <select name="Type" defaultValue={this.state.rentable} onChange={this.inputRentable.bind(this)}>
+          <label htmlFor="Rentable">Allow Rent:</label>
+          <select name="Rentable" defaultValue={this.state.rentable} onChange={this.inputRentable.bind(this)}>
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>
         </div>
         <ToastButton onSuccess={`Successfully Update Rental Payment !`}
-                     onClick={this.setRentalPayment.bind(this)}>Update !
+                     onClick={this.setRentalPayment.bind(this)}>Confirm Update !
         </ToastButton>
       </PopUpForm>
     );

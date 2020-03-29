@@ -1,11 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import Navbar from '../NavBar';
-import Footer from '../Footer';
 import {getBaseOption} from '../../services/EthereumService';
 import {getDeployedHouseAdmin} from '../../services/HouseAdminService';
-import {toWei} from '../../services/Utils';
 
 const SellPageStyle = styled.div`
   width: 90%;
@@ -237,7 +234,6 @@ class SellPage extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar/>
         <SellPageStyle>
           <div className="sellHead">
             <h3>Want to sell your home?</h3>
@@ -338,7 +334,6 @@ class SellPage extends Component {
             </div>
           </SellGroup>
         </SellPageStyle>
-        <Footer/>
       </Fragment>
     )
   }
