@@ -5,15 +5,19 @@ class CheckBalancePopUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      address: "",
       balance: null
     };
   }
 
-  async componentDidMount() {
-    // To Do !
+  componentDidMount() {
+    // TODO: Put your optional code here !
   }
 
   inputAddress(event) {
+    this.setState({
+      address: event.target.value
+    });
     try {
       web3.eth.getBalance(event.target.value, (error, value) => {
         if (!error) {
@@ -31,12 +35,12 @@ class CheckBalancePopUp extends Component {
   }
 
   render() {
-    const {balance} = this.state;
+    const {address, balance} = this.state;
     return (
       <PopUpForm {...this.props}>
         <div className="formInput">
           <label htmlFor="Address">Address (Public Key):</label>
-          <input type="text" name="Address" onChange={this.inputAddress.bind(this)}/>
+          <input type="text" name="Address" value={address} onChange={this.inputAddress.bind(this)}/>
         </div>
         <button>{Number(web3.fromWei(balance, 'ether'))} Ether</button>
       </PopUpForm>
