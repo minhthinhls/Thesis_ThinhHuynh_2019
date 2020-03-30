@@ -91,6 +91,8 @@ contract Installable is Buyable {
             installmentDueDate = now;
             installmentPaymentDate = now;
             emit TransferOwnerSuccess(owner);
+        } else {
+            emit TransactionSuccess();
         }
     }
 
