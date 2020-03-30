@@ -82,12 +82,6 @@ var server = app.listen(8080, function () {
     console.log('Fetching Mongo Failed ->', error);
   }).finally(() => {
     clearInterval(fetchTimerID);
-    setInterval(() => {
-      console.log('Automatically Fetching MongoDB...');
-      fetchMongoDB().then(() => {
-        console.log('Fetching Mongo Success !');
-      });
-    }, 5000);
   });
 });
 

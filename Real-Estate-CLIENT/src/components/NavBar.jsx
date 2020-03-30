@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import Logo from '../../assets/logo-via-logohub.png';
 import styled from 'styled-components';
-import NavLogo from '../../assets/iconfinder_menu-alt_134216.png';
+import Logo from '../../assets/logo-via-logohub.png';
+import CheckBalancePopUp from './house/CheckBalancePopUp';
 import UtilBar from './UtilBar';
 
 const NavPanel = styled.div`
@@ -62,7 +62,7 @@ const NavGroup = styled.nav`
     padding: 20px 0;
     text-align: center;
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(4, auto);
     align-items: center;
     justify-items: center;
     width: 100%;
@@ -72,10 +72,12 @@ const NavGroup = styled.nav`
     font-size: 18px;
     color: #293064;
   }
-  a button {
+  button {
+    display: block;
+    margin: auto;
     height: 35px;
-    width: 116px;
-    background-color: #031249;
+    width: 50%;
+    background-color: MidNightBlue;
     color: #b7c2f1;
     border: 0;
     border-radius: 0.5em;
@@ -105,29 +107,11 @@ class NavBar extends Component {
     return (
       <NavPanel>
         <UtilBar defaultAccount={web3.eth.defaultAccount}/>
-        <div className="nav_respond">
-          <div className="collapse">
-            <Link to="/">
-              <img src={Logo} alt="logo"/>
-            </Link>
-            <img src={NavLogo} alt="NavIcon" onClick={this.handleClick}/>
-          </div>
-          <div className={this.state.condition ? "navLinks" : "rm-navLinks"}>
-            <Link to="/">Home</Link>
-            <Link to="/listing">Listing</Link>
-            <Link to="/selling">Selling</Link>
-            <Link to="/contact">Contact Us</Link>
-            <Link to="/signing">Sign In</Link>
-          </div>
-        </div>
         <NavGroup>
           <Link to="/"><img src={Logo} className='logo2' alt="logo"/></Link>
           <Link to="/listing">Listing</Link>
-          <Link to="/selling">Selling</Link>
           <Link to="/contact">Contact Us</Link>
-          <Link to="/signing">
-            <button>Sign In</button>
-          </Link>
+          <CheckBalancePopUp trigger={<button>Check Balance</button>}/>
         </NavGroup>
       </NavPanel>
     )
