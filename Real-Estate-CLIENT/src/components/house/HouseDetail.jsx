@@ -5,12 +5,11 @@ import styled from 'styled-components';
 import Countdown from 'react-countdown';
 import Loader from '../../../assets/loader.gif';
 import {getHouseContract, getDeployedHouse, getHouseInfo} from '../../services/HouseService';
-import {getHouseAddresses} from '../../services/HouseAdminService';
-import {buyHouse} from '../../services/TransactionService';
 import {fromWei, toBigNumber, is} from '../../services/Utils';
-import RentalOption from './payment/RentalOption';
+import {getHouseAddresses} from '../../services/HouseAdminService';
+import {getUserInfo} from '../../services/MongoService';
+import {buyHouse} from '../../services/TransactionService';
 import InstallmentOption from './payment/InstallmentOption';
-import OwnerRentalOption from './owner/OwnerRentalOption';
 import OwnerInstallmentOption from './owner/OwnerInstallmentOption';
 import HouseDetailPopUp from './HouseDetailPopUp';
 import UserInterestPopUp from './owner/UserInterestPopUp';
@@ -67,6 +66,13 @@ const GridStyle = styled.div`
   text-align: center;
 `;
 
+const GridOneColumn = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+`;
+
 const ResponsiveDetail = styled.div`
   @media (min-width: 1024px) {
     display: grid;
@@ -80,6 +86,7 @@ class HouseDetail extends Component {
     super(props);
     this.state = {
       houseInfo: {},
+      ownerInfo: {},
       ready: 'initial',
       houseContract: null,
       houseAddress: null,
@@ -104,6 +111,11 @@ class HouseDetail extends Component {
         id: (await getHouseAddresses()).indexOf(houseAddress)
       },
       ready: 'loaded'
+    });
+    getUserInfo(this.state.houseInfo.owner).then(user => {
+      this.setState({
+        ownerInfo: user
+      });
     });
     this.watchEvents();
   }
@@ -152,7 +164,7 @@ class HouseDetail extends Component {
   }
 
   render() {
-    const {houseInfo, deployedHouse, houseAddress, ready} = this.state;
+    const {houseInfo, ownerInfo, deployedHouse, houseAddress, ready} = this.state;
     const {unitCurrency} = this.props;
     const image = `${process.env.PUBLIC_HTTP_PROVIDER}/images/${houseAddress}.jpg`;
     const isOwner = is(houseInfo.owner);
@@ -171,7 +183,7 @@ class HouseDetail extends Component {
                     <h2>Type: Apartment</h2>
                     <h3>{`Price: ${fromWei(houseInfo.price, unitCurrency).toNumber()} (${unitCurrency})`}</h3>
                   </GridStyle>
-                  <h5>Contact me via https://facebook.com/minhthinh.huynhle</h5>
+                  <h5>Contact me via: "{ownerInfo.email}" and "{ownerInfo.phone}"</h5>
                   <GridStyle>
                     {isOwner ?
                       <UserInterestPopUp trigger={<button>Show Interest Users</button>} houseInfo={houseInfo}
@@ -186,42 +198,31 @@ class HouseDetail extends Component {
                     {isOwner ? 'You' :
                       (Number(toBigNumber(houseInfo.owner)) === 0 ? 'None' : houseInfo.owner)}
                   </h5>
-                  <h5>This house is rented by:
-                    {is(houseInfo.renter) ? 'You' :
-                      (Number(toBigNumber(houseInfo.renter)) === 0 ? 'None' : houseInfo.renter)}
+                  <h5>Installment Payment Interest Rate: {houseInfo.interestRate.toNumber()}%
                   </h5>
                   <h5>This house is paid by installment by:
                     {is(houseInfo.installmentBuyer) ? 'You' :
                       (Number(toBigNumber(houseInfo.installmentBuyer)) === 0 ? 'None' : houseInfo.installmentBuyer)}
                   </h5>
                   <GridStyle>
+                    <GridOneColumn>
+                      <h4>Installment Left-Time:
+                        <Countdown date={new Date(Number(houseInfo.installmentPaymentDate.mul(1000)))}/>
+                      </h4>
+                      <h4>Installment Due-Time:
+                        <Countdown date={new Date(Number(houseInfo.installmentDueDate.mul(1000)))}/>
+                      </h4>
+                    </GridOneColumn>
                     {isOwner ?
-                      <Fragment>
-                        <OwnerRentalOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
-                        <OwnerInstallmentOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
-                      </Fragment>
+                      <OwnerInstallmentOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
                       :
-                      <Fragment>
-                        <RentalOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
-                        <InstallmentOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
-                      </Fragment>
+                      <InstallmentOption deployedHouse={deployedHouse} houseInfo={houseInfo}/>
                     }
-                    <h4>Renting Left-Time:
-                      <Countdown date={new Date(Number(houseInfo.rentalPaymentDate.mul(1000)))}/>
-                    </h4>
-                    <h4>Installment Left-Time:
-                      <Countdown date={new Date(Number(houseInfo.installmentPaymentDate.mul(1000)))}/>
-                    </h4>
-                    <h4>Renting Due-Time:
-                      <Countdown date={new Date(Number(houseInfo.rentalDueDate.mul(1000)))}/>
-                    </h4>
-                    <h4>Installment Due-Time:
-                      <Countdown date={new Date(Number(houseInfo.installmentDueDate.mul(1000)))}/>
-                    </h4>
                   </GridStyle>
                   <GridStyle>
                     {isOwner ?
-                      <BuyNowPopUp trigger={<button>Set Buyable Detail</button>} houseInfo={houseInfo}
+                      <BuyNowPopUp trigger={<button style={{'background-color': 'Lime'}}>Set Buyable Detail</button>}
+                                   houseInfo={houseInfo}
                                    houseAddress={houseAddress} deployedHouse={deployedHouse}/>
                       :
                       (houseInfo.buyable ?

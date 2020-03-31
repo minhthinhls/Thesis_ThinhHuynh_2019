@@ -22,6 +22,7 @@ class UserInterestPopUp extends Component {
 
   componentDidMount() {
     getInterestUsers({...this.props}).then(interestUsers => {
+      interestUsers = interestUsers.filter(user => user !== this.props.houseInfo.owner);
       return Promise.all([getListUserTransaction(interestUsers), getListUserInfo(interestUsers)]);
     }).then(usersData => {
       this.setState({
@@ -121,6 +122,9 @@ class UserInterestPopUp extends Component {
               <div className="formInput">
                 <label htmlFor="Type">Time Unit:</label>
                 <select name="Type" value={this.state.timeUnit} onChange={this.inputTimeUnit.bind(this)}>
+                  <option value="Second">Second</option>
+                  <option value="Minute">Minute</option>
+                  <option value="Hour">Hour</option>
                   <option value="Day">Day</option>
                   <option value="Week">Week</option>
                   <option value="Month">Month</option>

@@ -81,6 +81,9 @@ class RentalPopUp extends Component {
         <div className="formInput">
           <label htmlFor="TimeUnit">Time Unit:</label>
           <select name="TimeUnit" value={this.state.timeUnit} onChange={this.inputTimeUnit.bind(this)}>
+            <option value="Second">Second</option>
+            <option value="Minute">Minute</option>
+            <option value="Hour">Hour</option>
             <option value="Day">Day</option>
             <option value="Week">Week</option>
             <option value="Month">Month</option>
