@@ -129,10 +129,7 @@ class HouseCard extends Component {
               }
               {is(houseInfo.owner) ? '' :
                 <Fragment>
-                  <h5>{houseInfo.rented ?
-                    'House has been Rented !' :
-                    (houseInfo.rentable ? 'Rent Now !' : 'Cannot Rent !')}
-                  </h5>
+                  <h5>Contact Now !</h5>
                   <h5>{houseInfo.inProcess ?
                     'House has been in Installment Paid process !' :
                     (houseInfo.installable ? 'Pay by Installment Now !' : 'Cannot Installment Paid !')}

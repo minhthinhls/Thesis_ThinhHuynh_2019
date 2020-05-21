@@ -249,7 +249,6 @@ class Listing extends Component {
                           onChange={this.optionChange.bind(this)} value={this.state.option}>
                     <option value="null">Option</option>
                     <option value="buyable">Buy</option>
-                    <option value="rented">Rent</option>
                     <option value="inProcess">Pay by Installment</option>
                   </select>
                 </div>

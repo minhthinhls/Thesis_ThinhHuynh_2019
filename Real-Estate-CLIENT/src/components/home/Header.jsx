@@ -154,7 +154,6 @@ class Header extends Component {
                   <select name="option" id="option">
                     <option value="null">Option</option>
                     <option value="buyable">Buy</option>
-                    <option value="rented">Rent</option>
                     <option value="inProcess">Pay by Installment</option>
                   </select>
                 </div>
