@@ -21,6 +21,11 @@ try {
 render(<Routes/>, document.getElementById('app'));
 
 try {
+  /** Connect MetaMask to the current Web DApp if <ethereum> instance found !*/
+  if (typeof window.ethereum !== undefined) {
+    console.log('MetaMask is installed !');
+    window.ethereum.enable();
+  }
   /* Add Event Listeners for MetaMask Browser Extension */
   window.ethereum.on('accountsChanged', function (accounts) {
     web3.eth.defaultAccount = accounts[0];
