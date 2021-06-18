@@ -16,8 +16,10 @@ class BuyNowPopUp extends Component {
   }
 
   componentDidMount() {
+    const {price, ...rest} = this.props.houseInfo;
     this.setState({
-      ...this.props.houseInfo
+      price: fromWei(price, this.props.unitCurrency),
+      ...rest
     });
   }
 
